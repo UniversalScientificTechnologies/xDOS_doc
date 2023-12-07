@@ -1,0 +1,92 @@
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: ""
+email: info@ust.cz
+description: "Universal Scientific Technologies - Dosimeters"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "docs.dos.ust.cz" # the base hostname & protocol for your site, e.g. http://example.com
+#twitter_username: 
+#facebook_username: Universal-Scientific-Technologies-sro-188826147835467
+#github_username:  UniversalScientificTechnologies
+
+lang: en
+
+# Mathjax
+mathjax: true
+mathjax_autoNumber: true
+
+# Mermaid
+mermaid: true
+
+# Chart
+chart: true
+
+# Build settings
+markdown: kramdown
+#theme: minima
+repository: just-the-docs/just-the-docs # for github-metadata
+
+############################################################
+# Site configuration for the WebP Generator Plugin
+webp:
+  enabled: true
+  quality: 75
+  img_dir: ["/assets/images"]
+  nested: true
+  formats: [".jpeg", ".jpg", ".png", ".tiff"]
+  gifs: [".gif"]
+  regenerate: false
+  webp_path: nil
+  exclude: []
+  append_ext: false
+############################################################
+
+
+logo: "/assets/Logo_UST.png"
+
+plugins:
+  - jekyll-leaflet
+  - jekyll-remote-theme
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-include-cache
+  - jemoji
+
+atom_feed:
+  hide: true
+
+
+# Collections
+collections:
+  products:
+    output: true
+    permalink: /:collection/:path.html
+
+
+defaults:
+  # _products
+  - scope:
+      type: products
+    values:
+      layout: single
+      author_profile: false
+      share: false
+
+exclude:
+  - tmp/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+  - _products
+
+include:
+  - "*portfolio.md"
+  - "*/.web/*.md"
+  - "*.jpg"
+  - "*.svg"
+  - "*.png"
+  - "*.pdf"
+  - "*.webp"
