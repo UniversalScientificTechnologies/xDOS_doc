@@ -22,3 +22,47 @@ The BATDATUNIT01 is a specialized module optimized for use in the AIRDOS04 serie
 
 
 ## Internal structure
+
+```mermaid
+flowchart TD
+    USB[USB-C\nData + power] --> USW[USB-SWITCH]
+    USW <--> FTDI[FTDI\nI2C + UART]
+    FTDI <--> I2CSW
+    FTDI <--> MCU
+    I2CSW[I2C mux] <--> MCU
+    MCU[Microcontroller]
+    MCU <--> SDI
+    MCU --> SDI
+
+    SDR[SD card reader] <--> SDI
+    SDI[SD card storage] <--> USW
+
+    HYG[Hygrometer] <--> MCU
+    ALT[Pressure sensor] <--> MCU
+
+
+    MCU --> I2Cen
+    I2Cen[I2C switch] --> DI
+    DI[Detector interface] <==> MCU
+
+
+    USB --> charger[Li-ion charger]
+    charger --> GAUGE[Accumulators gauge]
+
+    GAUGE <==> LIION[5x Li-ion cells]
+
+    GAUGE --> UI1[User interface \n Button + battery indicator]
+    GAUGE --> UI2[User interface \n Button + 3x LED]
+
+    GAUGE --> PWR3v3
+    GAUGE --> PWR3v3E
+    GAUGE --> PWR5vE
+    PWR3v3[Power supply for internal\n3.3v]
+    PWR3v3E[Power supply for detector\n3.3v]
+    PWR5vE[Power supply for detector\n5v]
+    PWR3v3 --> MCU
+
+    PWR3v3E --> DI
+    PWR5vE --> DI
+
+```
