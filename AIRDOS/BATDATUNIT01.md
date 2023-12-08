@@ -25,8 +25,17 @@ The BATDATUNIT01 is a specialized module optimized for use in the AIRDOS04 serie
 
 ```mermaid
 
-flowchart TD
-    USB[USB-C\nData + power] --USB --> USW
+    flowchart TD
+
+    subgraph a[User interfaceI]
+        USB[[USB-C\nData + power]]
+        UI1([User interface \n Button + battery indicator])
+        UI2([User interface \n Button + 3x LED])
+    
+    end
+
+    USB --USB --> USW
+
     FTDI -- I2C --> I2CSW
     FTDI -- UART <--> MCU
     MCU -- I2C --> I2CSW[I2C mux]
@@ -49,8 +58,6 @@ flowchart TD
     I2CSW --I2C--> ALT[Pressure sensor]
 
     I2CSW -- I2C --> I2Cen
-    I2Cen[I2C switch] -- I2C --> DI
-    DI[Detector interface] == GPIO, SPI <==> MCU
 
     end
 
@@ -59,8 +66,8 @@ flowchart TD
     I2CSW --I2C--> charger
 
 
-    GAUGE --> UI1[User interface \n Button + battery indicator]
-    GAUGE --> UI2[User interface \n Button + 3x LED]
+    GAUGE --> UI1
+    MCU --> UI2
 
     GAUGE --> PWR3v3
     GAUGE --> PWR3v3E
@@ -70,17 +77,20 @@ flowchart TD
     USB -- Power --> charger
 
     subgraph two[POWER sources]
-    PWR3v3[Power supply for internal\n3.3v]
-    PWR3v3E[Power supply for detector\n3.3v]
-    PWR5vE[Power supply for detector\n5v]
+    PWR3v3[Power supply\nfor internal 3.3V]
+    PWR3v3E[Power supply\nfor detector 3.3V]
+    PWR5vE[Power supply\nfor detector 5V]
     
     charger --> GAUGE[Accumulators gauge]
-    GAUGE <==> LIION[5x Li-ion cells]
+    GAUGE <==> LIION[(5x Li-ion cells)]
     end
     PWR3v3 --> MCU
 
     PWR3v3E --> DI
     PWR5vE --> DI
+
+    I2Cen[I2C switch] -- I2C --> DI
+    DI[[Detector interface]] == GPIO, SPI <==> MCU
 
 
 
