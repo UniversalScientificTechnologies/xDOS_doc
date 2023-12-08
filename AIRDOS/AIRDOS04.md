@@ -74,5 +74,44 @@ The integrated data storage of the detector is accessible as a mass-storage devi
 The accumulator module of the AIRDOS04 detector, above the non-accumulator version (BATDATUNIT01-EXT), offers an integrated energy storage solution. This module is equipped with five lithium-ion cells housed in 18650 battery cases, providing a significant power capacity that can sustain the detector's operation for approximately one month. 
 It can be continuously connected to a USB-C power supply, functioning similarly to an Uninterruptible Power Supply (UPS). In scenarios where external power supply experiences fluctuations or outages, the accumulator module ensures that the AIRDOS04B continues to operate without interruption, maintaining consistent data collection and detector functionality.
 
+# Logical structure
 
+```mermaid
+flowchart TD
+
+RAD(Cosmic radiation)
+
+
+subgraph DET[Detection part]
+    PIN[PIN diode]
+    AMP[High sensitive amplifier]
+    PEAK[Peak detector with\nanalogue memory]
+    ADC[Analogue to digital conventor]
+    
+    PIN --> AMP
+    AMP --> PEAK 
+    PEAK --> ADC
+end
+
+
+subgraph CPU[Computing, data and power storage unit]
+    SENS[Hygrometer\nPressure sensor]
+    MCU[Microcontroller]
+    SD[Industrial\nSD card]
+    SDI[SDcard interface]
+    USB[USB-C interface]
+    BAT[LiIon battery\n charger + gauge]
+    PWRS[Power sources]
+
+    SENS --> MCU
+    MCU --> SDI
+    SDI --> SD
+    USB ---> MCU 
+    USB --> BAT 
+    BAT --> PWRS
+end
+
+ADC --> MCU
+RAD ....-> PIN
+```
 
