@@ -1,5 +1,5 @@
 ---
-title: UST dosimeters documentation page
+title: UST dosimeters
 layout: home
 ---
 
