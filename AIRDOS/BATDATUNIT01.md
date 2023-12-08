@@ -24,32 +24,40 @@ The BATDATUNIT01 is a specialized module optimized for use in the AIRDOS04 serie
 ## Internal structure
 
 ```mermaid
+
 flowchart TD
-    USB[USB-C\nData + power] --> USW[USB-SWITCH]
-    USW <--> FTDI[FTDI\nI2C + UART]
-    FTDI <--> I2CSW
-    FTDI <--> MCU
-    I2CSW[I2C mux] <--> MCU
+    USB[USB-C\nData + power] --USB --> USW
+    FTDI -- I2C --> I2CSW
+    FTDI -- UART <--> MCU
+    MCU -- I2C --> I2CSW[I2C mux]
     MCU[Microcontroller]
-    MCU <--> SDI
-    MCU --> SDI
+    MCU --SPI <--> SDW
+    MCU --> SDW
 
-    SDR[SD card reader] <--> SDI
-    SDI[SD card storage] <--> USW
-
-    HYG[Hygrometer] <--> MCU
-    ALT[Pressure sensor] <--> MCU
-
-
-    MCU --> I2Cen
-    I2Cen[I2C switch] --> DI
-    DI[Detector interface] <==> MCU
+    subgraph one[Memory interface]
+    SDR[SD card] <--> SDI
+    SDI[SD card interface] <--> USW
+    USW[USB-SWITCH]
+    SDW[SD card \n SPI-SWITCH] <--> SDI
+    end
 
 
-    USB --> charger[Li-ion charger]
-    charger --> GAUGE[Accumulators gauge]
+    subgraph three[Digital part ]
+    USW -- USB <--> FTDI[FTDI\nI2C + UART]
 
-    GAUGE <==> LIION[5x Li-ion cells]
+    I2CSW --I2C--> HYG[Hygrometer]
+    I2CSW --I2C--> ALT[Pressure sensor]
+
+    I2CSW -- I2C --> I2Cen
+    I2Cen[I2C switch] -- I2C --> DI
+    DI[Detector interface] == GPIO, SPI <==> MCU
+
+    end
+
+
+    I2CSW --I2C--> GAUGE
+    I2CSW --I2C--> charger
+
 
     GAUGE --> UI1[User interface \n Button + battery indicator]
     GAUGE --> UI2[User interface \n Button + 3x LED]
@@ -57,12 +65,23 @@ flowchart TD
     GAUGE --> PWR3v3
     GAUGE --> PWR3v3E
     GAUGE --> PWR5vE
+    
+    USW -- USB <--> FTDI[FTDI\nI2C + UART]
+    USB -- Power --> charger
+
+    subgraph two[POWER sources]
     PWR3v3[Power supply for internal\n3.3v]
     PWR3v3E[Power supply for detector\n3.3v]
     PWR5vE[Power supply for detector\n5v]
+    
+    charger --> GAUGE[Accumulators gauge]
+    GAUGE <==> LIION[5x Li-ion cells]
+    end
     PWR3v3 --> MCU
 
     PWR3v3E --> DI
     PWR5vE --> DI
+
+
 
 ```
