@@ -1,8 +1,7 @@
 ---
 layout: page
 title: AIRDOS04
-permalink: /detector/AIRDOS04
-has_children: true
+permalink: /airdos/AIRDOS04
 ---
 
 
