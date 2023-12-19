@@ -188,3 +188,21 @@ To ensure the proper charging of the BATDATUNIT01-BAT module, follow these steps
 1. **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button. 
 
 To ensure maximal safety it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during the charging.
+
+# Operational notes for AIRDOS04
+## Detector Placement in Aircraft
+The AIRDOS04 detector assembly is designed to fit into the manual bay of commercial aircraft, a location that should accommodate up to two AIRDOS04 units. When selecting the placement of the detector within an aircraft, there are critical factors to consider to ensure accurate measurements and the longevity of the device:
+
+1. **Consideration of Aircraft Structure**: The surrounding structure of the aircraft can significantly influence the measured spectrum, fluence and type of incoming particles. It's essential to choose a location where the impact of the aircraft's structure on the detector's readings is minimized or known.
+1. **Avoidance of High-Vibration Areas**: The detector should be placed in an area that is relatively free from excessive vibrations. High vibration levels can affect the detector's performance (false detections due-to microphone/piezo effects in high sensitive analogue components) and potentially cause damage or calibration degradation to its sensitive components in case of extreme vibrations.
+1. **Default placement Orientation**: The standard placement orientation for the AIRDOS04 is on a flat, horizontal surface. On the bottom side of the detector's box, rubber feet are placed to ensure stability. These feet provide multiple purposes: they minimize movement on smooth surfaces, provide good adherence to the placement surface, and help eliminate the transfer of vibrations into the system. This design feature is crucial for maintaining the accuracy of the detector’s measurement from the adverse effects of unnecessary movement or vibration.
+1. **Avoidance of Direct Sunlight**: The detector should not be placed in areas with direct exposure to sunlight. Prolonged exposure to direct sunlight or high-temperatures can lead to internal overheating and potentially affect the detector's performance and durability.
+1. **Environmental Condition Limits**: The AIRDOS04 should operate within certain environmental limits to ensure its effectiveness and safety. Given its IP30 rating, it is not designed to withstand direct exposure to water or dust. Recommended operational environmental conditions include:
+   - **Temperature Range**: Ideally, the detector should operate within a temperature range of 0°C to 50°C (32°F to 122°F) to ensure optimal performance.
+   - **Humidity Range**: A non-condensing humidity level of 20% to 80% is advisable for the stable operation and calibration of the detector.
+
+By taking these factors into account, the AIRDOS04 can be optimally positioned within an aircraft to ensure precise and reliable cosmic radiation measurements, while also maintaining the detector's output data integrity.
+
+## Status indicator description
+The front panel of the BATDATUNIT01 module features a various indicators and interfaces that provide essential information about the device's status and functionalities:
+
