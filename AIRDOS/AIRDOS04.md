@@ -10,7 +10,7 @@ parent: AIRDOS
 
 AIRDOS is a state-of-art cosmic radiation dosimeter and spectrometer unit. It is intended for long-term airborne measurement of cosmic radiation and dosimetry in mixed ionizing radiation fields on board aircraft.
 
-![AIRDOS04_render_001](https://github.com/roman-dvorak/xDOS_doc/assets/5196729/2687c5f5-7647-4756-b735-521b06e7acf6)
+![AIRDOS04](https://github.com/UniversalScientificTechnologies/xDOS_doc/assets/137726417/aa200b56-ae54-48f3-9db0-6c20a79cb28b)
 
 
 The instrument is designed primarily for the dosimetry of cabin crew and flight attendants of commercial flights. Thanks to its design of detachable data-storage and power-source/accumulators, required maintenance time is minimalized. The calibrated AIRDOS04 detector can be placed on-board continuously and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
@@ -135,7 +135,7 @@ In the unlikely situation when BATDATUNIT01 is already inserted into the AIRDOS0
 
 When the detector’s data part is inside the box and it is connected to a USB-C power source, the device will initiate charging while continuing its particle detection operations.
 
-Conversely, if the data part is outside the box and a USB connection is established, the detector switches to a mass-storage mode. This mode allows for data transfer to your computer, but the particle detection function is inactive during this period. In this mode LED3 (green) is continuously lit-up.
+Conversely, if the data part is outside the box and a USB connection is established, the detector switches to a mass-storage mode. This mode allows for data transfer to your computer, but the particle detection function is inactive during this period. In this mode LED3 (green) is continuously lit.
 
 ## Measured data read-out (enforcing mass-storage mode)
 Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) is the USB-C connected and , when the digital part is detached from the detection part (i.e., the module is removed from the AIRDOS04 box). This feature simplifies the process of accessing and managing the data stored in the detector, as it removes the need for manual activation of mass-storage mode. Functions as a mass-storage device, allowing for straightforward data transfer/read-out. 
@@ -205,4 +205,92 @@ By taking these factors into account, the AIRDOS04 can be optimally positioned w
 
 ## Status indicator description
 The front panel of the BATDATUNIT01 module features a various indicators and interfaces that provide essential information about the device's status and functionalities:
+
+![BATDATUNIT01_label](https://github.com/UniversalScientificTechnologies/xDOS_doc/assets/137726417/de9010d2-07a3-4304-beb0-002e86284ad1)
+
+1. **USB-C Port**: This is the interface for power input and data communication. When connected to a computer or power source, it facilitates charging the battery and accessing the data storage.
+1. **Power In LED**: This LED light indicates when power is being supplied to the module through the USB-C port.
+1. **Charging LED**: This LED lights when battery charging is active.
+1. **Battery Level Indicators**: A series of LED lights displays the current battery charge level. When the 'Power' button is pressed, these lights will illuminate to show how much charge in the accumulator remains, ranging from empty (0%) to full (100%).
+1. **Power Button**: Pressing this button will power the module on, and when held, it will display the current battery level using the battery level indicators. Holding this button for more than 10 seconds causes a restart of the device.
+1. **Data Transmission LEDs (RX/TX)**: These LEDs indicate active data transmission when the module is connected to a raw data interface, such as a computer. This is not applicable in mass-storage access mode 
+1. **LED Indicators (LED1, LED2, LED3)**: This set of LEDs indicates the status of the microcontroller unit (MCU), which is the central processor of the module, running the firmware and controlling the device's operations. These LEDs can be used to indicate specific statuses or alerts as defined by the device's firmware.
+   - LED3 (Orange) - Detection exposure is done, writing data to data storage
+   - LED2 (Red) - It is not possible to write data to internal storage. In case of this indicator up, check the status of integrated mass storage. 
+   - LED1 (green) - mass-storage mode accessible through USB
+
+## Routine checks
+Routine checks are an optional part of using the AIRDOS04 detector. The following procedures could be performed regularly by the operating personnel:
+
+### Checking Data Recording
+1. **LED Blink Indicator**: To confirm that the detector is actively recording data, observe the LED lights. The detector blinks its LED indicator (MCU LEDs) after each exposure (usually 10 seconds long, depending on FW configuration), indicating that the spectrum has been written to the inbuilt memory media. This visual cue is an easy way for the operator to verify that the device is functioning correctly and data is being captured.
+
+### Checking Battery Level (Applicable for BATDATUNIT01-BAT only)
+1. **Using the Power Button**: For units equipped with the BATDATUNIT01-BAT, the battery level can be checked using the 'Power' button. A approximately 1s long press and release of this button will display the current battery level through the LED indicator. For more detailed information about obtaining the battery level, refer to the 'Battery Level' section of the manual.
+
+Performing these routine checks will ensure that the AIRDOS04 detector is operating properly, and has sufficient power for continued use without any disruptions. These simple procedures are crucial for the long-term measurement scenarios.
+
+# Advanced maintenance
+## Data Storage Maintenance
+The data storage within the BATDATUNIT01 is an industrial-grade SLC-mode SD card, which provides high reliability and endurance. However, in environments with increased radiation, the SD card may experience accelerated aging and could potentially fail sooner than on ground conditions. To prevent data loss and maintain the integrity of recorded information, the following guidelines are recommended:
+
+1. **Preventive Replacement**: It is strongly advised to preemptively replace the SD card annually. This proactive measure ensures that the data storage remains reliable and the risk of data corruption or loss is minimized.
+1. **Correct SD Card Type**: Always use the specified type of SD card to ensure compatibility and reliability. Using an incorrect type of SD card may result in data loss or operational issues.
+
+For more information on the availability and specifications of the recommended SD card, users should contact technical support at support@ust.cz. The support team can provide guidance on purchasing the correct SD card and offer assistance with any other technical inquiries.
+
+## Firmware update
+Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. The following guide provides a step-by-step approach to updating the firmware using the AVRDUDE tool. For comprehensive details and any additional information, please refer to the online version of the manual.
+
+### Preparation
+1. Ensure that your computer is compatible with the AVRDUDE tool.
+1. Install the AVRDUDE tool, which is available for various operating systems.
+1. Verify the presence of the AVRDUDE tool in your system by running the command `avrdude -v` in the command line.
+
+### Obtaining the Firmware
+1. Acquire the latest version of the firmware for AIRDOS from the manufacturer. Latest firmware is usually publicly accessible in the AIRDOS git repository as release. 
+1. Before proceeding, make sure you have the correct firmware file for your detector model.
+
+### Connecting the Detector
+1. Connect the programming device to the computer using a USB A-B cable.
+1. Insert the AIRDOS detector into the slots on the programming device.
+
+### Uploading the Firmware
+1. Open the command line on your computer.
+1. Execute the firmware upload using the following command:
+
+`avrdude -v -patmega1284p -carduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:<fw_path>:i`
+
+Replace `<fw_path>` with the path to the downloaded firmware file. Ensure the `/dev/ttyUSB0` port matches the port where the programming device is connected.
+
+### Checking and Completion
+1. Check that the upload occurred without errors.
+1. After updating the firmware, conduct tests to verify the functionality of the detector and the successful addition of new features or fixes.
+
+When updating the firmware, it is important to follow instructions carefully and be cautious to avoid damaging the equipment. If uncertain or in need of more information, always refer to the manufacturer or consult an expert.
+
+# Experiment Evaluation
+The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation web site and depends on the device's firmware. These files can be analyzed with our own tools, or we can use a web application for managing and evaluating data measured by dosimetric devices https://portal.dos.ust.cz. The software documentation can be found on its webpage.
+
+
+# Troubleshooting
+## Common Issues and Solutions
+**Issue**: The detector does not turn on after the digital part is inserted into the detector box.
+
+**Potential cause**: The accumulators are completely exhausted. 
+
+**Solution**: The detector can be turned on manually by holding down the 'Power button' for 1 second. Try to recharge.
+
+**Potential cause**: Check the temperature of the environment and the detector. The device does not turn on automatically when the temperature is high.
+
+**Solution**: The detector over-temperature lock can be overridden and turned on manually by holding down the 'Power button' for 1 second.
+
+# Recycling and Disposal
+This is a high-end aerospace electronic device containing removable li-ion cells in a 18650 casing. Before disposal, remove the cells from the device according to the "battery replacement of the data unit" section. Dispose of the rechargeable li-ion cells according to the regulations of your country. The rest of the device constitutes electronic waste without additional batteries, dispose of it according to the regulations of your country. The device is not RoHS compliant because it contains lead solder to meet aerospace industry standards. 
+
+# Safety Instructions and Warranty
+The BATDATUNIT01 module contains up to five lithium-ion cells encased in 18650, providing a reliable and rechargeable power source for the AIRDOS04 detector. These cells are specifically chosen for their durability, safety, high energy density, and ability to maintain a consistent charge over numerous usage cycles, ensuring sustained operation of the detector in various field conditions.
+Universal Scientific Technologies s.r.o. shall not be liable for any damages, injuries, or regulatory non-compliance arising from improper use, maintenance, or unauthorized alterations of the device.
+The device is covered by a two years limited warranty. 
+Unauthorized interventions in the device or handling that contradicts the instructions provided in the manual and detector online documentation will result in the loss of warranty.
 
