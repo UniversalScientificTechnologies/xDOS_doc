@@ -24,7 +24,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
  * Energy measurement resolution: 15 ±2 keV or better
  * Service interface and energy source: USB-C PD 2.0 connector
  * Radiation spectra integration time: 10 s
- * Maintenance interval: ~1 month 
+ * Maintenance interval: ~1 month
  * Maintenance duration: under 5 minutes
  * Size: 166 x 107 x 57 mm
  * Environmental operational conditions
@@ -50,23 +50,37 @@ The detection part is fixed and non-removable, contrasting with the easily inser
 The detector is designed to allow for easy insertion of data storage and power module. This feature is beneficial for quick maintenance, data module replacement, enabling these maintenance tasks to be completed efficiently without disturbing the detector's core components.
 
 ## AIRDOS04 Digital, Data Storage and Power Module
-The AIRDOS04B, designed with efficiency and modularity in mind, separates its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity and power source. 
+The AIRDOS04B, designed with efficiency and modularity in mind, separates its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity and power source.
 
-The separation of the data storage and power supply from the detection part results from a desire to enhance the flexibility and ease of maintenance of the AIRDOS04B detector. By compartmentalizing these functions, the detector allows for easier upgrades, maintenance, and customization based on specific user needs or changing technological advancements. 
+The separation of the data storage and power supply from the detection part results from a desire to enhance the flexibility and ease of maintenance of the AIRDOS04B detector. By compartmentalizing these functions, the detector allows for easier upgrades, maintenance, and customization based on specific user needs or changing technological advancements.
 
 The concept of an interchangeable digital part significantly reduces the maintenance time required to keep the detector operational. Maintenance on-site (such as on-board aircraft) involves swapping the digital part with another unit that is pre-prepared with a cleared data storage and properly charged batteries.
 
-All the firmware for the detector is also located in this digital part. This ensures that firmware updates can be conducted out of the detection site, off the aircraft, so that the time required for regular maintenance is not extended by firmware updates.
+All the firmware for the detector is also located in this digital part (BATDATUNIT). This ensures that firmware updates can be conducted out of the detection site, off the aircraft, so that the time required for regular maintenance is not extended by firmware updates.
 
-### BATDATUNIT01-EXT - External power source type 
+The [BATDATUNIT01](https://github.com/mlab-modules/BATDATUNIT01) is a specialized module optimized for use in the AIRDOS04 series of detectors. It contains as a critical component, combining both data storage and power supply functionalities in a single, compact unit. This integration simplifies the detector's design and enhances its ease of use, particularly in scenarios requiring mobility and efficiency.
+
+1. **Integrated Data Storage and Power Supply**: The BATDATUNIT01 is equipped with substantial data storage capacity, allowing for extensive data accumulation over prolonged periods. It also includes a built-in power source, which is important for the detector's long-term autonomous operation, or in the cases in environments where external power may not be readily available.
+
+1. **Embedded Processor with Firmware**: BATDATUNIT01 contains microcontroller unit that controls the entire detector system and peripherials. This processor is loaded with the firmware, ensuring proper detector operation and can be easily updated with new features or improvements.
+
+1. **Environmental Sensors**: The module is fitted with internal sensors, including a thermometer, hygrometer, and barometer. These sensors provide valuable data on the ambient temperature, humidity, and atmospheric pressure, factors that can be important for more precise data processing.
+
+1. **USB Mass-Storage Interface**: For data management, the module is equipted with a USB mass-storage interface, allowing users to easily access and transfer data from the module. This feature makes the process of data retrieval and analysis straightforward and user-friendly.
+
+1. **Modular design**: The module is specifically designed for quick installation and removal, without any advanced tools. This design ensures that the AIRDOS04 can be maintained and operated with minimal hassle.
+
+
+
+### BATDATUNIT01-EXT - External power source type
 The digital/data module without an accumulator in the AIRDOS04 detector represents a streamlined and efficient approach to data management and power supply. Designed for environments where a continuous external power source is readily available, this module prioritizes data handling and processing capabilities while relying on external power, through a USB-C connection.
 
 This module contains the critical digital components and firmware of the AIRDOS04. Its design facilitates efficient data management, allowing for quick data transfer and analysis when connected to a computer or other devices. The absence of an accumulator is useful in cases where you need to put a detector in places where lithium cells are not permitted.
 
-The integrated data storage of the detector is accessible as a mass-storage device via the USB-C interface. This feature provides fast and user-friendly access to the internal storage, without requiring any external memory readers. More information about initialization of mass-storage mode is written in “Device operations” part of this manual. 
+The integrated data storage of the detector is accessible as a mass-storage device via the USB-C interface. This feature provides fast and user-friendly access to the internal storage, without requiring any external memory readers. More information about initialization of mass-storage mode is written in “Device operations” part of this manual.
 
 ### BATDATUNIT01-BAT - Integrated battery power source type
-The accumulator module of the AIRDOS04 detector, above the non-accumulator version (BATDATUNIT01-EXT), offers an integrated energy storage solution. This module is equipped with up to five lithium-ion cells housed in 18650 battery cases, providing a significant power capacity that can sustain the detector's operation for up to  one month. The exact number of cells and therefore capacity could be altered to fit the specific application requirements or restrictions. Contact support@ust.cz to get more details on that topic. 
+The accumulator module of the AIRDOS04 detector, above the non-accumulator version (BATDATUNIT01-EXT), offers an integrated energy storage solution. This module is equipped with up to five lithium-ion cells housed in 18650 battery cases, providing a significant power capacity that can sustain the detector's operation for up to  one month. The exact number of cells and therefore capacity could be altered to fit the specific application requirements or restrictions. Contact support@ust.cz to get more details on that topic.
 
 The battery module could  be continuously connected to a USB-C power supply, functioning similarly to an Uninterruptible Power Supply (UPS). In scenarios where external power supply experiences outages, the accumulator module ensures that the AIRDOS04 continues to operate without interruption, maintaining consistent data collection and detector functionality.
 
@@ -84,9 +98,9 @@ subgraph DET[Detection part]
     AMP[High sensitive amplifier]
     PEAK[Peak detector with\nanalogue memory]
     ADC[Analogue to digital conventor]
-    
+
     PIN --> AMP
-    AMP --> PEAK 
+    AMP --> PEAK
     PEAK --> ADC
 end
 
@@ -103,8 +117,8 @@ subgraph CPU[Computing, data and power storage unit]
     SENS --> MCU
     MCU --> SDI
     SDI --> SD
-    USB ---> MCU 
-    USB --> BAT 
+    USB ---> MCU
+    USB --> BAT
     BAT --> PWRS
 end
 
@@ -114,7 +128,7 @@ RAD ....-> PIN
 
 # AIRDOS04 handling instructions
 
-## Attaching/Detaching digital unit 
+## Attaching/Detaching digital unit
 The process of removing and inserting the data unit (BATDATUNIT01) is an important procedure that should be carried out with care to ensure the functionality and integrity of the AIRDOS04 detector.
 
 ### Removal Procedure:
@@ -129,7 +143,7 @@ The process of removing and inserting the data unit (BATDATUNIT01) is an importa
 ## Detector power-up
 The detector is turned on immediately after the digital part is inserted into the detector box. The activation is indicated by several flashes of the LED lights and short sound beep. If everything works correctly , the LED lights will turn off, and the device will start detecting and recording the radiation particles. In this case, to minimize power consumption, the LED lights are off and only blink during data writing to the internal memory, which is approximately once every 10 seconds after each exposure.
 
-In case of an error, the LED lights will start blinking or light up continuously, and the device will automatically shutdown after approximately 10 seconds. 
+In case of an error, the LED lights will start blinking or light up continuously, and the device will automatically shutdown after approximately 10 seconds.
 
 In the unlikely situation when BATDATUNIT01 is already inserted into the AIRDOS04 and is powered off, you can turn it on by holding down the 'Power button' for one second. The indication of activation is realized in the same way as in case of module insertion. The last way of turning on the detector is by connecting external power (USB-C connector). In this state, the detector is always powered on.
 
@@ -138,9 +152,9 @@ When the detector’s data part is inside the box and it is connected to a USB-C
 Conversely, if the data part is outside the box and a USB connection is established, the detector switches to a mass-storage mode. This mode allows for data transfer to your computer, but the particle detection function is inactive during this period. In this mode LED3 (green) is continuously lit.
 
 ## Measured data read-out (enforcing mass-storage mode)
-Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) is the USB-C connected and , when the digital part is detached from the detection part (i.e., the module is removed from the AIRDOS04 box). This feature simplifies the process of accessing and managing the data stored in the detector, as it removes the need for manual activation of mass-storage mode. Functions as a mass-storage device, allowing for straightforward data transfer/read-out. 
+Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) is the USB-C connected and , when the digital part is detached from the detection part (i.e., the module is removed from the AIRDOS04 box). This feature simplifies the process of accessing and managing the data stored in the detector, as it removes the need for manual activation of mass-storage mode. Functions as a mass-storage device, allowing for straightforward data transfer/read-out.
 
-Device should automatically appear in your computer system as a mass-storage device or as generic external disk storage. 
+Device should automatically appear in your computer system as a mass-storage device or as generic external disk storage.
 
 ## Battery level
 The battery charge level of the accumulator module can be easily determined by pressing the "Power" button. The charge level is displayed using 8 LED lights, which represent the level from 0-100% charge. This feature provides a straightforward and quick method for users to gauge the remaining power in the accumulator, ensuring they can effectively manage the detector's usage and charging schedule.
@@ -165,8 +179,8 @@ Adhering to these standard maintenance procedures will ensure that the AIRDOS04 
 
 ## Replacing the Digital Part of the Detector:
 1. **Prepare a New Digital Part**: Ensure you have a spare digital part that has empty data storage and is fully charged, therefore ready to replace the one currently in use.
-1. **Unscrew the Securing Screws**: Begin by unscrewing the two large-headed securing screws on the detector. 
-1. **Remove the Used Digital Part**: Gently pull the ribbon to slide out the used digital part of the detector. 
+1. **Unscrew the Securing Screws**: Begin by unscrewing the two large-headed securing screws on the detector.
+1. **Remove the Used Digital Part**: Gently pull the ribbon to slide out the used digital part of the detector.
 1. **Insert the New Digital Part**: Carefully insert the new digital part into the detector. Ensure it is aligned correctly for smooth insertion.
 1. **Verify Operation**: Once the new digital part is fully inserted, check that the detector powers on and starts measuring. This step is crucial to confirm that the replacement was successful and the detector is functioning correctly.
 1. **Secure the Digital Part with Screws**: Finally, secure the newly inserted digital part with the two screws. This will ensure that the digital module remains firmly in place during operation.
@@ -185,7 +199,7 @@ To ensure the proper charging of the BATDATUNIT01-BAT module, follow these steps
 1. **Acquire a USB Power Source**: This can be a USB adapter or a computer equipped with a USB 2.0 port. The power source must be capable of providing at the least 0.5 A of current.
 1. **Connect the USB-C to USB-A Cable**: Insert the USB-C end of the cable into the data unit and the USB-A end into the power source.
 1. **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. Flashing charging LED indicates an error or an issue with the li-ion cells.
-1. **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button. 
+1. **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button.
 
 To ensure maximal safety it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during the charging.
 
@@ -213,10 +227,10 @@ The front panel of the BATDATUNIT01 module features a various indicators and int
 1. **Charging LED**: This LED lights when battery charging is active.
 1. **Battery Level Indicators**: A series of LED lights displays the current battery charge level. When the 'Power' button is pressed, these lights will illuminate to show how much charge in the accumulator remains, ranging from empty (0%) to full (100%).
 1. **Power Button**: Pressing this button will power the module on, and when held, it will display the current battery level using the battery level indicators. Holding this button for more than 10 seconds causes a restart of the device.
-1. **Data Transmission LEDs (RX/TX)**: These LEDs indicate active data transmission when the module is connected to a raw data interface, such as a computer. This is not applicable in mass-storage access mode 
+1. **Data Transmission LEDs (RX/TX)**: These LEDs indicate active data transmission when the module is connected to a raw data interface, such as a computer. This is not applicable in mass-storage access mode
 1. **LED Indicators (LED1, LED2, LED3)**: This set of LEDs indicates the status of the microcontroller unit (MCU), which is the central processor of the module, running the firmware and controlling the device's operations. These LEDs can be used to indicate specific statuses or alerts as defined by the device's firmware.
    - LED3 (Orange) - Detection exposure is done, writing data to data storage
-   - LED2 (Red) - It is not possible to write data to internal storage. In case of this indicator up, check the status of integrated mass storage. 
+   - LED2 (Red) - It is not possible to write data to internal storage. In case of this indicator up, check the status of integrated mass storage.
    - LED1 (green) - mass-storage mode accessible through USB
 
 ## Routine checks
@@ -248,7 +262,7 @@ Updating the firmware of your AIRDOS particle detector is an important process f
 1. Verify the presence of the AVRDUDE tool in your system by running the command `avrdude -v` in the command line.
 
 ### Obtaining the Firmware
-1. Acquire the latest version of the firmware for AIRDOS from the manufacturer. Latest firmware is usually publicly accessible in the AIRDOS git repository as release. 
+1. Acquire the latest version of the firmware for AIRDOS from the manufacturer. Latest firmware is usually publicly accessible in the AIRDOS git repository as release.
 1. Before proceeding, make sure you have the correct firmware file for your detector model.
 
 ### Connecting the Detector
@@ -277,7 +291,7 @@ The data measured by the instrument are stored in its integrated data storage. D
 ## Common Issues and Solutions
 **Issue**: The detector does not turn on after the digital part is inserted into the detector box.
 
-**Potential cause**: The accumulators are completely exhausted. 
+**Potential cause**: The accumulators are completely exhausted.
 
 **Solution**: The detector can be turned on manually by holding down the 'Power button' for 1 second. Try to recharge.
 
@@ -286,11 +300,10 @@ The data measured by the instrument are stored in its integrated data storage. D
 **Solution**: The detector over-temperature lock can be overridden and turned on manually by holding down the 'Power button' for 1 second.
 
 # Recycling and Disposal
-This is a high-end aerospace electronic device containing removable li-ion cells in a 18650 casing. Before disposal, remove the cells from the device according to the "battery replacement of the data unit" section. Dispose of the rechargeable li-ion cells according to the regulations of your country. The rest of the device constitutes electronic waste without additional batteries, dispose of it according to the regulations of your country. The device is not RoHS compliant because it contains lead solder to meet aerospace industry standards. 
+This is a high-end aerospace electronic device containing removable li-ion cells in a 18650 casing. Before disposal, remove the cells from the device according to the "battery replacement of the data unit" section. Dispose of the rechargeable li-ion cells according to the regulations of your country. The rest of the device constitutes electronic waste without additional batteries, dispose of it according to the regulations of your country. The device is not RoHS compliant because it contains lead solder to meet aerospace industry standards.
 
 # Safety Instructions and Warranty
 The BATDATUNIT01 module contains up to five lithium-ion cells encased in 18650, providing a reliable and rechargeable power source for the AIRDOS04 detector. These cells are specifically chosen for their durability, safety, high energy density, and ability to maintain a consistent charge over numerous usage cycles, ensuring sustained operation of the detector in various field conditions.
 Universal Scientific Technologies s.r.o. shall not be liable for any damages, injuries, or regulatory non-compliance arising from improper use, maintenance, or unauthorized alterations of the device.
-The device is covered by a two years limited warranty. 
+The device is covered by a two years limited warranty.
 Unauthorized interventions in the device or handling that contradicts the instructions provided in the manual and detector online documentation will result in the loss of warranty.
-
