@@ -234,15 +234,18 @@ The front panel of the BATDATUNIT01 module features a various indicators and int
    - LED1 (green) - mass-storage mode accessible through USB
 
 ## Routine checks
-Routine checks are an optional part of using the AIRDOS04 detector. The following procedures could be performed regularly by the operating personnel:
+Routine checks are an optional part of using the AIRDOS04 detector. The following procedures could be performed regularly by the operating personnel. Performing these routine checks will ensure that the AIRDOS04 detector is operating properly, and has sufficient power for continued use without any disruptions. These simple procedures are crucial for the long-term measurement scenarios.
 
 ### Checking Data Recording
-1. **LED Blink Indicator**: To confirm that the detector is actively recording data, observe the LED lights. The detector blinks its LED indicator (MCU LEDs) after each exposure (usually 10 seconds long, depending on FW configuration), indicating that the spectrum has been written to the inbuilt memory media. This visual cue is an easy way for the operator to verify that the device is functioning correctly and data is being captured.
+
+[![AIRDOS04 recording indicator check](https://img.youtube.com/vi/UCrtrzjpWoU/hqdefault.jpg)](https://www.youtube.com/shorts/UCrtrzjpWoU)
+
+
+**LED Blink Indicator**: To confirm that the detector is actively recording data, observe the LED lights. The detector blinks its LED indicator (MCU LEDs) after each exposure (usually 10 seconds long, depending on FW configuration), indicating that the spectrum has been written to the inbuilt memory media. This visual cue is an easy way for the operator to verify that the device is functioning correctly and data is being captured.
 
 ### Checking Battery Level (Applicable for BATDATUNIT01-BAT only)
-1. **Using the Power Button**: For units equipped with the BATDATUNIT01-BAT, the battery level can be checked using the 'Power' button. A approximately 1s long press and release of this button will display the current battery level through the LED indicator. For more detailed information about obtaining the battery level, refer to the 'Battery Level' section of the manual.
 
-Performing these routine checks will ensure that the AIRDOS04 detector is operating properly, and has sufficient power for continued use without any disruptions. These simple procedures are crucial for the long-term measurement scenarios.
+**Using the Power Button**: For units equipped with the BATDATUNIT01-BAT, the battery level can be checked using the 'Power' button. A approximately 1s long press and release of this button will display the current battery level through the LED indicator. For more detailed information about obtaining the battery level, refer to the 'Battery Level' section of the manual.
 
 # Advanced maintenance
 ## Data Storage Maintenance
