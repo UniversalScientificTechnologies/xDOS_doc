@@ -1,6 +1,7 @@
 ---
 layout: page
-title: LABDOS
+title: LABDOS01
+parent: LABDOS
 permalink: /labdos/LABDOS01
 ---
 
