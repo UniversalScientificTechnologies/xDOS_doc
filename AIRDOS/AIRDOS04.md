@@ -166,9 +166,9 @@ The front panel of the BATDATUNIT01 module features various indicators and inter
 ## Routine checks
 Routine checks are an optional part of using the AIRDOS04 detector. The following procedures could be performed regularly by the operating personnel. Performing these routine checks will ensure that the AIRDOS04 detector is operating properly, and has sufficient power for continued use without any disruptions. These simple procedures are crucial for long-term measurement scenarios.
 
-### Checking Data Recording
+### Check of Data Recording activity indicator
 
-[![AIRDOS04 recording indicator check](https://img.youtube.com/vi/UCrtrzjpWoU/hqdefault.jpg)](https://www.youtube.com/shorts/UCrtrzjpWoU)
+[![AIRDOS04 recording indicator check](https://img.youtube.com/vi/OLHI1WTeeHw/hqdefault.jpg)](https://www.youtube.com/shorts/OLHI1WTeeHw)
 
 
 **LED Blink Indicator**: To confirm that the detector is actively recording data, observe the LED lights. The detector blinks its LED indicator (MCU LEDs) after each exposure (usually 10 seconds long, depending on FW configuration), indicating that the spectrum has been written to the inbuilt memory media. This visual cue is an easy way for the operator to verify that the device is functioning correctly and data is being captured.
