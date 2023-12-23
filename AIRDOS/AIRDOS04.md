@@ -37,7 +37,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
 ## AIRDOS04 - Detection part
 The detection part of the AIRDOS04 represents the core of its abilities, designed to provide high sensitivity and precision in cosmic radiation detection. This part of the whole assembly is permanently embedded within an aluminum box, which ensures mechanical durability and protects the sensitive components.
 
-The detection (analogue) part consists of the following key components:
+The detection (analog) part consists of the following key components:
 
 **Analog Part**: This segment contains the highly sensitive analog electronics necessary for processing signals from the semiconductor sensing element. It's optimized to minimize noise and maximize sensitivity, crucial for accurate radiation measurement. Analog signals are immediately converted into digital data. This process ensures that the captured data is accurate and detailed enough for quality measurements and real-time signal processing.
 
@@ -107,15 +107,34 @@ Standard maintenance steps of the AIRDOS04 detector involve routine procedures e
 
 Adhering to these standard maintenance procedures will ensure that the AIRDOS04 operates efficiently and reliably over extended periods, providing accurate and consistent measurement results.
 
-## Replacing the Digital Part of the Detector:
+## Replacing the Digital Part of the Detector
+
+To analyze the AIRDOS04 logged data is mandatory to note the precise time of power on and shutdown. These time points allow fitting the recorded data log to real aircraft flight data.  
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/oRRdgOo-tw0?loop=1">
+   </iframe> 
+ </div>
+ 
+The procedure for getting the absolute time of detector shutdown consists of the following steps: 
+
+1. Unscrew completely the AIRDOS digital module locking screws
+2. Prepare the "date" command in a computer with a synchronized real-time clock
+2. Pull-out digital module from AIRDOS
+3. Wait for a beep signal and press enter in the command line
+4. Reuse the command for the second beep. 
+
+The last recording of the data log corresponds to the time of the first beep subtracting the integration time. In the case of simply changing the digital part the procedure follows
+
 1. **Prepare a New Digital Part**: Ensure you have a spare digital part that has empty data storage and is fully charged, therefore ready to replace the one currently in use.
-1. **Unscrew the Securing Screws**: Begin by unscrewing the two large-headed securing screws on the detector.
+1. **Unscrew the Securing Screws on AIRDOS**: Begin by unscrewing the two large-headed securing screws on the detector in case it does not been done yet. 
 1. **Remove the Used Digital Part**: Gently pull the ribbon to slide out the used digital part of the detector.
 1. **Insert the New Digital Part**: Carefully insert the new digital part into the detector. Ensure it is aligned correctly for smooth insertion.
 1. **Verify Operation**: Once the new digital part is fully inserted, check that the detector powers on and starts measuring. This step is crucial to confirm that the replacement was successful and the detector is functioning correctly.
 1. **Secure the Digital Part with Screws**: Finally, secure the newly inserted digital part with the two screws. This will ensure that the digital module remains firmly in place during operation.
 
-## Downloading Recorded Data to a User's Computer:
+## Downloading Recorded Data to a User's Computer
+
 1. **Remove the Digital Module**: Ensure the digital/storage module is removed from the Detection aluminum box. Wait until the detector shuts down (indicated by a beep, approximately  10 seconds after pull-out of the module from AIRDOS04).
 1. **Connect via USB-C**: Attach the USB-C cable from your computer to the detector's digital BATDATUNIT01 module.
 1. **Access the Mass-Storage Device**: Your computer should now recognize a connected portable mass-storage device.
