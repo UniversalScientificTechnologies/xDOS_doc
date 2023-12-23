@@ -26,6 +26,22 @@ This is an simplified version of the full user guide, made for fast detector set
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/jfwqo6pnUCM?loop=1">
    </iframe> 
  </div>
+ 
 
 ## Battery charging
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/qtMtmowHTfo?loop=1">
+   </iframe> 
+ </div>
 
+
+# Data-accessing (Connecting to PC)
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/uuGJzn98xzY?loop=1">
+   </iframe> 
+ </div>
+
+
+
+ 
