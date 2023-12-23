@@ -1,12 +1,12 @@
 ---
 layout: page
-title: AIRDOS04
+title: AIRDOS04 In-Flight Ionizing Radiation Dosimetry
 permalink: /airdos/AIRDOS04
 parent: AIRDOS
 ---
 
 
-# AIRDOS04
+# AIRDOS04 - Airborne radiation dosimeter and spectrometer
 
 AIRDOS is a state-of-art cosmic radiation dosimeter and spectrometer unit. It is intended for long-term airborne measurement of cosmic radiation and dosimetry in mixed ionizing radiation fields on board aircraft.
 
@@ -33,6 +33,45 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
    * Operation humidity conditions: non-condensing, 20% to 80% RH
 
 # Components and Their Functions
+
+```mermaid
+flowchart TD
+
+RAD(Cosmic Radiation particle)
+
+
+subgraph DET[Analog part (AIRDOS04 core)]
+    PIN[PIN diode]
+    AMP[Charge sensitive amplifier]
+    PEAK[Peak detector and pulse shaper with\nanalogue memory]
+    ADC[Analogue to digital conventer]
+
+    PIN --> AMP
+    AMP --> PEAK
+    PEAK --> ADC
+end
+
+
+subgraph CPU[Computing, data and power storage unit (BATDATUNIT01)]
+    SENS[Hygrometer\nPressure sensor]
+    MCU[Microcontroller]
+    SD[Industrial\nSD card]
+    SDI[SDcard interface]
+    USB[USB-C interface]
+    BAT[Li-Ion BMS\n charger + gauge]
+    PWRS[Power sources]
+
+    SENS --> MCU
+    MCU --> SDI
+    SDI --> SD
+    USB ---> MCU
+    USB --> BAT
+    BAT --> PWRS
+end
+
+ADC --> MCU
+RAD ....-> PIN
+```
 
 ## AIRDOS04 - Detection part
 The detection part of the AIRDOS04 represents the core of its abilities, designed to provide high sensitivity and precision in cosmic radiation detection. This part of the whole assembly is permanently embedded within an aluminum box, which ensures mechanical durability and protects the sensitive components.
@@ -62,13 +101,13 @@ Visit more information:
 The process of removing and inserting the data unit (BATDATUNIT01) is an important procedure that should be carried out with care to ensure the functionality and integrity of the AIRDOS04 detector.
 
 ### Removal Procedure:
-1. **Unscrew the Securing Screws**: Start by unscrewing the pair of large-headed screws. These are designed to secure the data unit within the aluminum casing of the detector.
-1. **Pull the Ribbon to Remove the Front Part**: Once the screws are removed, gently pull the ribbon along the axis of the box to remove the data unit from the box.
+ * **Unscrew the Securing Screws**: Start by unscrewing the pair of large-headed screws. These are designed to secure the data unit within the aluminum casing of the detector.
+ * **Pull the Ribbon to Remove the Front Part**: Once the screws are removed, gently pull the ribbon along the axis of the box to remove the data unit from the box.
 
 ### Insertion Procedure:
-1. **Align the Data Unit**: Carefully align the data unit with the slots inside the aluminum casing. This ensures that the unit will slide in easily without any excessive force that might damage the components.
-1. **Gentle Insertion**: Slide the data unit into the casing with a steady motion until it is fully attached to its designated position.
-1. **Secure with Screws**: Reinsert the large-headed screws and tighten them to secure the data unit within the detector. Do not over-tighten, as this may strip the threads. The overtightening is indicated by deformation or damage of the front panel.
+ * **Align the Data Unit**: Carefully align the data unit with the slots inside the aluminum casing. This ensures that the unit will slide in easily without any excessive force that might damage the components.
+ * **Gentle Insertion**: Slide the data unit into the casing with a steady motion until it is fully attached to its designated position.
+ * **Secure with Screws**: Reinsert the large-headed screws and tighten them to secure the data unit within the detector. Do not over-tighten, as this may strip the threads. The overtightening is indicated by deformation or damage of the front panel.
 
 ## Detector power-up
 The detector is turned on immediately after the digital part is inserted into the detector box. The activation is indicated by several flashes of the LED lights and a short sound beep. If everything works correctly, the LED lights will turn off, and the device will start detecting and recording the radiation particles. In this case, to minimize power consumption, the LED lights are off and only blink during data writing to the internal memory, which is approximately once every 10 seconds after each exposure.
@@ -101,9 +140,9 @@ The presence of a sufficient power supply for the accumulator module is indicate
 # Standard maintenance
 Standard maintenance steps of the AIRDOS04 detector involve routine procedures essential for conducting long-term measurements. These maintenance tasks primarily include the following steps. For more detailed instructions, please, refer to our online form of this manual.
 
-1. **Replacing the Digital Part of the Detector**: Periodical swapping out of the digital module ensures continuous operation and minimizes downtime/maintenance time. This is particularly important in scenarios where the detector is used for extended periods.
-1. **Downloading Recorded Data**: Periodically downloading data from the detector's storage is crucial for both data analysis and clearing storage space for ongoing measurements. This process is facilitated by the detector's user-friendly data retrieval system.
-1. **Recharging the Batteries**: For variants with an accumulator, ensuring the batteries are regularly charged is important. This maintains the detector’s autonomous operation capability, especially in situations where a continuous external power source is not available.
+ * **Replacing the Digital Part of the Detector**: Periodical swapping out of the digital module ensures continuous operation and minimizes downtime/maintenance time. This is particularly important in scenarios where the detector is used for extended periods.
+ * **Downloading Recorded Data**: Periodically downloading data from the detector's storage is crucial for both data analysis and clearing storage space for ongoing measurements. This process is facilitated by the detector's user-friendly data retrieval system.
+ * **Recharging the Batteries**: For variants with an accumulator, ensuring the batteries are regularly charged is important. This maintains the detector’s autonomous operation capability, especially in situations where a continuous external power source is not available.
 
 Adhering to these standard maintenance procedures will ensure that the AIRDOS04 operates efficiently and reliably over extended periods, providing accurate and consistent measurement results.
 
@@ -142,13 +181,14 @@ The last recording of the data log corresponds to the time of the first beep sub
 1. **Disconnect the Storage from Computer OS**: Safely eject the mass-storage device from your computer.
 1. **Optional Disconnection of USB-C cable**: If you do not intend to charge the detector, you can disconnect the cable from the USB connector at this point.
 
-## Recharging the Batteries
-To ensure the proper charging of the BATDATUNIT01-BAT module, follow these steps:
+## Recharging the Accumulators
 
-1. **Acquire a USB Power Source**: This can be a USB adapter or a computer equipped with a USB 2.0 port. The power source must be capable of providing at least 0.5 A of current.
-1. **Connect the USB-C to USB-A Cable**: Insert the USB-C end of the cable into the data unit and the USB-A end into the power source.
-1. **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. Flashing charging LED indicates an error or an issue with the li-ion cells.
-1. **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, and the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button.
+To ensure the proper charging of the Li-Ion accumulators in BATDATUNIT01-BAT module, follow these steps:
+
+ * **Acquire a USB Power Source**: This can be a USB adapter or a computer equipped with a USB 2.0 port. The power source must be capable of providing at least 0.5 A of current.
+ * **Connect the USB-C to USB-A Cable**: Insert the USB-C end of the cable into the data unit and the USB-A end into the power source.
+ * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. Flashing charging LED indicates an error or an issue with the li-ion cells.
+ * **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, and the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button.
 
 To ensure maximal safety it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during the charging.
 

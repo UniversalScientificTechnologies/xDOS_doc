@@ -27,60 +27,21 @@ The [BATDATUNIT01](https://github.com/mlab-modules/BATDATUNIT01) is a specialize
 
 1. **Modular design**: The module is specifically designed for quick installation and removal, without any advanced tools. This design ensures that the AIRDOS04 can be maintained and operated with minimal hassle.
 
+### BATDATUNIT01-BAT - Integrated battery power source type
+
+The accumulator module of the AIRDOS04 detector, offers an integrated energy storage solution. This module is equipped with up to five lithium-ion cells housed in 18650 battery cases, providing a significant power capacity that can sustain the detector's operation for up to one month. The exact number of cells and therefore capacity could be altered to fit the specific application requirements or restrictions. Contact support@ust.cz to get more details on that topic.
+
+The battery module could  be continuously connected to a USB-C power supply, functioning similarly to an [Uninterruptible Power Supply (UPS)](https://en.wikipedia.org/wiki/Uninterruptible_power_supply). In scenarios where external power supply experiences outages, the accumulator module ensures that the AIRDOS04 continues to operate without interruption, maintaining consistent data collection and detector functionality.
 
 
 ### BATDATUNIT01-EXT - External power source type
-The digital/data module without an accumulator in the AIRDOS04 detector represents a streamlined and efficient approach to data management and power supply. Designed for environments where a continuous external power source is readily available, this module prioritizes data handling and processing capabilities while relying on external power, through a USB-C connection.
 
-This module contains the critical digital components and firmware of the AIRDOS04. Its design facilitates efficient data management, allowing for quick data transfer and analysis when connected to a computer or other devices. The absence of an accumulator is useful in cases where you need to put a detector in places where lithium cells are not permitted.
+The digital/data module variant without any lithium accumulators for applications where batteries are not allowed due to safety restrictions. Designed for environments where a continuous external power source is readily available, this module prioritizes data handling and processing capabilities while relying on external power, through a USB-C connection.
+
+This module contains the same critical digital components and firmware of the AIRDOS04 as BATDATUNIT01-BAT. Its design facilitates efficient data management, allowing for quick data transfer and analysis when connected to a computer or other devices. The absence of an accumulator is useful in cases where you need to put a detector in places where lithium cells are not permitted.
 
 The integrated data storage of the detector is accessible as a mass-storage device via the USB-C interface. This feature provides fast and user-friendly access to the internal storage, without requiring any external memory readers. More information about initialization of mass-storage mode is written in “Device operations” part of this manual.
 
 
 
-### BATDATUNIT01-BAT - Integrated battery power source type
-The accumulator module of the AIRDOS04 detector, above the non-accumulator version (BATDATUNIT01-EXT), offers an integrated energy storage solution. This module is equipped with up to five lithium-ion cells housed in 18650 battery cases, providing a significant power capacity that can sustain the detector's operation for up to  one month. The exact number of cells and therefore capacity could be altered to fit the specific application requirements or restrictions. Contact support@ust.cz to get more details on that topic.
 
-The battery module could  be continuously connected to a USB-C power supply, functioning similarly to an Uninterruptible Power Supply (UPS). In scenarios where external power supply experiences outages, the accumulator module ensures that the AIRDOS04 continues to operate without interruption, maintaining consistent data collection and detector functionality.
-
-
-# Logical structure
-
-```mermaid
-flowchart TD
-
-RAD(Cosmic radiation)
-
-
-subgraph DET[Detection part]
-    PIN[PIN diode]
-    AMP[High sensitive amplifier]
-    PEAK[Peak detector with\nanalogue memory]
-    ADC[Analogue to digital conventor]
-
-    PIN --> AMP
-    AMP --> PEAK
-    PEAK --> ADC
-end
-
-
-subgraph CPU[Computing, data and power storage unit]
-    SENS[Hygrometer\nPressure sensor]
-    MCU[Microcontroller]
-    SD[Industrial\nSD card]
-    SDI[SDcard interface]
-    USB[USB-C interface]
-    BAT[LiIon battery\n charger + gauge]
-    PWRS[Power sources]
-
-    SENS --> MCU
-    MCU --> SDI
-    SDI --> SD
-    USB ---> MCU
-    USB --> BAT
-    BAT --> PWRS
-end
-
-ADC --> MCU
-RAD ....-> PIN
-```

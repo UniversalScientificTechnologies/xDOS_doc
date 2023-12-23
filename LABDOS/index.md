@@ -1,8 +1,9 @@
 ---
 layout: page
-title: LABDOS
+title: LABDOS Experimental Radiation Detection instrument
 permalink: /labdos
-nav_order: 3
+has_children: true
+nav_order: 2
 ---
 
 LABDOS are a lightweight portable dosimeters intended as an experimental device for laboratory measurements. 
