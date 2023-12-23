@@ -61,6 +61,9 @@ Battery status could be checked outside from detector or directly in the detecto
 
 To the removal the user should carefully unscrews and gently removes the recording and power module, BATDATUNIT01, from the AIRDOS04 detector.
 
+{: .highlight }
+It's important to accurately note the time of this action, as marking the precise moment of shutdown is essential for subsequent data analysis. This time-stamping ensures that the data log can be accurately synchronized with radiation events, an integral part of the data processing and evaluation process. Please refer [complete version](./AIRDOS04) of manual to more details.
+
 ### Insertion
 
 The insertion process is the same as described in 'Detector activation' section.
