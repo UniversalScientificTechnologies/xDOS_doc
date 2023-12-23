@@ -170,6 +170,11 @@ Routine checks are an optional part of using the AIRDOS04 detector. The followin
 
 [![AIRDOS04 recording indicator check](https://img.youtube.com/vi/OLHI1WTeeHw/hqdefault.jpg)](https://www.youtube.com/shorts/OLHI1WTeeHw)
 
+ <iframe width="420"
+src="https://www.youtube.com/embed/OLHI1WTeeHw?loop=1">
+</iframe> 
+
+
 
 **LED Blink Indicator**: To confirm that the detector is actively recording data, observe the LED lights. The detector blinks its LED indicator (MCU LEDs) after each exposure (usually 10 seconds long, depending on FW configuration), indicating that the spectrum has been written to the inbuilt memory media. This visual cue is an easy way for the operator to verify that the device is functioning correctly and data is being captured.
 
