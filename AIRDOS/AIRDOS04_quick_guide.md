@@ -75,6 +75,7 @@ The insertion process is the same as described in 'Detector activation' section.
    </iframe> 
  </div>
 
+Plug-in of USB-C cable to the AIRDOS04 device, initiating its power-up process. It is indicated by a series of visual and audible cues. The charging indicator lights up, signaling the commencement of the accumulator's charging cycle. The charging process is very slow to achieve maximal capacity and endurance of the li-ion accumulators.
 
 # Data-accessing (Connecting to PC)
 
@@ -82,6 +83,8 @@ The insertion process is the same as described in 'Detector activation' section.
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/uuGJzn98xzY?loop=1">
    </iframe> 
  </div>
+
+In case the BATDATUNIT01 outside from detector is connected to a computer, transition into an external mass storage. This function switch allows the user to access the memory media within, revealing files that contain the recorded data. The files, neatly organized and easily accessible, represent the valuable data gathered by the AIRDOS04, now ready for analysis or archiving.
 
 
 
