@@ -19,9 +19,9 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
 
 # Technical parameters
  * Detection element: Silicon PIN diode, volume 44 mm3
- * Effective number of energy channels: 470 ±3 or more
+ * Effective number of energy channels: 470 ±3
  * Deposited energy range: 60 keV to 7 MeV
- * Energy measurement resolution: 15 ±2 keV or better
+ * Energy measurement resolution: 15 ±2 keV
  * Service interface and energy source: USB-C PD 2.0 connector
  * Radiation spectra integration time: 10 s
  * Maintenance interval: ~1 month
