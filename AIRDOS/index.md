@@ -1,6 +1,7 @@
 ---
 layout: page
-title: AIRDOS [//]: # "In-Flight Ionizing Radiation Detector"
+title: AIRDOS
+alt_text: In-Flight Ionizing Radiation Detector
 permalink: /airdos/
 has_children: true
 nav_order: 2
