@@ -112,7 +112,7 @@ Adhering to these standard maintenance procedures will ensure that the AIRDOS04 
 To analyze the AIRDOS04 logged data is mandatory to note the precise time of power on and shutdown. These time points allow fitting the recorded data log to real aircraft flight data.  
 
  <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
-   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/oRRdgOo-tw0?loop=1">
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://youtu.be/oRRdgOo-tw0">
    </iframe> 
  </div>
  
