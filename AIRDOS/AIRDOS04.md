@@ -170,8 +170,7 @@ Routine checks are an optional part of using the AIRDOS04 detector. The followin
 
 [![AIRDOS04 recording indicator check](https://img.youtube.com/vi/OLHI1WTeeHw/hqdefault.jpg)](https://www.youtube.com/shorts/OLHI1WTeeHw)
 
- <iframe width="420"
-src="https://www.youtube.com/embed/OLHI1WTeeHw?loop=1">
+ <iframe width="100%" style="padding-top: 56.25%;" src="https://www.youtube.com/embed/OLHI1WTeeHw?loop=1">
 </iframe> 
 
 
