@@ -1,6 +1,6 @@
 ---
 layout: page
-title: GEODOS Ground-Based Radiation Detection
+title: GEODOS [//]: # "Ground-Based Radiation Detection"
 permalink: /geodos
 has_children: true
 nav_order: 2

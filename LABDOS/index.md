@@ -1,6 +1,6 @@
 ---
 layout: page
-title: LABDOS Experimental Radiation Detection instrument
+title: LABDOS [//]: # "Experimental Radiation Detection instrument"
 permalink: /labdos
 has_children: true
 nav_order: 2
