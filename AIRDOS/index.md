@@ -4,7 +4,6 @@ title: AIRDOS
 alt_text: In-Flight Ionizing Radiation Detector
 permalink: /airdos/
 has_children: true
-nav_order: 2
 ---
 
 The AIRDOS series detectors by [Universal Scientific Technologies s.r.o (UST)](https://www.ust.cz/) are advanced airborne radiation detectors designed for measuring radiation in aerial environments, particularly suited for civil aviation. These detectors offer precise monitoring of radiation situation and exposure, with various models tailored for different aircraft needs.

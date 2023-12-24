@@ -3,10 +3,9 @@ layout: page
 title: BATDATUNIT01: Power and data storage
 permalink: /airdos/BATDATUNIT01
 parent: AIRDOS
-nav_order: "1"
 ---
 
-# BATDATUNIT01
+# BATDATUNIT01 - Power and data storage
 
 The AIRDOS04, designed with efficiency and modularity in mind, separates its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity and power source.
 
