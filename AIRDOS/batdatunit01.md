@@ -1,6 +1,6 @@
 ---
 layout: page
-title: BATDATUNIT01
+title: BATDATUNIT01: Power and data storage
 permalink: /airdos/BATDATUNIT01
 parent: AIRDOS
 ---
