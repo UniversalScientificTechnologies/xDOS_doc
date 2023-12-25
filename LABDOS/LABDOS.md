@@ -39,17 +39,23 @@ The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. 
   - Operating humidity conditions: non-condensing 20% to 80% RH
 
 ## Usage of LABDOS01
+
+Frequent flyers can utilize LABDOS01 in conjunction with a power bank when access to real-time measurements is not available. The device can be connected by a USB power source, while LABDOS01 continuously logs data to the SD card. This setup is particularly useful for travelers who wish to monitor radiation exposure during flights without the need for immediate data access. Users can upload the data from the SD card to the online platforms, where advanced analysis can be performed to interpret the radiation dose levels and other relevant metrics. This feature is useful for users who may not have access to sophisticated data analysis software, providing a user-friendly and efficient means of understanding the data captured by LABDOS01.
+
 ### Standalone Detector for Unattended Data Logging
+
 In this type of use, LABDOS01 functions as an autonomous unit, recording data directly to its internal storage in the form of an industrial-grade SLC/SLC mode SD card. This setup is ideal for mid-term environmental monitoring or experiments where continuous human oversight is not feasible. The data is stored on the SD card, which can later be retrieved and analyzed. This application is particularly suitable for fixed installations in labs or for monitoring in remote locations.
+
 This mode is perfect for validating local conditions for future experiments. After initial data collection and analysis, it is recommended to replace LABDOS01 with one of the UST detectors optimized for long-term standalone use, such as GEODOS, AIRDOS, or SPACEDOS detectors. These specialized detectors are tailored for sustained, unattended operations, providing enhanced reliability and data accuracy in various environmental conditions.
-Frequent flyers can utilize LABDOS01 in conjunction with a power bank when access to real-time measurements is not available. The device can be connected to a power bank, serving as an energy source, while LABDOS01 continuously logs data to the SD card. This setup is particularly useful for travelers who wish to monitor radiation exposure during flights without the need for immediate data access. Users can upload the data from the SD card to the online platforms, where advanced analysis can be performed to interpret the radiation levels and other relevant metrics. This feature is particularly useful for users who may not have access to sophisticated data analysis software, providing a user-friendly and efficient means of understanding the data captured by LABDOS01.
 
 ### Use with Mobile Device or Computer for Data Processing
 
 When connected to a compatible mobile phone or a computer, LABDOS01 serves as a real-time detector and spectrometer. The detector sends data, after each exposition interval, directly to the connected device. This usage is highly beneficial for interactive experiments, educational purposes, or situations where immediate data analysis and visualization are required. The accompanying software on the device can be used for in-depth analysis and graphical representation of the detected particle data, enhancing the understanding and interpretation of the results.
 
-## Basic Usage
-### Data Stream Capturing
+![Radiation monitoring in airliner cocpit](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/LABDOS01B/doc/img/LABDOS01_cockpit.jpg)
+
+### Direct data Stream Capturing
+
 Reading the data stream from LABDOS01 via USB involves capturing and analyzing the data transmitted from the device to a connected computer or mobile device. The USB data streaming approach is particularly beneficial for mid-term monitoring scenarios where real-time data publication is desired, such as displaying radiation measurements on a website or generating live data feeds for other applications. This method requires dedicated software to handle the data streaming and publishing processes. The software interprets the data stream from LABDOS01 and converts it into a suitable format for online publishing or other forms of output, enabling continuous and dynamic sharing of radiation data in real time. This feature is especially useful in scientific research, public monitoring projects, or educational demonstrations.
 
 ### Steps to Read Data Stream
@@ -59,7 +65,7 @@ Reading the data stream from LABDOS01 via USB involves capturing and analyzing t
 4. Adjust settings in your logging software according to the data format and baud rate (default baud rate is 115200) used by LABDOS01.
 5. Start capturing the data stream.
 
-### Important Considerations
+#### Important Considerations
 - Use the correct data format for specific experiments.
 - Use of a high-quality connection cable.
 
@@ -68,17 +74,15 @@ Data in the LABDOS01 are always logged when an SD card is present and functional
 
 Note: SD cards in environments with elevated radiation levels may degrade more quickly. Therefore, it's recommended to proactively replace the SD card annually with a suitable and supported type. For information on availability and the correct type of card, contact technical support.
 
-Note 2: The presence and recording of an SD card in LABDOS01 can cause variable deadtime, depending on the condition of the SD card and filesystem. This deadtime can be as long as one second. To minimize deadtime, remove the SD card and log data externally via data stream (USB/UART). This method ensures more continuous data capture with reduced interruptions, making it more suitable for applications where minimizing of deadtime is critical.
+Note 2: The presence and recording of an SD card in LABDOS01 can cause variable dead time, depending on the condition of the SD card and filesystem. This dead time can be as long as one second. To minimize dead time, remove the SD card and log data externally via data stream (USB/UART). This method ensures more continuous data capture with reduced interruptions, making it more suitable for applications where minimizing of deadtime is critical.
 
 ## Maintenance
-### Basic Maintenance
+### Minimal Maintenance
 The LABDOS01 is a low-maintenance device, requiring minimal upkeep when operated within its specified conditions. Adhering to its operational guidelines ensures reliable performance without the need for special maintenance routines.
 
 SD Card: The only consumable component in the detector is the SD card, which is used for data storage. Described in the section above. Regular replacements of the SD card are essential for maintaining the detector's efficiency and reliability.
 
-### Advanced Maintenance
-
-#### Firmware Update
+### Firmware Update
 
 **Updating Process**
 
@@ -86,8 +90,7 @@ SD Card: The only consumable component in the detector is the SD card, which is 
   1. Connect LABDOS01 to a Computer: Use a USB-C cable for connection.
   1. Initiate Firmware Update: Follow the specific instructions available on the documentation page. Always refer to the online guide for the latest instructions as they may evolve.
   1. Complete the Update: Avoid disconnecting during the update process.
-
-
+     
 **Additional requirements**
 
   1. Power Stability: Ensure a quality USB-C cable is used.
@@ -97,9 +100,11 @@ SD Card: The only consumable component in the detector is the SD card, which is 
   1. Remember, the steps outlined here are general guidelines. Always follow the latest online instructions (https://docs.dos.ust.cz/) for accurate and up-to-date procedures.
 
 ## Recycling and Disposal
+
 The device constitutes customer electronic waste without additional batteries or another harmful substance.  Dispose of it according to the regulations of your country. The device is RoHS-compliant. 
 
 ## Safety Instructions and Warranty
+
 Universal Scientific Technologies s.r.o. shall not be liable for any damages, injuries, or regulatory non-compliance arising from improper use, maintenance, or unauthorized device alterations. Unauthorized interventions in the device or handling that contradict the instructions provided in the manual and detector online documentation will result in the loss of warranty.
 
 
