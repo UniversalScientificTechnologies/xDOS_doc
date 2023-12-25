@@ -65,22 +65,25 @@ Reading the data stream from LABDOS01 via USB involves capturing and analyzing t
 4. Adjust settings in your logging software according to the data format and baud rate (default baud rate is 115200) used by LABDOS01.
 5. Start capturing the data stream.
 
-#### Important Considerations
-- Use the correct data format for specific experiments.
+{: .important }
+- Verify that you use the correct data format and firmware for the intended experiment.
 - Use of a high-quality connection cable.
 
 ### Recording on SD card
 Data in the LABDOS01 are always logged when an SD card is present and functional. The recording of the card is indicated by the illumination of LED2. If the card is inserted and LED2 does not blink between exposures, there might be an issue with the SD card. It's advisable to check the card on a computer. The problem could be due to using an incorrect type of SD card, improper formatting, or damage to the card media.
 
-Note: SD cards in environments with elevated radiation levels may degrade more quickly. Therefore, it's recommended to proactively replace the SD card annually with a suitable and supported type. For information on availability and the correct type of card, contact technical support.
+{: .note }
+SD cards in environments with elevated radiation levels may degrade more quickly. Therefore, it's recommended to proactively replace the SD card annually with a suitable and supported type. For information on availability and the correct type of card, contact technical support.
 
-Note 2: The presence and recording of an SD card in LABDOS01 can cause variable dead time, depending on the condition of the SD card and filesystem. This dead time can be as long as one second. To minimize dead time, remove the SD card and log data externally via data stream (USB/UART). This method ensures more continuous data capture with reduced interruptions, making it more suitable for applications where minimizing of deadtime is critical.
+{: .important }
+The presence and recording of an SD card in LABDOS01 can cause variable dead time, depending on the condition of the SD card and filesystem. This dead time can be as long as one second. To minimize dead time, remove the SD card and log data externally via the data stream (USB/UART). This method ensures more continuous data capture with reduced interruptions, making it more suitable for applications where minimizing of deadtime is critical.
 
 ## Maintenance
 ### Minimal Maintenance
 The LABDOS01 is a low-maintenance device, requiring minimal upkeep when operated within its specified conditions. Adhering to its operational guidelines ensures reliable performance without the need for special maintenance routines.
 
-SD Card: The only consumable component in the detector is the SD card, which is used for data storage. Described in the section above. Regular replacements of the SD card are essential for maintaining the detector's efficiency and reliability.
+{: .highlight }
+The only consumable component in the detector is the SD card, which is used for data storage. Described in the section above. Regular replacements of the SD card are essential for maintaining the detector's efficiency and reliability.
 
 ### Firmware Update
 
