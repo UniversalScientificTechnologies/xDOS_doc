@@ -78,6 +78,7 @@ RAD ....-> PIN
 ```
 
 ## AIRDOS04 - Detection part
+
 The detection part of the AIRDOS04 represents the core of its abilities, designed to provide high sensitivity and precision in cosmic radiation detection. This part of the whole assembly is permanently embedded within an aluminum box, which ensures mechanical durability and protects the sensitive components.
 
 The detection (analog) part consists of the following key components:
@@ -93,6 +94,7 @@ The detection part is fixed and non-removable, contrasting with the easily inser
 The detector is designed to allow for easy insertion of data storage and power modules. This feature is beneficial for quick maintenance, and data module replacement, enabling these maintenance tasks to be completed efficiently without disturbing the detector's core components.
 
 ## AIRDOS04`s Digital, Data Storage and Power Module
+
 The AIRDOS04B, designed with efficiency and modularity in mind, separates its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity, and power sources.
 
 Visit more information:
@@ -103,18 +105,32 @@ Visit more information:
 # AIRDOS04 handling instructions
 
 ## Attaching/Detaching digital unit
+
 The process of removing and inserting the data unit (BATDATUNIT01) is an important procedure that should be carried out with care to ensure the functionality and integrity of the AIRDOS04 detector.
 
 ### Removal Procedure:
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/jfwqo6pnUCM?loop=1">
+   </iframe> 
+ </div>
+
  * **Unscrew the Securing Screws**: Start by unscrewing the pair of large-headed screws. These are designed to secure the data unit within the aluminum casing of the detector.
  * **Pull the Ribbon to Remove the Front Part**: Once the screws are removed, gently pull the ribbon along the axis of the box to remove the data unit from the box.
 
 ### Insertion Procedure:
+
  * **Align the Data Unit**: Carefully align the data unit with the slots inside the aluminum casing. This ensures that the unit will slide in easily without any excessive force that might damage the components.
  * **Gentle Insertion**: Slide the data unit into the casing with a steady motion until it is fully attached to its designated position.
  * **Secure with Screws**: Reinsert the large-headed screws and tighten them to secure the data unit within the detector. Do not over-tighten, as this may strip the threads. The overtightening is indicated by deformation or damage of the front panel.
 
 ## Detector power-up
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/5E_j_orvsTs?loop=1">
+   </iframe> 
+ </div>
+
 The detector is turned on immediately after the digital part is inserted into the detector box. The activation is indicated by several flashes of the LED lights and a short sound beep. If everything works correctly, the LED lights will turn off, and the device will start detecting and recording the radiation particles. In this case, to minimize power consumption, the LED lights are off and only blink during data writing to the internal memory, which is approximately once every 10 seconds after each exposure.
 
 In case of an error, the LED lights will start blinking or light up continuously, and the device will automatically shut down after approximately 10 seconds.
@@ -126,14 +142,33 @@ When the detector’s data part is inside the box and is connected to a USB-C po
 Conversely, if the data part is outside the box and a USB connection is established, the detector switches to a mass-storage mode. This mode allows for data transfer to your computer, but the particle detection function is inactive during this period. In this mode, LED3 (green) is continuously lit.
 
 ## Measured data read-out (enforcing mass-storage mode)
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/uuGJzn98xzY?loop=1">
+   </iframe> 
+ </div>
+
 Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) is USB-C connected and when the digital part is detached from the detection part (i.e., the module is removed from the AIRDOS04 box). This feature simplifies the process of accessing and managing the data stored in the detector, as it removes the need for manual activation of mass-storage mode. Functions as a mass-storage device, allowing for straightforward data transfer/read-out.
 
 The device should automatically appear in your computer system as a mass-storage device or as generic external disk storage.
 
 ## Battery level
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/BMAA3ZnrR8o?loop=1">
+   </iframe> 
+ </div>
+
+
 The battery charge level of the accumulator module can be easily determined by pressing the "Power" button. The charge level is displayed using 8 LED lights, which represent the level from 0-100% charge. This feature provides a straightforward and quick method for users to gauge the remaining power in the accumulator, ensuring they can effectively manage the detector's usage and charging schedule.
 
 ## Battery charging
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/qtMtmowHTfo?loop=1">
+   </iframe> 
+ </div>
+
 The accumulator module (BATDATUNIT01-BAT) begins charging automatically upon connecting a USB to the USB-C connector. The charging process is intentionally slow for two primary reasons:
 
 **Battery Life Extension and Capacity Maximization**: Slow charging is a strategic choice to extend the lifespan of the batteries and maximize the charged capacity. This approach ensures that the batteries maintain their efficiency and longevity over multiple charging cycles, which is crucial for the continuous and reliable operation of the AIRDOS04 detector.
@@ -143,6 +178,7 @@ The accumulator module (BATDATUNIT01-BAT) begins charging automatically upon con
 The presence of a sufficient power supply for the accumulator module is indicated by the "Power in" green LED. The progress of the charging process is displayed by the "Charging" orange LED light. Once the battery is fully charged, the "Charging" LED light will turn off, signaling that the charging process is complete. This visual indication system provides users with an easy and intuitive way to monitor the charging status and power availability of the device.
 
 # Standard maintenance
+
 Standard maintenance steps of the AIRDOS04 detector involve routine procedures essential for conducting long-term measurements. These maintenance tasks primarily include the following steps. For more detailed instructions, please, refer to our online form of this manual.
 
  * **Replacing the Digital Part of the Detector**: Periodical swapping out of the digital module ensures continuous operation and minimizes downtime/maintenance time. This is particularly important in scenarios where the detector is used for extended periods.
@@ -198,7 +234,9 @@ To ensure the proper charging of the Li-Ion accumulators in BATDATUNIT01-BAT mod
 To ensure maximal safety it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during the charging.
 
 # Operational notes for AIRDOS04
+
 ## Detector Placement in Aircraft
+
 The AIRDOS04 detector assembly is designed to fit into the manual bay of commercial aircraft, a location that should accommodate up to two AIRDOS04 units. When selecting the placement of the detector within an aircraft, there are critical factors to consider to ensure accurate measurements and the longevity of the device:
 
  * **Consideration of Aircraft Structure**: The surrounding structure of the aircraft can significantly influence the measured spectrum, fluence, and type of incoming particles. It's essential to choose a location where the impact of the aircraft's structure on the detector's readings is minimized or known.
@@ -212,6 +250,7 @@ The AIRDOS04 detector assembly is designed to fit into the manual bay of commerc
 By taking these factors into account, the AIRDOS04 can be optimally positioned within an aircraft to ensure precise and reliable cosmic radiation measurements, while also maintaining the detector's output data integrity.
 
 ## Status indicator description
+
 The front panel of the BATDATUNIT01 module features various indicators and interfaces that provide essential information about the device's status and functionalities:
 
 ![BATDATUNIT01_label](https://github.com/UniversalScientificTechnologies/xDOS_doc/assets/137726417/de9010d2-07a3-4304-beb0-002e86284ad1)
@@ -228,6 +267,7 @@ The front panel of the BATDATUNIT01 module features various indicators and inter
    - LED1 (green) - mass-storage mode accessible through USB
 
 ## Routine checks
+
 Routine checks are an optional part of using the AIRDOS04 detector. The following procedures could be performed regularly by the operating personnel. Performing these routine checks will ensure that the AIRDOS04 detector is operating properly, and has sufficient power for continued use without any disruptions. These simple procedures are crucial for long-term measurement scenarios.
 
 ### Check of Data Recording activity indicator
@@ -242,10 +282,18 @@ Routine checks are an optional part of using the AIRDOS04 detector. The followin
 
 ### Checking Battery Level (Applicable for BATDATUNIT01-BAT only)
 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/BRZ_Ix2QTNE?loop=1">
+   </iframe> 
+ </div>
+
+
 **Using the Power Button**: For units equipped with the BATDATUNIT01-BAT, the battery level can be checked using the 'Power' button. An approximately 1s long press and release of this button will display the current battery level through the LED indicator. For more detailed information about obtaining the battery level, refer to the 'Battery Level' section of the manual.
 
 # Advanced maintenance
+
 ## Data Storage Maintenance
+
 The data storage within the BATDATUNIT01 is an industrial-grade SLC-mode SD card, which provides high reliability and endurance. However, in environments with increased radiation, the SD card may experience accelerated aging and could potentially fail sooner than in ground conditions. To prevent data loss and maintain the integrity of recorded information, the following guidelines are recommended:
 
  * **Preventive Replacement**: It is strongly advised to preemptively replace the SD card annually. This proactive measure ensures that the data storage remains reliable and the risk of data corruption or loss is minimized.
@@ -273,6 +321,7 @@ Updating the firmware of your AIRDOS particle detector is an important process f
  * Insert the AIRDOS detector into the slots on the programming device.
 
 ### Uploading the Firmware
+
  * Open the command line on your computer.
  * Execute the firmware upload using the following command:
 
