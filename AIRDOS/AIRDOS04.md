@@ -16,6 +16,8 @@ AIRDOS is a state-of-art cosmic radiation dosimeter and spectrometer unit. It is
 
 The instrument is designed primarily for the dosimetry of cabin crew and flight attendants of commercial flights. Thanks to its design of detachable data storage and power-source/accumulators, the required maintenance time is minimalized. The calibrated AIRDOS04 detector can be placed on-board continuously and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
 
+[Get started now]({{site.baseurl}}/airdos/AIRDOS04_quickstart){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+
 **Vendor Information**: The AIRDOS04 detectors are procured by [Universal Scientific Technologies s.r.o.](https://www.ust.cz/) (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in the field of radiation detection and measurement. For more details about the company and their officers, please visit their website at www.ust.cz. For any further information or support you can contact us [via email](https://www.ust.cz/about/#email).
 
 # Technical parameters
@@ -110,9 +112,9 @@ The process of removing and inserting the data unit (BATDATUNIT01) is an importa
 
 ### Removal Procedure:
 
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/jfwqo6pnUCM?loop=1">
-   </iframe> 
+   </iframe>
  </div>
 
  * **Unscrew the Securing Screws**: Start by unscrewing the pair of large-headed screws. These are designed to secure the data unit within the aluminum casing of the detector.
@@ -126,9 +128,9 @@ The process of removing and inserting the data unit (BATDATUNIT01) is an importa
 
 ## Detector power-up
 
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/5E_j_orvsTs?loop=1">
-   </iframe> 
+   </iframe>
  </div>
 
 The detector is turned on immediately after the digital part is inserted into the detector box. The activation is indicated by several flashes of the LED lights and a short sound beep. If everything works correctly, the LED lights will turn off, and the device will start detecting and recording the radiation particles. In this case, to minimize power consumption, the LED lights are off and only blink during data writing to the internal memory, which is approximately once every 10 seconds after each exposure.
@@ -141,22 +143,11 @@ When the detector’s data part is inside the box and is connected to a USB-C po
 
 Conversely, if the data part is outside the box and a USB connection is established, the detector switches to a mass-storage mode. This mode allows for data transfer to your computer, but the particle detection function is inactive during this period. In this mode, LED3 (green) is continuously lit.
 
-## Measured data read-out (enforcing mass-storage mode)
-
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
-   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/uuGJzn98xzY?loop=1">
-   </iframe> 
- </div>
-
-Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) is USB-C connected and when the digital part is detached from the detection part (i.e., the module is removed from the AIRDOS04 box). This feature simplifies the process of accessing and managing the data stored in the detector, as it removes the need for manual activation of mass-storage mode. Functions as a mass-storage device, allowing for straightforward data transfer/read-out.
-
-The device should automatically appear in your computer system as a mass-storage device or as generic external disk storage.
-
 ## Battery level
 
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/BMAA3ZnrR8o?loop=1">
-   </iframe> 
+   </iframe>
  </div>
 
 
@@ -164,9 +155,9 @@ The battery charge level of the accumulator module can be easily determined by p
 
 ## Battery charging
 
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/qtMtmowHTfo?loop=1">
-   </iframe> 
+   </iframe>
  </div>
 
 The accumulator module (BATDATUNIT01-BAT) begins charging automatically upon connecting a USB to the USB-C connector. The charging process is intentionally slow for two primary reasons:
@@ -191,29 +182,36 @@ Adhering to these standard maintenance procedures will ensure that the AIRDOS04 
 
 To analyze the AIRDOS04 logged data is mandatory to note the precise time of power on and shutdown. These time points allow fitting the recorded data log to real aircraft flight data.  
 
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://youtube.com/embed/oRRdgOo-tw0">
-   </iframe> 
+   </iframe>
  </div>
- 
-The procedure for getting the absolute time of detector shutdown consists of the following steps: 
+
+The procedure for getting the absolute time of detector shutdown consists of the following steps:
 
 1. Unscrew completely the AIRDOS digital module locking screws
 2. Prepare the "date" command in a computer with a synchronized real-time clock
 2. Pull-out digital module from AIRDOS
 3. Wait for a beep signal and press enter in the command line
-4. Reuse the command for the second beep. 
+4. Reuse the command for the second beep.
 
 The last recording of the data log corresponds to the time of the first beep subtracting the integration time. In the case of simply changing the digital part the procedure follows
 
 1. **Prepare a New Digital Part**: Ensure you have a spare digital part that has empty data storage and is fully charged, therefore ready to replace the one currently in use.
-1. **Unscrew the Securing Screws on AIRDOS**: Begin by unscrewing the two large-headed securing screws on the detector in case it does not been done yet. 
+1. **Unscrew the Securing Screws on AIRDOS**: Begin by unscrewing the two large-headed securing screws on the detector in case it does not been done yet.
 1. **Remove the Used Digital Part**: Gently pull the ribbon to slide out the used digital part of the detector.
 1. **Insert the New Digital Part**: Carefully insert the new digital part into the detector. Ensure it is aligned correctly for smooth insertion.
 1. **Verify Operation**: Once the new digital part is fully inserted, check that the detector powers on and starts measuring. This step is crucial to confirm that the replacement was successful and the detector is functioning correctly.
 1. **Secure the Digital Part with Screws**: Finally, secure the newly inserted digital part with the two screws. This will ensure that the digital module remains firmly in place during operation.
 
 ## Downloading Recorded Data to a User's Computer
+
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
+   <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/uuGJzn98xzY?loop=1">
+   </iframe>
+ </div>
+
+Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) is USB-C connected and when the digital part is detached from the detection part (i.e., the module is removed from the AIRDOS04 box). This feature simplifies the process of accessing and managing the data stored in the detector, as it removes the need for manual activation of mass-storage mode. Functions as a mass-storage device, allowing for straightforward data transfer/read-out.
 
 1. **Remove the Digital Module**: Ensure the digital/storage module is removed from the Detection aluminum box. Wait until the detector shuts down (indicated by a beep, approximately  10 seconds after pull-out of the module from AIRDOS04).
 1. **Connect via USB-C**: Attach the USB-C cable from your computer to the detector's digital BATDATUNIT01 module.
@@ -228,7 +226,7 @@ To ensure the proper charging of the Li-Ion accumulators in BATDATUNIT01-BAT mod
 
  * **Acquire a USB Power Source**: This can be a USB adapter or a computer equipped with a USB 2.0 port. The power source must be capable of providing at least 0.5 A of current.
  * **Connect the USB-C to USB-A Cable**: Insert the USB-C end of the cable into the data unit and the USB-A end into the power source.
- * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. Flashing charging LED indicates an error or an issue with the li-ion cells.
+ * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. Flashing charging LED indicates an error or an issue with the Li-ion cells.
  * **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, and the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button.
 
 To ensure maximal safety it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during the charging.
@@ -272,9 +270,9 @@ Routine checks are an optional part of using the AIRDOS04 detector. The followin
 
 ### Check of Data Recording activity indicator
 
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/OLHI1WTeeHw?loop=1">
-   </iframe> 
+   </iframe>
  </div>
 
 
@@ -282,9 +280,9 @@ Routine checks are an optional part of using the AIRDOS04 detector. The followin
 
 ### Checking Battery Level (Applicable for BATDATUNIT01-BAT only)
 
- <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;"> 
+ <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/BRZ_Ix2QTNE?loop=1">
-   </iframe> 
+   </iframe>
  </div>
 
 
@@ -338,8 +336,7 @@ When updating the firmware, it is important to follow instructions carefully and
 
 # Experiment Evaluation
 
-The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with our own tools, or we can use a web application for managing and evaluating data measured by dosimetric devices https://portal.dos.ust.cz. The software documentation can be found on its webpage.
-
+The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with our own tools, or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
 
 # Troubleshooting
 
