@@ -94,4 +94,4 @@ Plug-in of USB-C cable to the AIRDOS04 device, initiating its power-up process. 
 In case the BATDATUNIT01 outside from detector is connected to a computer, transition into an external mass storage. This function switch allows the user to access the memory media within, revealing files that contain the recorded data. The files, neatly organized and easily accessible, represent the valuable data gathered by the AIRDOS04, now ready for analysis or archiving.
 
 
-[Detailed instructions in full manual]({{site.baseurl}}/airdos/AIRDOS04#measured-data-read-out-enforcing-mass-storage-mode).
+[Detailed instructions in full manual]({{site.baseurl}}/airdos/AIRDOS04#downloading-recorded-data-to-a-users-computer).
