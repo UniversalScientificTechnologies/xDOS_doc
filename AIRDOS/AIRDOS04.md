@@ -27,11 +27,11 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
  * Deposited energy range: 60 keV to 7 MeV
  * Energy measurement resolution: 15 ±2 keV
  * Service interface and charging source: USB-C PD 2.0 connector
- * Energy source: Up to five 18650 Li-ion cells conforms with [≤ 100 Wh / 2g restrictions](https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passenger-lithium-battery.pdf)
+ * Energy source: Up to five 18650 Li-ion cells with 64 Wh in total. That conforms [≤ 100 Wh / 2g IATA restrictions](https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passenger-lithium-battery.pdf)
  * Radiation spectra integration time: 10 s
  * Maintenance interval: ~1 month (data download, accu pack change)
  * Maintenance duration: under 5 minutes
- * Size: 166 x 107 x 57 mm (two  of these should fit to Aircraft printed manual bay)
+ * Size: 166 x 107 x 57 mm (two  of these should fit into Aircraft printed manual bay)
  * Weight is 0.88 kg (With five accumulator cells in [BATDATUNIT01](https://github.com/mlab-modules/BATDATUNIT01))
  * Environmental operational conditions
    * Device protection: IP30 rating (fully assembled)
@@ -222,11 +222,11 @@ Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) i
 
 ## Recharging the Accumulators
 
-To ensure the proper charging of the Li-Ion accumulators in BATDATUNIT01-BAT module, follow these steps:
+To ensure the proper charging of the Li-Ion accumulators in the BATDATUNIT01-BAT module, follow these steps:
 
  * **Acquire a USB Power Source**: This can be a USB adapter or a computer equipped with a USB 2.0 port. The power source must be capable of providing at least 0.5 A of current.
  * **Connect the USB-C to USB-A Cable**: Insert the USB-C end of the cable into the data unit and the USB-A end into the power source.
- * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. Flashing charging LED indicates an error or an issue with the Li-ion cells.
+ * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. A flashing charging LED indicates an error or an issue with the Li-ion cells.
  * **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, and the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button.
 
 To ensure maximal safety it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during the charging.
@@ -336,7 +336,7 @@ When updating the firmware, it is important to follow instructions carefully and
 
 # Experiment Evaluation
 
-The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with our own tools, or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
+The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with custom software tools, or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
 
 # Troubleshooting
 
@@ -354,7 +354,7 @@ The data measured by the instrument are stored in its integrated data storage. D
 
 # Recycling and Disposal
 
-This is a high-end aerospace electronic device containing removable li-ion cells in an 18650 casing. Before disposal, remove the cells from the device according to the "battery replacement of the data unit" section. Dispose of the rechargeable li-ion cells according to the regulations of your country. The rest of the device constitutes electronic waste without additional batteries, dispose of it according to the regulations of your country. The device is not RoHS compliant because it contains lead solder to meet aerospace industry standards.
+This is a high-end aerospace electronic device containing removable li-ion cells in an 18650 casing. Before disposal, remove the cells from the device. Dispose of the rechargeable li-ion cells according to the regulations of your country. The rest of the device constitutes electronic waste without additional batteries, dispose of it according to the regulations of your country. The device is not RoHS compliant because it contains lead solder to meet aerospace industry standards.
 
 # Safety Instructions and Warranty
 
