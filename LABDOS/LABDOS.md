@@ -100,7 +100,14 @@ SD cards in environments with elevated radiation levels may degrade more quickly
 {: .important }
 The presence and recording of an SD card in LABDOS01 can cause variable dead time, depending on the condition of the SD card and filesystem. This dead time can be as long as one second. To minimize dead time, remove the SD card and log data externally via the data stream (USB/UART). This method ensures more continuous data capture with reduced interruptions, making it more suitable for applications where minimizing of deadtime is critical.
 
+
+## Experiment Evaluation
+
+The data measured by the LABDOS are stored as text files. The exact format description of these files depends on the device's firmware. The recorded data files can be analyzed with custom software tools based on the [example dose calculation script](https://github.com/UniversalScientificTechnologies/LABDOS01/blob/LABDOS01B/notebooks/flight_dose_calculation.ipynb), or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
+
+
 ## Maintenance
+
 ### Minimal Maintenance
 The LABDOS01 is a low-maintenance device, requiring minimal upkeep when operated within its specified conditions. Adhering to its operational guidelines ensures reliable performance without the need for special maintenance routines.
 
