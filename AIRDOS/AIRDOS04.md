@@ -314,7 +314,7 @@ Updating the firmware of your AIRDOS particle detector is an important process f
 
 ### Obtaining the Firmware
 
- * Acquire the latest version of the firmware for AIRDOS from the manufacturer. The latest firmware is usually publicly accessible in the AIRDOS git repository as the release.
+ * Acquire the latest version of the firmware for AIRDOS from the manufacturer. The latest firmware is publicly accessible in the AIRDOS04 repository as a [release](https://github.com/UniversalScientificTechnologies/AIRDOS04/releases).
  * Before proceeding, make sure you have the correct firmware file for your detector model.
 
 ### Connecting the Detector
@@ -338,9 +338,9 @@ Replace `<fw_path>` with the path to the downloaded firmware file. Ensure the `/
 
 When updating the firmware, it is important to follow instructions carefully and be cautious to avoid damaging the equipment. If uncertain or in need of more information, always refer to the manufacturer or consult an expert.
 
-# Experiment Evaluation
+# Data Evaluation
 
-The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with custom software tools, or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
+The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with custom software tools based on [this example script](https://github.com/UniversalScientificTechnologies/AIRDOS04/blob/AIRDOS04A/notebooks/flight_dose_calculation.ipynb), or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
 
 # Troubleshooting
 
