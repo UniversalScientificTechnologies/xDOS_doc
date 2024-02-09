@@ -27,14 +27,16 @@ permalink: /spacedos/SPACEDOS01B
   * Weight: 33 g
 
 ## Physical dimensions
+
 ![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_PCB01A.png)
 
 
 ## Electrical interface
 
+The connector is 2.54mm pitch pin-header.
+
 <img src="https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/header_B.png" width="400">
 
-The connector is depicted from the pins side.
 
 Signal | Description
 --- | ---

@@ -8,6 +8,8 @@ permalink: /spacedos/SPACEDOS01A
 
 # SPACEDOS01A - Engineering Model
 
+The SPACEDOS01 variant compatible with [MLAB kit system](https://www.mlab.cz/) it is suitable for engineering workflows like firmware development and testing.
+
 ![Top view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01A/doc/img/SPACEDOS01A_PCB01B_top_big.png)
 
 
@@ -27,6 +29,9 @@ permalink: /spacedos/SPACEDOS01A
 
 
 ## Electrical interface
+
+The connector is 2.54mm pitch pin-header.
+
 <img src="https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/cb958d3030384c7604ba50d3491f0952dc5926cf/doc/src/img/header.png" width="300">
 
 Signal | Description
@@ -73,8 +78,7 @@ Initiation is completed up to one second after power on.
 
 ### DPSD - SpaceDos Data Payload message
 
-`
-$DPSD, <uptime>, <noise channel>, <0.1 MeV>, <0.14 MeV>, <0.21 MeV>, <0.33 MeV>, <0.66 MeV>, <1.68 MeV>, <4.72 MeV>, <'>=9 MeV'>, <DC offset>`
+`$DPSD, <uptime>, <noise channel>, <0.1 MeV>, <0.14 MeV>, <0.21 MeV>, <0.33 MeV>, <0.66 MeV>, <1.68 MeV>, <4.72 MeV>, <'>=9 MeV'>, <DC offset>`
 
 Value | Length | Type |Note
 --- | --- | --- | ---
