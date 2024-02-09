@@ -8,7 +8,7 @@ permalink: /spacedos/SPACEDOS01A
 
 # SPACEDOS01A - Engineering Model
 
-The SPACEDOS01 variant compatible with [MLAB kit system](https://www.mlab.cz/) it is suitable for engineering workflows like firmware development and testing.
+The SPACEDOS01 variant compatible with [MLAB kit system](https://www.mlab.cz/) suitable for engineering workflows like firmware development and testing.
 
 ![Top view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01A/doc/img/SPACEDOS01A_PCB01B_top_big.png)
 
@@ -59,7 +59,7 @@ $BESD,0004,0000010e,00000000,00000000,00000001,00000000,00000000,00000000,000000
 $ADSD,000000de,00000003,00000000,0000011d,00000000,00000000
 ```
 SPACEDOS sends $DPSD, $HKSD and $BESD messages each cca 15 seconds.
-$ADSD message is sended ones per one day.
+$ADSD message is sended once per day.
 
 Communication speed is 2400 baud.
 
@@ -67,14 +67,14 @@ Communication speed is 2400 baud.
 
 `#Cvak…`
 
-This information just says hello after power on.
+Saying 'hello' after turing the device on.
 
 ### Initiation complete
 
 `#Hmmm...`
 
 Initiation of the SPACEDOS HW is done.
-Initiation is completed up to one second after power on.
+Initiation is completed up to one second after turing on.
 
 ### DPSD - SpaceDos Data Payload message
 
@@ -84,13 +84,13 @@ Value | Length | Type |Note
 --- | --- | --- | ---
 $DPSD | 5 B | Char | Header
 uptime | 4 B | Hex | Time from power on
-noise channel | 2 B | Hex | this channel containing noise
+noise channel | 2 B | Hex | this channel contains noise
 0.1 MeV | 2 B | Hex | number of particles with absorbed energy above 0.1 MeV
 ... | ... | ... |
 '>=9' MeV | 2 B | Hex | Overrange particles
 DC offset | 2 B | Hex | Offset of ADC
 
-This messages should be stored for long period and transmited to the ground as a batch.
+This messages should be stored for a long period and transmited to the ground in a batch.
 
 Minimal data payload (without timemark) is 18 B per 15 s => 103680 B per day
 
@@ -98,14 +98,14 @@ Minimal data payload (without timemark) is 18 B per 15 s => 103680 B per day
 
 `$HKSD, <measurement No.> , <uptime>, <filter suppressions>, <position of the 1-st channel>, <1-st ch.>, <2-nd ch.>, <3-rd ch.>,...`
 
-There is a packet with housekeeping information. Transmission of this packet is done besides other experiments hosekeeping data. Total length of this packet should be shorten.
+This is a packet with housekeeping information. Transmission of this packet is done besides other experiments hosekeeping data. Total length of this packet should be shorten.
 
 Value | Range | type |Note
 --- | --- | --- | ---
 $HKSD | fix | Char | Header
 measurement No. | 0..65535 | Dec |
 uptime | 0..4294967295 | Dec |
-filter suppressions | 0..65535 | Dec | Number of ussage of digital filter for double peak suppression
+filter suppressions | 0..65535 | Dec | Number of usage of digital filter for double peak suppression
 position of the 1-st channel | 0..511 | Dec |
 1-st ch. | 0..65535 | Dec | Number of events in 1-st ch.
 2-nd ch. | 0..65535 |  Dec |Number of events in 2-nd ch.
@@ -131,7 +131,7 @@ counter | 2 B | Hex | Number of the beacon message
 
 `$ADSD, <0.1 MeV 1 day old>, <0.14 MeV one day old>, <0.66 MeV one day old>, <0.1 MeV two days old>, <0.14 MeV two days old>, <0.66 MeV two days old>`
 
-This message contains two days old data for the beacon transmission purposes.
+This message contains two days' old data for the beacon transmission purposes.
 
 Value | Length | Type |Note
 --- | --- | --- | ---
