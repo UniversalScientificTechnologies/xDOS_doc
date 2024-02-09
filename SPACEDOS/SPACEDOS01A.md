@@ -8,15 +8,23 @@ permalink: /spacedos/SPACEDOS01A
 
 # SPACEDOS01A - Engineering Model
 
-## Physical dimensions
-![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/cb958d3030384c7604ba50d3491f0952dc5926cf/doc/src/img/SPACEDOS01A_PCB01A.png)
+![Top view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01A/doc/img/SPACEDOS01A_PCB01B_top_big.png)
 
-## Energetic range and Climatic endurance
+
+![Bottom view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01A/doc/img/SPACEDOS01A_PCB01B_bot_big.png)
+
+
+## Main technical parameters
 
  * Dissipated Energy range: from 200 keV to 9 MeV
  * Energy Resolution: < 50 keV
  * Temperature Stability: from -50 ℃ to +50 ℃ within error +50 keV
  * Used Sensor: HAMAMATSU S11773-02 (PIN diode 5 x 5 x 0.5 mm<sup>3</sup>)
+
+## Physical dimensions
+
+ ![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/cb958d3030384c7604ba50d3491f0952dc5926cf/doc/src/img/SPACEDOS01A_PCB01A.png)
+
 
 ## Electrical interface
 <img src="https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/cb958d3030384c7604ba50d3491f0952dc5926cf/doc/src/img/header.png" width="300">
@@ -35,6 +43,7 @@ GND |  Ground
 Power consumption: 2.6 mA from 3.3 V
 
 ## Communication protocol
+
 ### Sample of output data
 ```
 #Cvak...

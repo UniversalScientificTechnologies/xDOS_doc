@@ -6,13 +6,13 @@ grand_parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01B
 ---
 
-
 # SPACEDOS01B - Flight Model
 
-## Physical dimensions
-![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_PCB01A.png)
+![Bottom view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_bottom.jpg)
 
-## Energetic range and Climatic endurance
+![Top view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_top.jpg)
+
+## Main technical parameters
 
   * Deposited Energy range: from 100 keV to 9 MeV optionally extended to range from 200 keV to 12 MeV (divided into eight logarithmic channels)
   * Measurement environment - vacuum < 3.2×10−2 Pa
@@ -25,6 +25,10 @@ permalink: /spacedos/SPACEDOS01B
   * The default configuration has a detection volume of 12.5 mm³
   * H x W x L - 15mm x 41mm x 94 mm
   * Weight: 33 g
+
+## Physical dimensions
+![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_PCB01A.png)
+
 
 ## Electrical interface
 
@@ -45,6 +49,8 @@ GND |  Ground
 Typical consumption: 2.6 mA at 3.3 V
 
 ## Communication protocol
+
+
 ### Sample of output data
 ```
 $POSD,2a1c18d43c3937e40a3beb6c2855589b2d1a19e9
