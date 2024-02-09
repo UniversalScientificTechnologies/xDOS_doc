@@ -15,15 +15,15 @@ permalink: /spacedos/SPACEDOS01B
 ## Main technical parameters
 
   * Deposited Energy range: from 100 keV to 9 MeV optionally extended to range from 200 keV to 12 MeV (divided into eight logarithmic channels)
-  * Measurement environment - vacuum < 3.2×10−2 Pa
+  * Measurement environment: vacuum < 3.2×10−2 Pa
   * Energy Resolution: < 50 keV/channel
   * Integration Time: 15 s
-  * Power supply 3.3 V / 3 mA
-  * Interface - UART (RS232) TTL
-  * Temperature Stability: from -50 ℃ to +50 ℃ within error +50 keV
+  * Power supply: 3.3 V / 3 mA
+  * Interface: UART (RS232) TTL
+  * Temperature Stability: from -50 ℃ to +50 ℃ within error of +50 keV
   * Used Sensor: HAMAMATSU S11773-02 (PIN diode 5 x 5 x 0.5 mm)
   * The default configuration has a detection volume of 12.5 mm³
-  * H x W x L - 15mm x 41mm x 94 mm
+  * H x W x L: 15mm x 41mm x 94 mm
   * Weight: 33 g
 
 ## Physical dimensions
@@ -33,7 +33,7 @@ permalink: /spacedos/SPACEDOS01B
 
 ## Electrical interface
 
-The connector is 2.54mm pitch pin-header.
+The connector is a 2.54mm pitch pin-header.
 
 <img src="https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/header_B.png" width="400">
 
@@ -80,7 +80,7 @@ Value | Length | Type |Note
 `$POSD` | 5 B | [Char](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Char) | Header
 git hash | 20 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Git commit hash of source code
 
-This information says hello after power on.
+This information says hello after turing on.
 
 ### Initiation complete
 _Transmitted once after initialization after power on._
@@ -90,7 +90,7 @@ _Transmitted once after initialization after power on._
 ```
 
 Initiation of the SPACEDOS HW is done.
-Initiation is completed up to one second after power is on.
+Initiation is completed up to one second after the power is on.
 
 ### DPSD - SpaceDos Data Payload message
 _It transmits every 15 seconds._
@@ -103,8 +103,8 @@ Value | Length | Type |Note
 --- | --- | --- | ---
 $DPSD | 5 B | [Char](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Char) | Header
 uptime | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Time from power on
-noise channel | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | this channel contains noise
-0.1 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.1 MeV
+noise channel | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | This channel contains noise
+0.1 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.1 MeV
 ... | ... | ... |
 '>=9' MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Overrange particles
 DC offset | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Offset of ADC
@@ -120,7 +120,7 @@ _It transmits every 15 seconds._
 $HKSD, <measurement No.> , <uptime>, <filter suppressions>, <position of the 1-st channel>, <1-st ch.>, <2-nd ch.>, <3-rd ch.>,...
 ```
 
-There is a packet with housekeeping information. Transmission of this packet is done besides other experiment's housekeeping data. The total length of this packet should be shortened.
+This is a packet with housekeeping information. Transmission of this packet is done besides other experiment's housekeeping data. The total length of this packet should be shortened.
 
 Value | Range | type |Note
 --- | --- | --- | ---
@@ -147,8 +147,8 @@ Value | Length | Type |Note
 --- | --- | --- | ---
 $BESD | 5 B | [Char](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Char) | Header
 counter | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of the beacon message
-0.1 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.1 MeV
-0.14 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.14 MeV
+0.1 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.1 MeV
+0.14 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.14 MeV
 ... | ... | ... |
 '>=9' MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Overrange particles
 
@@ -164,9 +164,9 @@ This message contains two days old data for beacon transmission purposes.
 Value | Length | Type |Note
 --- | --- | --- | ---
 $ADSD | 5 B | [Char](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Char) | Header
-0.1 MeV one day old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.1 MeV one day before
-0.14 MeV one day old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.14 MeV one day before
-0.66 MeV one day old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.66 MeV one day before
-0.1 MeV two days old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.1 MeV two days before
-0.14 MeV two days old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.14 MeV two days before
-0.66 MeV two days old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | number of particles with absorbed energy above 0.66 MeV two days before
+0.1 MeV one day old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.1 MeV one day before
+0.14 MeV one day old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.14 MeV one day before
+0.66 MeV one day old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.66 MeV one day before
+0.1 MeV two days old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.1 MeV two days before
+0.14 MeV two days old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.14 MeV two days before
+0.66 MeV two days old | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.66 MeV two days before
