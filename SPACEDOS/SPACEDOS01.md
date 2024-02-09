@@ -3,7 +3,6 @@ layout: page
 title: "SPACEDOS01: Overview"
 parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01
-has_children: true
 nav_order: 3
 ---
 

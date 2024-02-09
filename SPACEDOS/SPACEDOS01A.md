@@ -1,7 +1,8 @@
 ---
 layout: page
 title: "SPACEDOS01A: Specifications"
-parent: SPACEDOS01
+parent: "SPACEDOS01: Overview"
+grand_parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01A
 ---
 
