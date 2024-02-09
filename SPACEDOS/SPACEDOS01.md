@@ -3,6 +3,8 @@ layout: page
 title: "SPACEDOS01: Overview"
 parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01
+has_children: true
+nav_order: 3
 ---
 
 # SPACEDOS01 Cosmic-ray spectrometer and dosimeter for unmanned spacecraft missions

@@ -1,7 +1,9 @@
+---
 layout: page
 title: "SPACEDOS01A: Specifications"
 parent: SPACEDOS01
 permalink: /spacedos/SPACEDOS01A
+---
 
 # SPACEDOS01A - Engineering Model
 
