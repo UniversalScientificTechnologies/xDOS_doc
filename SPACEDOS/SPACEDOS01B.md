@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "SPACEDOS01B: Specifications"
+title: "Flight Model"
 parent: "SPACEDOS01: Overview"
 grand_parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01B

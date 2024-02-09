@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "SPACEDOS01A: Specifications"
+title: "Engineering Model"
 parent: "SPACEDOS01: Overview"
 grand_parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01A
@@ -9,7 +9,7 @@ permalink: /spacedos/SPACEDOS01A
 # SPACEDOS01A - Engineering Model
 
 ## Physical dimensions
-![Physical dimensions](img/SPACEDOS01A_PCB01A.png)
+![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/cb958d3030384c7604ba50d3491f0952dc5926cf/doc/src/img/SPACEDOS01A_PCB01A.png)
 
 ## Energetic range and Climatic endurance
 
@@ -19,7 +19,7 @@ permalink: /spacedos/SPACEDOS01A
  * Used Sensor: HAMAMATSU S11773-02 (PIN diode 5 x 5 x 0.5 mm<sup>3</sup>)
 
 ## Electrical interface
-<img src="img/header.png" width="300">
+<img src="https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/cb958d3030384c7604ba50d3491f0952dc5926cf/doc/src/img/header.png" width="300">
 
 Signal | Description
 --- | ---
