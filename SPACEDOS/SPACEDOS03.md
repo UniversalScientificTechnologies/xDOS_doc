@@ -7,7 +7,7 @@ has_children: true
 nav_order: 3
 ---
 
-# SPACEDOS03 - semiconductor-based ionizing radiation spectrometer
+# SPACEDOS03 - radiation shielding material testing device for real conditions
 
 ![SPACEDOS03A front  panel](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS03/SPACEDOS03A/doc/img/SPACEDOS03.jpg)
 
