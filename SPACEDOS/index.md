@@ -7,12 +7,12 @@ has_children: true
 nav_order: 2
 ---
 
-SPACEDOS measures ionizing radiation in space, suitable for extreme energy conditions, typically seeing lower particle fluence than AIRDOS. It offers two series: one for manned and another for unmanned missions, mainly differing in their interfaces. The manned mission variant is a passive dosimeter that can be worn by astronauts, while the unmanned version integrates into spacecraft systems like satellites, requiring minimal power due to space's energy and cooling limits. Both types prioritize safety and reliability, with power from onboard sources or chemical cells, depending on the mission type. They're designed for single-mission use, usually up to six months without maintenance, like those on the ISS.
+The SPACEDOS dosimeter series is suitable for extreme energy conditions of the space missions. It comes in two variants: one for manned and one for unmanned missions, differing mainly in their interfaces. The manned mission variant is a passive dosimeter that can be worn by astronauts while the unmanned version can be integrated into spacecraft systems like satellites, requiring minimal power.  Both types prioritize safety and reliability, with power supply base on onboard sources or chemical cells, depending on the mission type. They’re designed for single-mission use, able to operate approximately up to six months without maintenance (matching the usual duration of ISS space missions).
 
 ![SPACEDOS02 data measured on-board of ISS](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS02/SPACEDOS02A/doc/src/img/ISS_radiation_map.png)
 
-There is overview of different SPACEDOS variants:
+The overview of SPACEDOS variants:
 
-  * [SPACEDOS01](/spacedos/SPACEDOS01) - Unmanned missions on small satellites (cubeSats)
-  * SPACEDOS02 - Manned missions on LEO/MEO orbits
+  * [SPACEDOS01](/spacedos/SPACEDOS01) - Unmanned missions onboard small satellites (cubeSats)
+  * SPACEDOS02 - Manned missions, LEO/MEO orbits
   * SPACEDOS03 - Manned missions, radiation shielding material testing.
