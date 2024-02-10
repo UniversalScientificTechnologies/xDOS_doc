@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Flight Model"
-parent: "SPACEDOS01: Overview"
+parent: "SPACEDOS01: Spacecraft detector"
 grand_parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01B
 ---
