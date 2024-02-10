@@ -13,6 +13,6 @@ The SPACEDOS dosimeter series is suitable for extreme radiation conditions of sp
 
 The overview of SPACEDOS variants:
 
-  * [SPACEDOS01](/spacedos/SPACEDOS01) - Unmanned missions onboard small satellites (CubeSats)
-  * SPACEDOS02 - Manned missions, LEO/MEO orbits
-  * SPACEDOS03 - Manned missions, radiation shielding material testing.
+  * [SPACEDOS01](./SPACEDOS01.md) - Unmanned missions onboard small satellites (CubeSats)
+  * [SPACEDOS02](./SPACEDOS02.md) - Manned missions, LEO/MEO orbits
+  * [SPACEDOS03](./SPACEDOS03.md) - Manned missions, radiation shielding material testing.
