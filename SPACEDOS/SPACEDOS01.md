@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "SPACEDOS01: Overview"
+title: "SPACEDOS01: Spacecraft detector"
 parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01
 has_children: true
@@ -18,4 +18,7 @@ SPACEDOS01 exists in two hardware variants:
 
 SPACEDOS's primary applications are radiation alarm devices for satellite FCS and scientific research instruments for cosmic rays.   
 
-In the case of manned missions, we suggest to use SPACEDOS02 or SPACEDOS03.
+In the case of manned missions, we suggest to use [SPACEDOS02](./SPACEDOS02.md) or [SPACEDOS03](./SPCAEDOS03.md).
+
+{: .highlight }
+  If you are interested in a modified designed for integration into your unmanned satellites, please [contact us](https://www.ust.cz/about/).
