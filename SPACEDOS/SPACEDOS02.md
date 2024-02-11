@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "SPACEDOS02"
+title: "SPACEDOS02: Onboard dosimeter"
 parent: SPACEDOS
 permalink: /spacedos/SPACEDOS02
 has_children: true

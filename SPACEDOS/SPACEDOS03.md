@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "SPACEDOS03"
+title: "SPACEDOS03: Onboard shielding verifier"
 parent: SPACEDOS
 permalink: /spacedos/SPACEDOS03
 has_children: true
