@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "LABDOS01: Full manual"
+title: "LABDOS01: Operational manual"
 parent: LABDOS
 permalink: /labdos/LABDOS01
 ---
@@ -62,7 +62,7 @@ When connected to a compatible mobile phone or a computer, LABDOS01 serves as a 
 
 ### Direct data Stream Capturing
 
-Reading the data stream from LABDOS01 via USB involves capturing and analyzing the data transmitted from the device to a connected computer or mobile device. The USB data streaming approach is particularly beneficial for mid-term monitoring scenarios where real-time data publication is desired, such as displaying radiation measurements on a website or generating live data feeds for other applications. This method requires dedicated software to handle the data streaming and publishing processes. The software interprets the data stream from LABDOS01 and converts it into a suitable format for online publishing or other forms of output, enabling continuous and dynamic sharing of radiation data in real time. This feature is especially useful in scientific research, public monitoring projects, or educational demonstrations.
+Reading the data stream from LABDOS01 via USB involves capturing and analyzing the data transmitted from the device to a connected computer or mobile device. The USB data streaming approach is particularly beneficial for mid-term monitoring scenarios where real-time data publication is desired, such as displaying radiation measurements on a website or generating live data feeds for other applications. This method requires dedicated software to handle the data streaming and publishing processes. The software interprets the data stream from LABDOS01 and converts it into a suitable format for online publishing or other forms of output, enabling continuous and dynamic sharing of radiation data in real-time. This feature is especially useful in scientific research, public monitoring projects, or educational demonstrations.
 
 
 ![LABDOS01 smartphone connection](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/LABDOS01B/doc/LABDOS01A_smartphone-tablet_connection.jpg "LABDOS01A connected to a smartphone")
@@ -92,7 +92,7 @@ For computers with Windows, you will need to install a driver for [FTDI USB](htt
 - Use of a high-quality connection cable.
 
 ### Recording on SD card
-Data in the LABDOS01 are always logged when an SD card is present and functional.In that case, the LABDOS01 needs an external power supply e.g. power bank or smartphone. The LABDOS could be connected by any sufficiently reliable USB-C to USB-C/USB-A cable. The recording of the card is indicated by the illumination of LED2. If the card is inserted and LED2 does not blink between exposures, there might be an issue with the SD card. It's advisable to check the card on a computer. The problem could be due to using an incorrect type of SD card, improper formatting, or damage to the card media.
+Data in the LABDOS01 are always logged when an SD card is present and functional. In that case, the LABDOS01 needs an external power supply e.g. power bank or smartphone. The LABDOS could be connected by any sufficiently reliable USB-C to USB-C/USB-A cable. The recording of the card is indicated by the illumination of LED2. If the card is inserted and LED2 does not blink between exposures, there might be an issue with the SD card. It's advisable to check the card on a computer. The problem could be due to using an incorrect type of SD card, improper formatting, or damage to the card media.
 
 {: .note }
 SD cards in environments with elevated radiation levels may degrade more quickly. Therefore, it's recommended to proactively replace the SD card annually with a suitable and supported type. For information on availability and the correct type of card, contact technical support. Ony industrial SLC SD cards with properly implemented SPI interface are supported.
