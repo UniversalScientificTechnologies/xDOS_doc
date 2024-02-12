@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "SPACEDOS01: Spacecraft detector"
+title: "SPACEDOS01: Radiation detector"
 parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01
 has_children: true
@@ -18,7 +18,7 @@ SPACEDOS01 exists in two hardware variants:
   * [SPACEDOS01A](./SPACEDOS01A.md) - Engineering model compatible with MLAB kit system
   * [SPACEDOS01B](./SPACEDOS01B.md) - Space qualified and shape adjusted for the use in CubeSat satellites.
 
-SPACEDOS's primary applications are radiation alarm devices for satellite FCS and scientific research instruments for cosmic rays.   
+SPACEDOS's primary applications are radiation alarm devices for satellite FCS and scientific research instruments for cosmic ray detection. SPACEDOS01 should be integrated into the satellite flight control system to report radiation situations or take effective countermeasures against radiation events.  
 
 In the case of manned missions, we suggest using [SPACEDOS02](./SPACEDOS02.md) or [SPACEDOS03](./SPCAEDOS03.md).
 
