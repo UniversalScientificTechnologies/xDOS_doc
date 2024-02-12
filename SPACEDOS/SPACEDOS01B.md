@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Flight Model"
-parent: "SPACEDOS01: Spacecraft detector"
+parent: "SPACEDOS01: Radiation detector"
 grand_parent: SPACEDOS
 permalink: /spacedos/SPACEDOS01B
 ---
@@ -33,7 +33,7 @@ permalink: /spacedos/SPACEDOS01B
 
 ## Electrical interface
 
-The connector is a 2.54mm pitch pin-header.
+The connector is a 2.54mm pitch pin header.
 
 <img src="https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/header_B.png" width="400">
 
@@ -80,7 +80,7 @@ Value | Length | Type |Note
 `$POSD` | 5 B | [Char](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Char) | Header
 git hash | 20 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Git commit hash of source code
 
-This information says hello after turing on.
+This information says hello after turning the power on.
 
 ### Initiation complete
 _Transmitted once after initialization after power on._
@@ -93,7 +93,7 @@ Initiation of the SPACEDOS HW is done.
 Initiation is completed up to one second after the power is on.
 
 ### DPSD - SpaceDos Data Payload message
-_It transmits every 15 seconds._
+_Transmited every 15 seconds._
 
 ```
 $DPSD, <uptime>, <noise channel>, <0.1 MeV>, <0.14 MeV>, <0.21 MeV>, <0.33 MeV>, <0.66 MeV>, <1.68 MeV>, <4.72 MeV>, <'>=9 MeV'>, <DC offset>
@@ -114,7 +114,7 @@ These messages should be stored for a long time and transmitted to the ground as
 Minimal data payload (without time mark) is 18 B per 15 s => 103680 B per day
 
 ### HKSD - SpaceDos HouseKeeping message
-_It transmits every 15 seconds._
+_Transmitted every 15 seconds._
 
 ```
 $HKSD, <measurement No.> , <uptime>, <filter suppressions>, <position of the 1-st channel>, <1-st ch.>, <2-nd ch.>, <3-rd ch.>,...
@@ -135,7 +135,7 @@ position of the 1-st channel | 0..511 | [Hex](https://github.com/ODZ-UJF-AV-CR/S
 50-th ch. | 0..65535 |  [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) |Number of events in 50-th ch.
 
 ### BESD - SpaceDos BEacon message
-_It transmits every 15 seconds. Values are zeroed after sending an ADSD message._
+_Transmitted every 15 seconds. Values are zeroed after sending an ADSD message._
 
 ```
 $BESD,<counter>, <0.1 MeV>, <0.14 MeV>, <0.21 MeV>, <0.33 MeV>, <0.66 MeV>, <1.68 MeV>, <4.72 MeV>, <'>=9 MeV'>
@@ -153,7 +153,7 @@ counter | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Nu
 '>=9' MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Overrange particles
 
 ### ADSD - SpaceDos Almanac Data message
-_It transmits after 5760 beacon messages. (cca every one day)_
+_Transmitted after 5760 beacon messages. (approximately once a day)_
 
 ```
 $ADSD, <0.1 MeV 1 day old>, <0.14 MeV one day old>, <0.66 MeV one day old>, <0.1 MeV two days old>, <0.14 MeV two days old>, <0.66 MeV two days old>
