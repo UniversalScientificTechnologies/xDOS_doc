@@ -23,4 +23,4 @@ SPACEDOS's primary applications are radiation alarm devices for satellite FCS an
 In the case of manned missions, we suggest using [SPACEDOS02](./SPACEDOS02.md) or [SPACEDOS03](./SPCAEDOS03.md).
 
 {: .highlight }
-  If you are interested in a modified design for integration into your unmanned satellites, please [contact us](https://www.ust.cz/about/).
+  If you need a modified design (or HiRel radiation ALARM device for satellite protection) for integration into your unmanned satellites, please [contact us](https://www.ust.cz/about/).
