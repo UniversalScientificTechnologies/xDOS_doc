@@ -11,14 +11,14 @@ nav_order: "5"
 
 AIRDOS is a state-of-art cosmic radiation dosimeter and spectrometer unit. It is intended for long-term airborne measurement of cosmic radiation and dosimetry in mixed ionizing radiation fields on board aircraft.
 
-![AIRDOS04](https://github.com/UniversalScientificTechnologies/xDOS_doc/assets/137726417/aa200b56-ae54-48f3-9db0-6c20a79cb28b)
+![AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/AIRDOS04A/doc/img/AIRDOS04.jpg)
 
 
-The instrument is designed primarily for the dosimetry of cabin crew and flight attendants of commercial flights. Thanks to its design of detachable data storage and power-source/accumulators, the required maintenance time is minimalized. The calibrated AIRDOS04 detector can be placed on-board continuously and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
+The instrument is designed primarily for the dosimetry of cabin crew and flight attendants of commercial flights. Thanks to its design of detachable data storage and power source from accumulators, the required maintenance time is minimal. The calibrated AIRDOS04 detector can be placed on-board continuously and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
 
 [Get started now]({{site.baseurl}}/airdos/AIRDOS04_quickstart){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
-**Vendor Information**: The AIRDOS04 detectors are procured by [Universal Scientific Technologies s.r.o.](https://www.ust.cz/) (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in the field of radiation detection and measurement. For more details about the company and their officers, please visit their website at www.ust.cz. For any further information or support you can contact us [via email](https://www.ust.cz/about/#email).
+**Vendor Information**: The AIRDOS04 detectors are procured by [Universal Scientific Technologies s.r.o.](https://www.ust.cz/) (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in radiation detection and measurement. For more details about the company and their officers, please visit their website at www.ust.cz. For any further information or support you can contact us [via email](https://www.ust.cz/about/#email).
 
 # Technical parameters
 
@@ -85,7 +85,7 @@ The detection part of the AIRDOS04 represents the core of its abilities, designe
 
 The detection (analog) part consists of the following key components:
 
-**Analog Part**: This segment contains the highly sensitive analog electronics necessary for processing signals from the semiconductor sensing element. It's optimized to minimize noise and maximize sensitivity, crucial for accurate radiation measurement. Analog signals are immediately converted into digital data. This process ensures that the captured data is accurate and detailed enough for quality measurements and real-time signal processing.
+**Analog Part**: This segment contains the highly sensitive analog electronics necessary for processing signals from the semiconductor sensing element. It's optimized to minimize noise and maximize sensitivity, which is crucial for accurate radiation measurement. Analog signals are immediately converted into digital data. This process ensures that the captured data is accurate and detailed enough for quality measurements and real-time signal processing.
 
 **Sensing Element - PIN Diode**: The sensing element of the detection part is a semiconductor PIN diode. Selected for its ability to effectively detect ionizing radiation with high accuracy by absorbing particle energy, the diode is positioned under the top side of the box. Its precise location is marked on the top label of the casing, guiding proper orientation during installation.
 
