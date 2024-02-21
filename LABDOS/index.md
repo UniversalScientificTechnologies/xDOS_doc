@@ -4,6 +4,7 @@ title: LABDOS
 alt_text: Experimental Radiation Detection instrument
 permalink: /labdos
 has_children: true
+has_toc: false
 nav_order: 2
 ---
 
