@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "AIRDOS04: Full manual"
+title: "AIRDOS04: User manual"
 permalink: /airdos/AIRDOS04
 parent: AIRDOS
 nav_order: "5"
