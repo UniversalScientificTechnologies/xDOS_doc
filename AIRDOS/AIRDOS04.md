@@ -308,9 +308,12 @@ Updating the firmware of your AIRDOS particle detector is an important process f
 
 ### Preparation
 
- * Ensure that your computer is compatible with the AVRDUDE tool.
+ * Ensure that your computer is compatible with the [AVRDUDE tool](https://github.com/avrdudes/avrdude).
  * Install the AVRDUDE tool, which is available for various operating systems.
  * Verify the presence of the AVRDUDE tool in your system by running the command `avrdude -v` in the command line.
+ * Obtain the BATDATUNIT01 programming device
+
+![BATDATUNIT01 firmware programming device](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01_programming_device.jpg)
 
 ### Obtaining the Firmware
 
@@ -320,7 +323,9 @@ Updating the firmware of your AIRDOS particle detector is an important process f
 ### Connecting the Detector
 
  * Connect the programming device to the computer using a USB A-B cable.
- * Insert the AIRDOS detector into the slots on the programming device.
+ * Insert the AIRDOS detector into the slots on the programming device as shown in the following photo
+
+![BATDATUNIT01 firmware programming device](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01_programming.jpg)
 
 ### Uploading the Firmware
 
