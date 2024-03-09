@@ -305,7 +305,7 @@ For more information on the availability and specifications of the recommended S
 
 ## Firmware update
 
-Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. AIRDOS04 firmware is completely located in BATDATUNIT module.  Please follow instructions in [BATDATUNIT01 firmware update section](/airdos/BATDATUNIT01#Firmware--update). 
+Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. AIRDOS04 firmware is completely located in BATDATUNIT module.  Please follow instructions in [BATDATUNIT01 firmware update section](/airdos/BATDATUNIT01#firmware-update). 
 
 # Data Evaluation
 

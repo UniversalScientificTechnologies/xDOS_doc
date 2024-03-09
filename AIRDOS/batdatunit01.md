@@ -3,30 +3,31 @@ layout: page
 title: "BATDATUNIT01: Power and data storage"
 permalink: /airdos/BATDATUNIT01
 parent: AIRDOS
-nav_order: "1"
+nav_order: "10"
 ---
 
 # BATDATUNIT01 - Power and data storage
 
-The AIRDOS04, designed with efficiency and modularity, separates its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity, and power sources.
+The [BATDATUNIT01](https://github.com/mlab-modules/BATDATUNIT01) is a specialized module optimized for use in the AIRDOS04 series of detectors.
+The AIRDOS04, designed to efficiency with use of modularity, separates calibrated sensor from its data storage and power supply functions. These functions are integrated to interchangeable modules, which also act as processor units with firmware, data storage, and power sources.
 
-The separation of the data storage and power supply from the detection part results from a desire to enhance the flexibility and ease of maintenance of the AIRDOS04B detector. By compartmentalizing these functions, the detector allows for easier upgrades, maintenance, and customization based on specific user needs or changing technological advancements.
+![BATDATUNIT01 out of AIRDOS04 sensor unit](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01.jpg)
 
-The concept of an interchangeable digital part significantly reduces the maintenance time required to keep the detector operational. Maintenance on-site (such as on-board aircraft) involves swapping the digital part with another unit that is pre-prepared with cleared data storage and properly charged batteries.
+The separation of the data storage and power supply from the detection part results from a requirement to ease of periodic maintenance of the AIRDOS04 detector. By compartmentalizing these functions, the detector allows for easier upgrades, maintenance, and customization based on specific user needs or changing technological advancements.
 
-All the firmware for the detector is also located in this digital part (BATDATUNIT). This ensures that firmware updates can be conducted out of the detection site, off the aircraft, so that the time required for regular maintenance is not extended by firmware updates.
+The concept of an interchangeable digital part significantly reduces the maintenance time required to keep the detector operational. Maintenance on-site (such as on-board aircraft) involves swapping the digital part with another unit that is pre-prepared with cleared data storage, updated firmware and charged accumulator.
 
-The [BATDATUNIT01](https://github.com/mlab-modules/BATDATUNIT01) is a specialized module optimized for use in the AIRDOS04 series of detectors. It is a critical component, combining data storage and power supply functionalities in a single, compact unit. This integration simplifies the detector's design and enhances its ease of use, particularly in scenarios requiring mobility and efficiency.
+All the firmware for the detector is also located in this digital part (BATDATUNIT). This ensures that firmware updates can be safely prepared out of the experiment site, off the aircraft, so that the time required for regular maintenance is not extended by firmware updates.
 
-1. **Integrated Data Storage and Power Supply**: The BATDATUNIT01 has substantial data storage capacity, allowing for extensive data accumulation over prolonged periods. It also includes a built-in power source, which is important for the detector's long-term autonomous operation, or in the cases in environments where external power may not be readily available.
+1. **Integrated Data Storage and Power Supply**: The BATDATUNIT01 has substantial data storage capacity, allowing for data accumulation over prolonged periods. It also includes a built-in power source, which is important for the detector's long-term autonomous operation, or in the cases in environments where external power may not be readily available.
 
-1. **Embedded Processor with Firmware**: BATDATUNIT01 contains a microcontroller unit that controls the entire detector system and peripherals. This processor is loaded with the firmware, ensuring proper detector operation and can be easily updated with new features or improvements.
+1. **Embedded Processor with Firmware**: BATDATUNIT01 contains a microcontroller that controls the entire detector system and peripherals. This processor is loaded with the firmware located also in BATDATUNIT01, ensuring proper detector operation and can be off site updated with new features or improvements.
 
-1. **Environmental Sensors**: The module is fitted with internal sensors, including a thermometer, hygrometer, and barometer. These sensors provide valuable data on the ambient temperature, humidity, and atmospheric pressure, factors that can be important for more precise data processing.
+1. **Environmental Sensors**: The module is fitted with internal sensors, including a thermometer, hygrometer, and barometer. These sensors provide information on the ambient environment, factors that can be important for more precise data processing.
 
 1. **USB Mass-Storage Interface**: For data management, the module is equipped with a USB mass-storage interface, allowing users to easily access and transfer data from the module. This feature makes the process of data retrieval and analysis straightforward and user-friendly.
 
-1. **Modular design**: The module is specifically designed for quick installation and removal, without any advanced tools. This design ensures that the AIRDOS04 can be maintained and operated with minimal hassle.
+1. **Modular design**: The module is specifically designed for quick installation and removal, without any additional tools. This design ensures that the AIRDOS04 can be maintained and operated with minimal hassle.
 
 ### BATDATUNIT01-BAT - Integrated battery power source type
 

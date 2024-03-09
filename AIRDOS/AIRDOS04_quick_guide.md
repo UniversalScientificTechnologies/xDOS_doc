@@ -3,7 +3,7 @@ layout: page
 title: "AIRDOS04: Quick start guide"
 permalink: /airdos/AIRDOS04_quickstart
 parent: AIRDOS
-nav_order: "10"
+nav_order: "1"
 ---
 
 # AIRDOS04: Quick start guide
