@@ -137,10 +137,10 @@ The detector is turned on immediately after the digital part is inserted into th
 
 In case of an error, the LED lights will start blinking or light up continuously, and the device will automatically shut down after approximately 10 seconds.
 
-In the unlikely situation when BATDATUNIT01 is already inserted into the AIRDOS04 and is powered off, you can turn it on by holding down the 'Power button' for one second. The indication of activation is realized in the same way as in the case of module insertion. The last way of turning on the detector is by connecting external power (USB-C connector). In this state, the detector is always powered on and records radiation data continuously until the detector is powered off. 
+In the unlikely situation when BATDATUNIT01 is already inserted into the AIRDOS04 and is powered off, you can turn it on by holding down the 'Power button' for one second. The indication of activation is realized in the same way as in the case of module insertion. The last way of turning on the detector is by connecting external power (USB-C connector). In this state, the detector is always powered on and records radiation data continuously until the detector is powered off.
 
 {: .highlight }
-The detector is not possible to power off by any of the buttons. The only method to power off the device is either to remove the BATDATUNIT from the AIRDOS or use special commands on the USB-C port. 
+The detector is not possible to power off by any of the buttons. The only method to power off the device is either to remove the BATDATUNIT from the AIRDOS or use special commands on the USB-C port.
 
 
 When the detector’s data part is inside the box and is connected to a USB-C power source, the device will initiate charging while continuing its particle detection operations.
@@ -304,44 +304,8 @@ The data storage within the BATDATUNIT01 is an industrial-grade SLC-mode SD card
 For more information on the availability and specifications of the recommended SD card, users should contact technical support at support@ust.cz. The support team can provide guidance on purchasing the correct SD card and offer assistance with any other technical inquiries.
 
 ## Firmware update
-Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. The following guide provides a step-by-step approach to updating the firmware using the AVRDUDE tool. For comprehensive details and any additional information, please refer to the online version of the manual.
 
-### Preparation
-
- * Ensure that your computer is compatible with the [AVRDUDE tool](https://github.com/avrdudes/avrdude).
- * Install the AVRDUDE tool, which is available for various operating systems.
- * Verify the presence of the AVRDUDE tool in your system by running the command `avrdude -v` in the command line.
- * Obtain the BATDATUNIT01 programming device
-
-![BATDATUNIT01 firmware programming device](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01_programming_device.jpg)
-
-### Obtaining the Firmware
-
- * Acquire the latest version of the firmware for AIRDOS from the manufacturer. The latest firmware is publicly accessible in the AIRDOS04 repository as a [release](https://github.com/UniversalScientificTechnologies/AIRDOS04/releases).
- * Before proceeding, make sure you have the correct firmware file for your detector model.
-
-### Connecting the Detector
-
- * Connect the programming device to the computer using a USB A-B cable.
- * Insert the AIRDOS detector into the slots on the programming device as shown in the following photo
-
-![BATDATUNIT01 firmware programming device](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01_programming.jpg)
-
-### Uploading the Firmware
-
- * Open the command line on your computer.
- * Execute the firmware upload using the following command:
-
-`avrdude -v -patmega1284p -carduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:<fw_path>:i`
-
-Replace `<fw_path>` with the path to the downloaded firmware file. Ensure the `/dev/ttyUSB0` port matches the port where the programming device is connected.
-
-### Verification
-
- * Check that the upload occurred without reported errors.
- * After updating the firmware, conduct tests to verify the functionality of the detector and the successful addition of new features or fixes.
-
-When updating the firmware, it is important to follow instructions carefully and be cautious to avoid damaging the equipment. If uncertain or in need of more information, always refer to the manufacturer or consult an expert.
+Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. AIRDOS04 firmware is completely located in BATDATUNIT module.  Please follow instructions in [BATDATUNIT01 firmware update section](/airdos/BATDATUNIT01#Firmware--update). 
 
 # Data Evaluation
 

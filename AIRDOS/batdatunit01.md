@@ -34,8 +34,8 @@ The accumulator module of the AIRDOS04 detector offers an integrated energy stor
 
 The battery module could  be continuously connected to a USB-C power supply, functioning similarly to an [Uninterruptible Power Supply (UPS)](https://en.wikipedia.org/wiki/Uninterruptible_power_supply). In scenarios where the external power supply experiences outages, the accumulator module ensures that the AIRDOS04 continues to operate without interruption, maintaining consistent data collection and detector functionality.
 
-The AIRDOS uses the same protection techniques as has been used in [SPACEDOS03](/spacedos/SPACEDOS03) on board of ISS. Therefore each cell in the battery is over-voltage, under-voltage, over-current, and over-temperature protected.  Should be also noted that the over-current protection is managed for each cell separately by a non-reversible fuse. That means any uncommon power situation results in electrical disconnection of the affected cell. This protective action is not user-reversible for safety reasons. 
-Additionally, the cells are mounted in medical equipment grade cell holders, which ensures that each cell is separated enough, to avoid thermal runaway of the battery in case of an internal short circuit of one cell. For that the worst case there is an over-pressure fuse in each cell cylinder to avoid an explosion. Also, the plastic material used in AIRDOS has reduced toxicity in case of combustion. 
+The AIRDOS uses the same protection techniques as has been used in [SPACEDOS03](/spacedos/SPACEDOS03) on board of [ISS](https://en.wikipedia.org/wiki/International_Space_Station). Therefore each cell in the battery is over-voltage, under-voltage, over-current, and over-temperature protected.  Should be also noted that the over-current protection is managed for each cell separately by a non-reversible fuse. That means any uncommon power situation results in electrical disconnection of the affected cell. This protective action is not user-reversible for safety reasons.
+Additionally, the cells are mounted in medical equipment grade cell holders, which ensures that each cell is separated enough, to avoid thermal runaway of the battery in case of an internal short circuit of one cell. For that the worst case there is an over-pressure fuse in each cell cylinder to avoid an explosion. Also, the plastic material used in AIRDOS has reduced toxicity in case of combustion.
 
 
 ### BATDATUNIT01-EXT - External power source type
@@ -46,6 +46,43 @@ This module contains the same critical digital components and firmware of the AI
 
 The integrated data storage of the detector is accessible as a mass-storage device via the USB-C interface. This feature provides fast and user-friendly access to the internal storage, without requiring any external memory readers. More information about the initialization of mass-storage mode is written in the “Device operations” part of this manual.
 
+## Firmware update
 
+The both types of BATDATUNIT contains AIRDOS04 firmware. Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. The following guide provides a step-by-step approach to updating the firmware using the AVRDUDE tool.
 
+### Preparation
 
+ * Ensure that your computer is compatible with the [AVRDUDE tool](https://github.com/avrdudes/avrdude).
+ * Install the AVRDUDE tool, which is available for various operating systems.
+ * Verify the presence of the AVRDUDE tool in your system by running the command `avrdude -v` in the command line.
+ * Obtain the BATDATUNIT01 programming device
+
+![BATDATUNIT01 firmware programming device](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01_programming_device.jpg)
+
+### Obtaining the Firmware
+
+ * Acquire the latest version of the firmware for AIRDOS from the manufacturer. The latest firmware is publicly accessible in the AIRDOS04 repository as a [release](https://github.com/UniversalScientificTechnologies/AIRDOS04/releases).
+ * Before proceeding, make sure you have the correct firmware file for your detector model.
+
+### Connecting the Detector
+
+ * Connect the programming device to the computer using a USB A-B cable.
+ * Insert the AIRDOS detector into the slots on the programming device as shown in the following photo
+
+![BATDATUNIT01 firmware programming device](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01_programming.jpg)
+
+### Uploading the Firmware
+
+ * Open the command line on your computer.
+ * Execute the firmware upload using the following command:
+
+`avrdude -v -patmega1284p -carduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:<fw_path>:i`
+
+Replace `<fw_path>` with the path to the downloaded firmware file. Ensure the `/dev/ttyUSB0` port matches the port where the programming device is connected.
+
+### Verification
+
+ * Check that the upload occurred without reported errors.
+ * After updating the firmware, conduct tests to verify the functionality of the detector and the successful addition of new features or fixes.
+
+When updating the firmware, it is important to follow instructions carefully and be cautious to avoid damaging the equipment. If uncertain or in need of more information, always refer to the manufacturer or consult an expert.
