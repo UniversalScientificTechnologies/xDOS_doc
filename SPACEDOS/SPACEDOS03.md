@@ -25,4 +25,4 @@ The detector is mounted into a 3D-printed box that contains positions for passiv
  * Integration time depends on firmware setup
  * Data storage device: Industrial SLC SDcard
  * Dimensions - 120 x 90 x 62 mm
- * Weight - 447 grams (including SAFT batteries)
+ * Weight - (447 grams including SAFT batteries) (+71 g with 18650 Li-ion batteries) excluding a shielding material 
