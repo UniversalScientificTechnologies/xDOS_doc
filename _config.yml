@@ -2,7 +2,7 @@ title: "UST Dosimeters documentation"
 email: info@ust.cz
 description: "Universal Scientific Technologies - Dosimeters"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "docs.dos.ust.cz" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://docs.dos.ust.cz" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: 
 facebook_username: Universal-Scientific-Technologies-sro-188826147835467
 github_username:  UniversalScientificTechnologies
