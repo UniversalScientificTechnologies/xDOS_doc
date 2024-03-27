@@ -32,7 +32,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
  * Maintenance interval: ~1 month (data download, accu pack change)
  * Maintenance duration: under 5 minutes
  * Size: 166 x 107 x 57 mm (two  of these should fit into Aircraft printed manual bay)
- * Weight is 0.88 kg (With five accumulator cells in [BATDATUNIT01](https://github.com/mlab-modules/BATDATUNIT01))
+ * Weight is 0.88 kg (With five Li-ion accumulator cells in [BATDATUNIT01](https://docs.dos.ust.cz/airdos/BATDATUNIT01))
  * Environmental operational conditions
    * Device protection: IP30 rating (fully assembled)
    * Operation temperature range: 0°C to 50°C (32°F to 122°F)
@@ -140,8 +140,7 @@ In case of an error, the LED lights will start blinking or light up continuously
 In the unlikely situation when BATDATUNIT01 is already inserted into the AIRDOS04 and is powered off, you can turn it on by holding down the 'Power button' for one second. The indication of activation is realized in the same way as in the case of module insertion. The last way of turning on the detector is by connecting external power (USB-C connector). In this state, the detector is always powered on and records radiation data continuously until the detector is powered off.
 
 {: .highlight }
-The detector is not possible to power off by any of the buttons. The only method to power off the device is either to remove the BATDATUNIT from the AIRDOS or use special commands on the USB-C port.
-
+The detector is not possible to power off by any of the buttons. The only method to power off the device is either to remove the BATDATUNIT from the AIRDOS or use special commands on the USB-C port. Inspect the [airdoscontrol utility](https://github.com/UniversalScientificTechnologies/AIRDOS04/tree/AIRDOS04A/sw) description for more details. 
 
 When the detector’s data part is inside the box and is connected to a USB-C power source, the device will initiate charging while continuing its particle detection operations.
 
@@ -305,7 +304,7 @@ For more information on the availability and specifications of the recommended S
 
 ## Firmware update
 
-Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. AIRDOS04 firmware is completely located in BATDATUNIT module.  Please follow instructions in [BATDATUNIT01 firmware update section](/airdos/BATDATUNIT01#firmware-update). 
+Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. AIRDOS04 firmware is completely located in BATDATUNIT module.  Please follow the instructions in [BATDATUNIT01 firmware update section](/airdos/BATDATUNIT01#firmware-update). 
 
 # Data Evaluation
 
