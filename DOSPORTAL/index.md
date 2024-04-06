@@ -36,3 +36,16 @@ Whether you need to quickly check outputs from a detector, analyze complex data 
 
 ![image](https://github.com/UniversalScientificTechnologies/xDOS_doc/assets/5196729/6b18ef7f-3251-4674-94ab-62444ec7ba43)
 > Preview from DOSPORTAL record page. 
+
+
+## Fast glosary
+Brief overview of main elements of DOSPORTAL
+
+- **Record**: This term refers to the smallest unit of measurements within DOSPORTAL. A record corresponds to a single log (file) obtained from a detector. The key attributes of a record include:
+  - **Log File**: File obtained from device
+  - **Time Tracking (Yes/No)**: Indicates whether the log is timestamped, meaning if it's placed in real time. Set 'No' for "laboratory" measurements. 
+  - **Start Time**: If time is tracked, the beginning time of the log is required.
+  - **Detector**: Identified automatically for logs supporting detector identification. Assumes the detector is already registered in the system.
+  - **Calibration**: Automatically applies the latest available calibration from the associated detector.
+
+- **Measurement**: 
