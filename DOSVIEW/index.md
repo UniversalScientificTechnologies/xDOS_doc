@@ -27,7 +27,7 @@ sudo pip3 install dosview
 ```
 This method is the easiest and ensures you receive the latest stable version available. It is recommended for most users as it provides a straightforward installation process. 
 
-### Update Dosview
+#### Update Dosview
 To update Dosview to the latest version, use the pip command as follows:
 ``` bash
 sudo pip3 install --upgrade dosview
