@@ -12,9 +12,10 @@ lang: en
 
 logo: "/assets/Logo_UST.png"
 
-repository: roman-dvorak/xDOS_doc
+repository: UniversialScientificTechnologies/xDOS_doc
 
 permalink: pretty
+footer_content: "Copyright &copy; 2017-2024 Universal Scientific Technologies s.r.o."
 
 exclude:
  # from https://github.com/jekyll/jekyll/blob/master/lib/site_template/_config.yml:

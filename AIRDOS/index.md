@@ -17,3 +17,9 @@ The measurement of radiation dose acquired during flights by aircraft crews is a
 
 {: .highlight }
 For those interested in acquiring AIRDOS detectors, you are encouraged to reach out for a detailed offer. Contact UST via email at sale@ust.cz to learn more about the availability and purchasing options of these advanced radiation detectors.
+
+## AIRDOS04: The Latest Innovation in Radiation Detector Series
+
+AIRDOS04 is the cutting-edge model in our AIRDOS series, specifically designed for measuring radiation on aircraft. This detector incorporates advanced technology to ensure accurate readings in the unique environmental conditions found aboard airplanes. It represents a significant step forward in our efforts to provide comprehensive radiation monitoring solutions in aviation.
+
+More information about AIRDOS04 you cat check [here](./AIRDOS04.md).

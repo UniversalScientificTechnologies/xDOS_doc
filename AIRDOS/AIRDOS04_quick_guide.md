@@ -1,9 +1,9 @@
 ---
 layout: page
 title: "AIRDOS04: Quick start guide"
-permalink: /airdos/AIRDOS04_quickstart
+permalink: /airdos/AIRDOS04/quickstart
 parent: AIRDOS
-nav_order: "1"
+nav_order: "2"
 ---
 
 # AIRDOS04: Quick start guide
