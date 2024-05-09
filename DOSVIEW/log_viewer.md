@@ -9,7 +9,7 @@ nav_order: "1"
 # xDOS log viewer
 
 
- <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://youtu.be/lfwDoPiNT_Y?loop=1"> </iframe> 
+ <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://www.youtube.com/embed/lfwDoPiNT_Y?loop=1"> </iframe> 
 
 
 ### Introduction
