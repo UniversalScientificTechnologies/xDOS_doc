@@ -8,15 +8,15 @@ nav_order: "1"
 
 # xDOS log viewer
 
-#### Introduction
+### Introduction
 `log_viewer` is a part of the `dosview` application, designed for viewing and analyzing log data from dosimeters. This tool enables users to display crucial log file information, including the time evolution of intensity and the energy spectrum. Metadata associated with the logs are also displayed, enhancing the understanding and utility of the data.
 
 
-#### Features
+### Features
 - **Graphical Display**: Visualizes time evolution of radiation intensity and the energy spectrum in graphical formats.
 - **Metadata Display**: Shows associated metadata with each log entry, providing context and additional details about the data.
 
-#### Usage
+### Usage
 `dosview` can be operated both via the command line and through its graphical user interface (GUI).
 
 **Command Line:**
@@ -38,7 +38,7 @@ Once opened, navigate through the menu by selecting `File -> Open`, then choose 
 TODO
 
 
-#### Examples
+### Examples
 Here's a simple example of how to run `dosview`:
 
 ```bash
