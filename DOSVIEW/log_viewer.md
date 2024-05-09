@@ -8,6 +8,10 @@ nav_order: "1"
 
 # xDOS log viewer
 
+
+ <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://youtu.be/lfwDoPiNT_Y?loop=1"> </iframe> 
+
+
 ### Introduction
 `log_viewer` is a part of the `dosview` application, designed for viewing and analyzing log data from dosimeters. This tool enables users to display crucial log file information, including the time evolution of intensity and the energy spectrum. Metadata associated with the logs are also displayed, enhancing the understanding and utility of the data.
 
