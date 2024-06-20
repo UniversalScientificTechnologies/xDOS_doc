@@ -4,6 +4,8 @@ title: "AIRDOS04: User manual"
 permalink: /airdos/AIRDOS04/manual
 parent: AIRDOS
 nav_order: "3"
+redirect_from:
+  /permalink/airdos_manual/
 ---
 
 # AIRDOS04 - user manual
