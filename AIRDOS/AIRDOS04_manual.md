@@ -8,6 +8,12 @@ nav_order: "3"
 
 # AIRDOS04 - user manual
 
+
+AIRDOS is a radiation dosimeter and spectrometer intended for long-term airborne measurement of cosmic radiation and dosimetry in mixed ionizing radiation fields on board aircraft.
+
+![AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/AIRDOS04A/doc/img/AIRDOS04.jpg)
+
+
 # Detector components and Functions
 
 ```mermaid
