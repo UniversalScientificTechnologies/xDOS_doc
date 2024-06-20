@@ -9,7 +9,7 @@ nav_order: "2"
 # AIRDOS04: Quick start guide
 
 {: .highlight }
-This is a simplified version of the full user guide, made for fast detector setup. This quick-start guide contains only basic operations with the detector. For the complete manual, please refer to [complete version](./AIRDOS04).
+This is a simplified version of the full user guide for fast detector setup. This quick-start guide contains only basic operations with the detector. For the complete manual, please take a look at [complete version](./manual).
 
 
 ## Detector activation
@@ -69,7 +69,7 @@ Battery status could be checked outside from the detector or directly in the det
 For the removal, the user should carefully unscrew and gently remove the recording and power module, BATDATUNIT01, from the AIRDOS04 detector.
 
 {: .highlight }
-It's important to accurately note the time of this action, as marking the precise moment of shutdown is essential for subsequent data analysis. This time-stamping ensures that the data log can be accurately synchronized with radiation events, an integral part of the data processing and evaluation process. Please refer [complete version](./AIRDOS04#replacing-the-digital-part-of-the-detector) of manual to more details.
+It's important to accurately note the time of this action, as marking the precise moment of shutdown is essential for subsequent data analysis. This time-stamping ensures that the data log can be accurately synchronized with radiation events, an integral part of the data processing and evaluation process. Please refer to [complete version](./AIRDOS04#replacing-the-digital-part-of-the-detector) of the manual for more details.
 
 ### Insertion
 
