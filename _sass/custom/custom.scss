@@ -17,3 +17,7 @@
       background-color: #f0f0f0;
 }
  
+
+.nav-list .nav-list-item .nav-list-link:hover, .nav-list .nav-list-item .nav-list-link.active {
+  background-image: linear-gradient(-90deg, #d5d5d5 0%, rgba(255, 255, 255, 0.8) 80%, rgba(255, 255, 255, 0) 100%);
+}
