@@ -18,3 +18,14 @@ The overview of SPACEDOS variants:
   * [SPACEDOS01](./SPACEDOS01.md) - Unmanned missions onboard small satellites (CubeSats)
   * [SPACEDOS02](./SPACEDOS02.md) - Manned missions, LEO/MEO orbits
   * [SPACEDOS03](./SPACEDOS03.md) - Manned missions, radiation shielding material testing.
+  
+In addition to the SPACEDOS product line, there is also a dedicated training model for the personal dosimeter, designed specifically for training missions. This simulator offers a realistic simulation of the radiation environment that astronauts may encounter during space flights. The system consists of a Personal Active Dosimeter (PAD) and a Dosimeter Display Unit (DDU), both of which are wearable devices simulating real-time radiation measurements. The training system allows remote control and adjustment of radiation levels, which are then displayed on the DDU. The DDU also provides vibration alerts to notify astronauts when preset radiation limits are exceeded.
+
+![SPACEDOS PAD with Dosimeter Display Unit](SPACEDOS_TM.jpg)
+
+The training model is particularly useful in simulating various space weather conditions, including solar events such as solar flares, Coronal Mass Ejections (CME), and Solar Energetic Particle (SEP) events. These simulations are essential for preparing astronauts to respond to potential radiation hazards caused by solar activity. The system can integrate with external forecasting and nowcasting tools, such as ESA's Solar Energetic Particle (SEP) Advanced Warning System (SAWS) and the Advanced Solar Particle Events Casting System (ASPECS), to simulate the likelihood of radiation exposure in real-time.
+
+This simulator, combined with data from forecasting tools, provides a complete time profile of radiation levels and potential impacts on both the human body and onboard hardware. These simulations not only enhance the realism of the training but also help in the dose assessment, offering insights into the radiobiological effects of space radiation.
+
+One of the key benefits of this training model is that it ensures participant safety, as no actual harmful radiation is involved. This allows for realistic and effective preparation for various radiation scenarios without putting astronauts' health at risk.
+  
