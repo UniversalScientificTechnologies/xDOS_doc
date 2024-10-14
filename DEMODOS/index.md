@@ -71,6 +71,15 @@ One of the most significant advantages of DEMODOS is that it allows for realisti
 - **No Actual Radiation Exposure**: Since all radiation is simulated, there is no risk of participants being exposed to dangerous levels of radiation during training.
 - **Realistic Learning Environment**: Despite the lack of actual radiation, DEMODOS provides a highly realistic simulation, ensuring effective and practical learning outcomes.
 
+
 ## Flexibility and Customization
 
-DEMODOS is highly flexible and can be modified to fit the specific needs of different training environments. Whether you need to simulate small indoor spaces or larger, more complex environments, DEMODOS can be configured to meet your needs.
+The DEMODOS system is designed with scalability and adaptability in mind, making it suitable for a wide range of training environments and user needs. It can be scaled both in terms of the number of client dosimeters and the area of operation. Whether you are simulating radiation in a confined industrial facility or a large, open space, DEMODOS can be tailored to fit your specific requirements.
+
+- **Scalable Client Dosimeters**: The system can support multiple dosimeters simultaneously, enabling team-based exercises where each participant uses their own device. This scalability ensures that DEMODOS can be used for both small-scale training sessions and large group exercises.
+  
+- **Scalable Area of Operation**: DEMODOS can be implemented in various environments, from compact spaces to large-scale outdoor areas. For closed industrial sites, the system can integrate with existing on-premise infrastructure, utilizing the customer's internal network for seamless operation. If using shared infrastructure is impractical due to legal or security concerns, DEMODOS can be deployed with a dedicated network built specifically for the training environment.
+
+- **Alternative Networking Technologies**: In expansive areas where Wi-Fi coverage may be insufficient, alternative communication technologies can be utilized. These technologies enable operation without the need for nearby access points, ensuring flexibility even in large or remote locations.
+
+All system parameters can be scaled and customized according to the user's needs. For further details or inquiries about the system's capabilities, please contact us.
