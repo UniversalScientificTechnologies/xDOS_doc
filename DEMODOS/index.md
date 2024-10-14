@@ -19,7 +19,7 @@ The DEMODOS system providing a flexible, safe, and remote-controlled system for 
 
 ## Key Features
 
-- **Realistic Radiation Simulation**: DEMODOS emulates various radiation exposure scenarios, allowing users to simulate different levels of radiation intensity in real-time.
+- **Realistic Radiation Simulation**: DEMODOS allows to emulate various radiation exposure scenarios, allowing users to simulate different levels of radiation intensity in real-time.
 - **Remote Operation**: The system is entirely remote-controlled, meaning that no real radioactive sources are involved, ensuring maximum safety for participants.
 - **Multi-User Capability**: DEMODOS supports multiple users, enabling team-based exercises where each individual interacts with their simulated dosimeter.
 
@@ -35,8 +35,6 @@ The **DDU** is a display unit in form of wrist-watch, similar to a smart-watch. 
 
 ![SPACEDOS Dosimeter Display Unit](https://github.com/user-attachments/assets/b3888b79-f818-4eb6-a282-9b013ce5907d)
 
-### 3. Vibration Alerts
-The PAD and DDU is equipped with a vibration motor to alert users when radiation levels exceed preset thresholds. This feature ensures immediate notification during critical moments, closely mimicking how real-world radiation alerts work.
 
 ## System Specifications
 
@@ -55,7 +53,7 @@ The PAD and DDU is equipped with a vibration motor to alert users when radiation
 
 ## Software
 
-The DEMODOS system is controlled through a user-friendly software interface written in Python. The software provides mission operators the ability to simulate radiation levels and control what is displayed on each participant's DDU and PAD. The software also includes features to simulate radiation noise, making the experience more realistic.
+The DEMODOS system is controlled through a user-friendly software CLI interface written in Python. The software provides mission operators the ability to simulate radiation levels and control what is displayed on each participant's DDU and PAD. The software also includes features to simulate radiation noise, making the experience more realistic.
 
 ![obrazek](https://github.com/user-attachments/assets/b746ed27-2748-4429-8d20-bde783a12b54)
 
@@ -67,12 +65,14 @@ The DEMODOS system is controlled through a user-friendly software interface writ
 ## Use Cases
 
 DEMODOS is ideal for:
-- **Training for space missions and Solars events** on how to select the best place to hide before cosmic radiation.
-- **Training emergency response teams** on how to safely navigate radiation exposure zones.
-- **Educational purposes** in institutions focusing on nuclear physics, radiology, or emergency preparedness.
-  
-The simulator can be adapted for various scenarios, including simulating hotspots with higher radiation exposure, safe zones, and areas with gradual increases in radiation levels. Each participant’s data is tracked individually, allowing for detailed post-exercise evaluations.
 
+- **Training for space missions (SPACEDOS version)**: The SPACEDOS variant of DEMODOS is designed to simulate radiation exposure on spacecraft in Earth orbit or during interplanetary missions. Astronauts can practice procedures for identifying optimal locations to shield themselves from harmful cosmic radiation, particularly during solar events like Coronal Mass Ejections (CME).
+  
+- **Simulating radiation events on Earth**: DEMODOS enables exercises related to potential radiation leaks from industrial or energy facilities. Trainees can simulate decision-making processes during such incidents, affecting the course of the exercise based on their actions and strategies for minimizing radiation exposure.
+
+- **Educational purposes**: DEMODOS is a valuable tool for institutions focusing on nuclear physics, radiology, or emergency preparedness. It provides a safe, controlled environment for learning about radiation, its effects, and proper safety protocols.
+
+The simulator can be adapted for various scenarios, including simulating hotspots with higher radiation exposure, safe zones, and areas with gradual increases in radiation levels. Each participant’s data is tracked individually, allowing for detailed post-exercise evaluations.
 
 ![Mission crew](https://github.com/user-attachments/assets/577bf104-f723-4bd3-977e-e23b2fbb7165)
 
@@ -83,15 +83,21 @@ One of the most significant advantages of DEMODOS is that it allows for realisti
 - **No Actual Radiation Exposure**: Since all radiation is simulated, there is no risk of participants being exposed to dangerous levels of radiation during training.
 - **Realistic Learning Environment**: Despite the lack of actual radiation, DEMODOS provides a highly realistic simulation, ensuring effective and practical learning outcomes.
 
-
 ## Flexibility and Customization
 
-The DEMODOS system is designed with scalability and adaptability in mind, making it suitable for a wide range of training environments and user needs. It can be scaled both in terms of the number of client dosimeters and the area of operation. Whether you are simulating radiation in a confined industrial facility or a large, open space, DEMODOS can be tailored to fit your specific requirements.
+The DEMODOS system is highly flexible and scalable, making it adaptable to a wide variety of training environments and user requirements. It can be expanded in terms of the number of client dosimeters as well as the area covered by the system. Whether you are simulating radiation in a confined industrial facility or across a large, open space, DEMODOS can be configured to meet your needs.
 
-- **Scalable Client Dosimeters**: The system can support multiple dosimeters simultaneously, enabling team-based exercises where each participant uses their own device. This scalability ensures that DEMODOS can be used for both small-scale training sessions and large group exercises.
-  
-- **Scalable Area of Operation**: DEMODOS can be implemented in various environments, from compact spaces to large-scale outdoor areas. For closed industrial sites, the system can integrate with existing on-premise infrastructure, utilizing the customer's internal network for seamless operation. If using shared infrastructure is impractical due to legal or security concerns, DEMODOS can be deployed with a dedicated network built specifically for the training environment.
+- **Scalable number of dosimeters**: DEMODOS supports multiple dosimeters, allowing each participant to use their own device. This scalability ensures that the system can accommodate both small groups and large-scale training sessions involving multiple teams.
 
-- **Alternative Networking Technologies**: In large areas where Wi-Fi coverage may be insufficient, alternative communication technologies can be utilized. These technologies enable operation without the need for nearby access points, ensuring flexibility even in large or remote locations.
+- **Scalable Area of Operation**: DEMODOS can be deployed in various environments, from small indoor spaces to large outdoor areas. For enclosed industrial sites, the system can integrate with existing on-premise infrastructure using the customer’s internal network. If sharing infrastructure is not possible due to legal or security restrictions, DEMODOS can be set up with a dedicated network specifically built for the training scenario.
 
-All system parameters can be scaled and customized according to the user's needs. For further details or inquiries about the system's capabilities, please contact us.
+- **Alternative Networking Technologies**: For expansive areas where Wi-Fi may not be reliable, DEMODOS can use alternative communication technologies that do not require close proximity to access points. This allows the system to operate efficiently even in large or remote training locations.
+
+- **Individual and Group Radiation Settings**: Radiation levels can be adjusted for each participant individually or applied to groups. This allows for customized scenarios where different teams face varying radiation conditions during the exercise.
+
+- **Hotspot Simulation with User Localization**: Using automatic user localization, the system can simulate areas with higher radiation levels (hotspots). As participants move through the training area, they experience changing radiation levels based on their location, adding realism to the simulation.
+
+This flexibility makes DEMODOS easy to customize for specific training scenarios, ensuring it can meet the unique requirements of each exercise.
+
+
+
