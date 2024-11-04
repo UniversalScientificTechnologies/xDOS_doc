@@ -35,6 +35,6 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
  * Weight is 0.88 kg (With five Li-ion accumulator cells in [BATDATUNIT01](https://docs.dos.ust.cz/airdos/BATDATUNIT01))
  * Environmental operational conditions
    * Device protection: IP30 rating (fully assembled)
-   * Operation temperature range: 0°C to 50°C (32°F to 122°F)
-   * Operation humidity conditions: non-condensing, 20% to 80% RH
+   * Operational and storage temperature range: 0°C to 50°C (32°F to 122°F)
+   * Operational humidity conditions: non-condensing, 20% to 80% RH
 
