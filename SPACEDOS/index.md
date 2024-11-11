@@ -21,7 +21,7 @@ The overview of SPACEDOS variants:
 
 ## DEMODOS analogous mission training model
 
-In addition to the SPACEDOS product line, there is a dedicated training model (DEMODOS) for the SPACEDOS personal dosimeter, designed specifically for analog or training missions. This simulator offers a realistic simulation of the radiation environment that astronauts may encounter during space flights. The system consists of a Personal Active Dosimeter (PAD) and a Dosimeter Display Unit (DDU), both wearable devices simulating real-time radiation measurements. The training system allows remote control and adjustment of radiation levels, which are then displayed on the DDU. The DDU also provides vibration alerts to notify astronauts when preset radiation limits are exceeded.
+In addition to the SPACEDOS product line, there is a dedicated training model ([DEMODOS](../demodos/)) for the SPACEDOS personal dosimeter, designed specifically for analog or training missions. This simulator offers a realistic simulation of the radiation environment that astronauts may encounter during space flights. The system consists of a Personal Active Dosimeter (PAD) and a Dosimeter Display Unit (DDU), both wearable devices simulating real-time radiation measurements. The training system allows remote control and adjustment of radiation levels, which are then displayed on the DDU. The DDU also provides vibration alerts to notify astronauts when preset radiation limits are exceeded.
 
 ![SPACEDOS PAD with Dosimeter Display Unit](SPACEDOS_TM.jpg)
 
