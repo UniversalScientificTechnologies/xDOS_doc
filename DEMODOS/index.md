@@ -15,23 +15,23 @@ DEMODOS is a sophisticated dosimeter emulator designed to simulate radiation exp
 
 ## Overview
 
-The DEMODOS system providing a flexible, safe, and remote-controlled system for simulating radiation exposure. DEMODOS is particularly useful for training scenarios where real radioactive sources cannot be used for safety reasons. The system is designed to enhance the learning experience by simulating real-world scenarios involving radiation exposure while ensuring complete safety for participants.
+The DEMODOS system provides a flexible, safe, and remote-controlled system for simulating radiation exposure. DEMODOS is particularly useful for training scenarios where real radioactive sources cannot be used for safety reasons. The system is designed to enhance the learning experience by simulating real-world scenarios involving radiation exposure while ensuring complete safety for participants.
 
 ## Key Features
 
-- **Realistic Radiation Simulation**: DEMODOS allows to emulate various radiation exposure scenarios, allowing users to simulate different levels of radiation intensity in real-time.
+- **Realistic Radiation Simulation**: DEMODOS allows to emulate of various radiation exposure scenarios, allowing users to simulate different levels of radiation intensity in real-time.
 - **Remote Operation**: The system is entirely remote-controlled, meaning that no real radioactive sources are involved, ensuring maximum safety for participants.
 - **Multi-User Capability**: DEMODOS supports multiple users, enabling team-based exercises where each individual interacts with their simulated dosimeter.
 
 ## Components of DEMODOS
 
 ### 1. Personal Active Dosimeter (PAD) Emulator
-The **PAD emulator** replicates the functions of a real personal dosimeter, monitoring and recording simulated radiation levels in real-time. Participants can wear this device during exercises, mimicking the experience of tracking radiation exposure in field conditions.
+The **PAD emulator** replicates the functions of a real personal dosimeter, monitoring, and recording simulated radiation levels in real time. Participants can wear this device during exercises, mimicking the experience of tracking radiation exposure in field conditions.
 
 ![SPACEDOS Personal Active Dosimeter](https://github.com/user-attachments/assets/1ad55b66-e335-4a74-a256-f7421073e868)
 
 ### 2. Dosimeter Display Unit (DDU)
-The **DDU** is a display unit in form of wrist-watch, similar to a smart-watch. It shows current simulated radiation levels as detected by the PAD emulator. The DDU provides real-time feedback, ensuring that participants can monitor their "exposure" throughout the exercise.
+The **DDU** is a wristwatch-like display unit similar to a smartwatch. It shows current simulated radiation levels as detected by the PAD emulator and provides real-time feedback, ensuring that participants can monitor their "exposure" throughout the exercise.
 
 ![SPACEDOS Dosimeter Display Unit](https://github.com/user-attachments/assets/b3888b79-f818-4eb6-a282-9b013ce5907d)
 
@@ -74,8 +74,6 @@ DEMODOS is ideal for:
 
 The simulator can be adapted for various scenarios, including simulating hotspots with higher radiation exposure, safe zones, and areas with gradual increases in radiation levels. Each participant’s data is tracked individually, allowing for detailed post-exercise evaluations.
 
-![Mission crew](https://github.com/user-attachments/assets/577bf104-f723-4bd3-977e-e23b2fbb7165)
-
 ## Safety and Benefits
 
 One of the most significant advantages of DEMODOS is that it allows for realistic radiation risk training without the dangers associated with real radioactive sources. The remote operation of the system ensures complete safety, making it an essential tool for training environments where real radioactive exposure would be impractical or hazardous.
@@ -91,7 +89,7 @@ The DEMODOS system is highly flexible and scalable, making it adaptable to a wid
 
 - **Scalable Area of Operation**: DEMODOS can be deployed in various environments, from small indoor spaces to large outdoor areas. For enclosed industrial sites, the system can integrate with existing on-premise infrastructure using the customer’s internal network. If sharing infrastructure is not possible due to legal or security restrictions, DEMODOS can be set up with a dedicated network specifically built for the training scenario.
 
-- **Alternative Networking Technologies**: For expansive areas where Wi-Fi may not be reliable, DEMODOS can use alternative communication technologies that do not require close proximity to access points. This allows the system to operate efficiently even in large or remote training locations.
+- **Alternative Networking Technologies**: For expansive areas where Wi-Fi may not be reliable, DEMODOS can use alternative communication technologies that do not require proximity to access points. This allows the system to operate efficiently even in large or remote training locations.
 
 - **Individual and Group Radiation Settings**: Radiation levels can be adjusted for each participant individually or applied to groups. This allows for customized scenarios where different teams face varying radiation conditions during the exercise.
 
