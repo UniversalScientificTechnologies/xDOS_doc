@@ -19,9 +19,9 @@ The DEMODOS system provides a flexible, safe, and remote-controlled system for s
 
 ## Key Features
 
-- **Realistic Radiation Simulation**: DEMODOS allows to emulate of various radiation exposure scenarios, allowing users to simulate different levels of radiation intensity in real-time.
+- **Realistic Radiation Simulation**: DEMODOS allows to emulate various radiation exposure scenarios, allowing users to simulate different levels of radiation intensity in real-time.
 - **Remote Operation**: The system is entirely remote-controlled, meaning that no real radioactive sources are involved, ensuring maximum safety for participants.
-- **Multi-User Capability**: DEMODOS supports multiple users, enabling team-based exercises where each individual interacts with their simulated dosimeter.
+- **Multi-User Capability**: DEMODOS supports multiple users, enabling team-based exercises where each interacts with their simulated dosimeter.
 
 ## Components of DEMODOS
 
@@ -53,12 +53,12 @@ The **DDU** is a wristwatch-like display unit similar to a smartwatch. It shows 
 
 ## Software
 
-The DEMODOS system is controlled through a user-friendly software CLI interface written in Python. The software provides mission operators the ability to simulate radiation levels and control what is displayed on each participant's DDU and PAD. The software also includes features to simulate radiation noise, making the experience more realistic.
+The DEMODOS system is controlled through a software [TUI interface](https://en.wikipedia.org/wiki/Text-based_user_interface) written in Python. The software provides mission operators the ability to simulate radiation levels and control what is displayed on each participant's DDU and PAD. The software also includes features to simulate stochastic noise, making the experience more realistic. The software is intended to be run on the server available to the DEMODOS devices over the wifi network. Mission operators control the software through the [SSH](https://en.wikipedia.org/wiki/Secure_Shell) protocol running the user interface application. 
 
-![obrazek](https://github.com/user-attachments/assets/b746ed27-2748-4429-8d20-bde783a12b54)
+![Demodos operator interface](https://github.com/user-attachments/assets/b746ed27-2748-4429-8d20-bde783a12b54)
 
 ### Features:
-- **Rich Interface**: Provides clear and efficient controls for simulation management.
+- **TUI Interface**: Provides clear and efficient controls for simulation management.
 - **Noise Simulation**: Adds realistic fluctuations to the simulated data, mimicking the natural variations in radiation measurements encountered in real-world situations.
 - **Remote Control**: The system can be operated entirely remotely over a Wi-Fi network, making it suitable for a wide range of training environments. This capability allows for the easy integration of DEMODOS into various training scenarios, such as mock hazardous events or exercises conducted in large facilities.
 
