@@ -17,11 +17,25 @@ DEMODOS is a sophisticated dosimeter emulator designed to simulate radiation exp
 
 The DEMODOS system provides a flexible, safe, and remote-controlled system for simulating radiation exposure. DEMODOS is particularly useful for training scenarios where real radioactive sources cannot be used for safety reasons. The system is designed to enhance the learning experience by simulating real-world scenarios involving radiation exposure while ensuring complete safety for participants.
 
-## Key Features
+### Key Features
 
 - **Realistic Radiation Simulation**: DEMODOS allows to emulate various radiation exposure scenarios, allowing users to simulate different levels of radiation intensity in real-time.
-- **Remote Operation**: The system is entirely remote-controlled, meaning that no real radioactive sources are involved, ensuring maximum safety for participants.
+- **Noise Simulation**: Adds realistic fluctuations to the simulated data, mimicking the natural variations in radiation measurements encountered in real-world situations.
+- **Remote Operation**: The system is entirely remote-controlled, meaning that no real radioactive sources are involved, ensuring maximum safety for participants. The remote control is enabled by a Wi-Fi network, making it suitable for a wide range of training environments. This capability allows for the easy integration of DEMODOS into various training scenarios, such as mock hazardous events or exercises conducted in large facilities.
 - **Multi-User Capability**: DEMODOS supports multiple users, enabling team-based exercises where each interacts with their simulated dosimeter.
+- **TUI Interface**: Provides clear and efficient controls for simulation management.
+
+### Use Cases
+
+DEMODOS is ideal for:
+
+- **Training for space missions (SPACEDOS version)**: The [SPACEDOS-like variant](../spacedos/) of DEMODOS is designed to simulate radiation exposure on spacecraft in Earth orbit or during interplanetary missions. Astronauts can practice procedures for identifying optimal locations to shield themselves from harmful cosmic radiation, particularly during solar events like Coronal Mass Ejections (CME).
+  
+- **Simulating radiation events on Earth**: DEMODOS enables exercises related to potential radiation leaks from industrial or energy facilities. Trainees can simulate decision-making processes during such incidents, affecting the course of the exercise based on their actions and strategies for minimizing radiation exposure.
+
+- **Educational purposes**: DEMODOS is a valuable tool for institutions focusing on nuclear physics, radiology, or emergency preparedness. It provides a safe, controlled environment for learning about radiation, its effects, and proper safety protocols.
+
+The simulator can be adapted for various scenarios, including simulating hotspots with higher radiation exposure, safe zones, and areas with gradual increases in radiation levels. Each participant’s data is tracked individually, allowing for detailed post-exercise evaluations.
 
 ## Components of DEMODOS
 
@@ -56,23 +70,6 @@ The **DDU** is a wristwatch-like display unit similar to a smartwatch. It shows 
 The DEMODOS system is controlled through a software [TUI interface](https://en.wikipedia.org/wiki/Text-based_user_interface) written in Python. The software provides mission operators the ability to simulate radiation levels and control what is displayed on each participant's DDU and PAD. The software also includes features to simulate stochastic noise, making the experience more realistic. The software is intended to be run on the server available to the DEMODOS devices over the WiFi network. Mission operators control the software through the [SSH](https://en.wikipedia.org/wiki/Secure_Shell) protocol running the user interface application. 
 
 ![Demodos operator interface](https://github.com/user-attachments/assets/b746ed27-2748-4429-8d20-bde783a12b54)
-
-### Features:
-- **TUI Interface**: Provides clear and efficient controls for simulation management.
-- **Noise Simulation**: Adds realistic fluctuations to the simulated data, mimicking the natural variations in radiation measurements encountered in real-world situations.
-- **Remote Control**: The system can be operated entirely remotely over a Wi-Fi network, making it suitable for a wide range of training environments. This capability allows for the easy integration of DEMODOS into various training scenarios, such as mock hazardous events or exercises conducted in large facilities.
-
-## Use Cases
-
-DEMODOS is ideal for:
-
-- **Training for space missions (SPACEDOS version)**: The [SPACEDOS-like variant](../spacedos/) of DEMODOS is designed to simulate radiation exposure on spacecraft in Earth orbit or during interplanetary missions. Astronauts can practice procedures for identifying optimal locations to shield themselves from harmful cosmic radiation, particularly during solar events like Coronal Mass Ejections (CME).
-  
-- **Simulating radiation events on Earth**: DEMODOS enables exercises related to potential radiation leaks from industrial or energy facilities. Trainees can simulate decision-making processes during such incidents, affecting the course of the exercise based on their actions and strategies for minimizing radiation exposure.
-
-- **Educational purposes**: DEMODOS is a valuable tool for institutions focusing on nuclear physics, radiology, or emergency preparedness. It provides a safe, controlled environment for learning about radiation, its effects, and proper safety protocols.
-
-The simulator can be adapted for various scenarios, including simulating hotspots with higher radiation exposure, safe zones, and areas with gradual increases in radiation levels. Each participant’s data is tracked individually, allowing for detailed post-exercise evaluations.
 
 ## Safety and Benefits
 
