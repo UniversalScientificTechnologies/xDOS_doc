@@ -53,7 +53,7 @@ The **DDU** is a wristwatch-like display unit similar to a smartwatch. It shows 
 
 ## Software
 
-The DEMODOS system is controlled through a software [TUI interface](https://en.wikipedia.org/wiki/Text-based_user_interface) written in Python. The software provides mission operators the ability to simulate radiation levels and control what is displayed on each participant's DDU and PAD. The software also includes features to simulate stochastic noise, making the experience more realistic. The software is intended to be run on the server available to the DEMODOS devices over the wifi network. Mission operators control the software through the [SSH](https://en.wikipedia.org/wiki/Secure_Shell) protocol running the user interface application. 
+The DEMODOS system is controlled through a software [TUI interface](https://en.wikipedia.org/wiki/Text-based_user_interface) written in Python. The software provides mission operators the ability to simulate radiation levels and control what is displayed on each participant's DDU and PAD. The software also includes features to simulate stochastic noise, making the experience more realistic. The software is intended to be run on the server available to the DEMODOS devices over the WiFi network. Mission operators control the software through the [SSH](https://en.wikipedia.org/wiki/Secure_Shell) protocol running the user interface application. 
 
 ![Demodos operator interface](https://github.com/user-attachments/assets/b746ed27-2748-4429-8d20-bde783a12b54)
 
@@ -66,7 +66,7 @@ The DEMODOS system is controlled through a software [TUI interface](https://en.w
 
 DEMODOS is ideal for:
 
-- **Training for space missions (SPACEDOS version)**: The SPACEDOS variant of DEMODOS is designed to simulate radiation exposure on spacecraft in Earth orbit or during interplanetary missions. Astronauts can practice procedures for identifying optimal locations to shield themselves from harmful cosmic radiation, particularly during solar events like Coronal Mass Ejections (CME).
+- **Training for space missions (SPACEDOS version)**: The [SPACEDOS-like variant](../spacedos/) of DEMODOS is designed to simulate radiation exposure on spacecraft in Earth orbit or during interplanetary missions. Astronauts can practice procedures for identifying optimal locations to shield themselves from harmful cosmic radiation, particularly during solar events like Coronal Mass Ejections (CME).
   
 - **Simulating radiation events on Earth**: DEMODOS enables exercises related to potential radiation leaks from industrial or energy facilities. Trainees can simulate decision-making processes during such incidents, affecting the course of the exercise based on their actions and strategies for minimizing radiation exposure.
 
@@ -85,7 +85,7 @@ One of the most significant advantages of DEMODOS is that it allows for realisti
 
 The DEMODOS system is highly flexible and scalable, making it adaptable to a wide variety of training environments and user requirements. It can be expanded in terms of the number of client dosimeters as well as the area covered by the system. Whether you are simulating radiation in a confined industrial facility or across a large, open space, DEMODOS can be configured to meet your needs.
 
-- **Scalable number of dosimeters**: DEMODOS supports multiple dosimeters, allowing each participant to use their own device. This scalability ensures that the system can accommodate both small groups and large-scale training sessions involving multiple teams.
+- **Scalable number of dosimeters**: DEMODOS supports multiple dosimeters, allowing each participant to use their device. This scalability ensures that the system can accommodate both small groups and large-scale training sessions involving multiple teams.
 
 - **Scalable Area of Operation**: DEMODOS can be deployed in various environments, from small indoor spaces to large outdoor areas. For enclosed industrial sites, the system can integrate with existing on-premise infrastructure using the customer’s internal network. If sharing infrastructure is not possible due to legal or security restrictions, DEMODOS can be set up with a dedicated network specifically built for the training scenario.
 
