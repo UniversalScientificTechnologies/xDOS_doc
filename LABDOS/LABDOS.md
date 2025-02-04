@@ -9,7 +9,7 @@ permalink: /labdos/LABDOS01
 
 ## Introduction
 
-LABDOS01 is a lightweight portable ionizing radiation spectrometer-dosimeter intended as an experimental device for laboratory measurements or as a personal dosimeter for frequent flyers. The dosimeter is connected via a USB bus, through which it is powered and read-out. This minimizes the demand for skills required to operate the dosimeter.
+LABDOS01 is a lightweight portable [open-science](https://en.wikipedia.org/wiki/Open_science) ionizing radiation spectrometer-dosimeter intended as an experimental device for laboratory measurements or as a personal dosimeter for frequent flyers. The dosimeter is connected via a USB bus, through which it is powered and read-out. This minimizes the demand for skills required to operate the dosimeter.
 
 ![LABDOS01 front and back side](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/LABDOS01B/doc/LABDOS01A_merge.jpg)
 
@@ -17,6 +17,17 @@ This device should be used for experimental verification and planning before usi
 
 ## Vendor Information 
 The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in the field of radiation detection and measurement. For any further information or support you can contact us via email at support@ust.cz
+
+## Applications
+
+* AeroSpace or Terrestrial Radiation Monitoring
+* Aircraft Onboard Radiation Monitoring
+* Scientific High Altitude Balloons, e.g. [Pfotzer Maximum measurement](https://en.wikipedia.org/wiki/Georg_Pfotzer)
+* Educational Toolkit, [cosmic ray monitoring](https://en.wikipedia.org/wiki/Cosmic_ray) 
+* Radiation Mapping in 3D together with GNSS and UAV
+* Space Weather Monitoring e.g. on high-altitude observatories
+* [Open science](https://en.wikipedia.org/wiki/Open_science)
+* [Citizen science](https://en.wikipedia.org/wiki/Citizen_science)
 
 ## Technical Parameters
 - Detection element: Silicon PIN diode volume 44 mm³
@@ -30,13 +41,48 @@ The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. 
   - 100 ms for data output to USB
 - Interface:
   - USB 2.0 USB-C connector (Virtual Com Port baud rate 115200)
-  - 3.3V UART link on JST-GH
+  - 3.3V UART link on JST-GH connector ([Pixhawk telemetry port](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf))
 - Size: 96x56x19mm
 - Weight: 80 grams
 - Environmental operational conditions:
   - Device protection: IP30 rating
   - Operating temperature range: 0°C to 35°C
   - Operating humidity conditions: non-condensing 20% to 80% RH
+
+
+### USB-C interface
+
+The main user interface is [USB](https://en.wikipedia.org/wiki/USB) with a USB-C connector used both for power supply and also the data output. 
+
+### JST-GH UART interface
+
+Optional data output over [UART](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter). It could also be used for firmware upgrades by switching solder jumper on the PCB. 
+
+|Signal| Description | 
+|--------|-----------|
+| +5V  |     Can be used to power LABDOS01 instead of USB | 
+| RX  |    data input  | 
+| TX |      data output  | 
+| CTS |     |  
+| RTS |     |  
+| GND |   Signal ground  |   
+
+
+### JST-GH Auxilary IO
+
+Mainly useful for special tasks like control of external devices depending on radiation intensity or spectral threshold energy. 
+Another usage is the connection to an autopilot in a UAV. See the [AIRDOS03](https://www.ust.cz/UST-dosimeters/AIRDOS/#airdos03-uavdos)  for details. 
+
+|Signal| Description |
+|--------|------------------|
+| TIMEPULSE  |     PPS input          |  
+| EXTINT  |     External interupt          |  
+| GPIO  |               |  
+| SDA |   auxilary I²C data      |  
+| SCL  |     auxilary I²C  clock       |   
+| TX  |               |   
+| RX |              |    
+| GND |     Signal ground       |   
 
 ## Usage of LABDOS01
 
@@ -50,7 +96,7 @@ In the case use of a power bank, it is important to check that the power bank do
 
 In this type of use, LABDOS01 functions as an autonomous unit, recording data directly to its internal storage in the form of an industrial-grade SLC/SLC mode SD card. This setup is ideal for mid-term environmental monitoring or experiments where continuous human oversight is not feasible. The data is stored on the SD card, which can later be retrieved and analyzed. This application is particularly suitable for fixed installations in labs or for monitoring in remote locations.
 
-This mode is perfect for validating local conditions for future experiments. After initial data collection and analysis, it is recommended that LABDOS01 be replaced with one of the UST detectors optimized for long-term standalone use, such as GEODOS, AIRDOS, or SPACEDOS detectors. These specialized detectors are tailored for sustained, unattended operations, providing enhanced reliability and data accuracy in various environmental conditions.
+This mode is perfect for validating local conditions for future experiments. After initial data collection and analysis, it is recommended that LABDOS01 be replaced with one of the UST detectors optimized for long-term standalone use, such as [GEODOS](https://docs.dos.ust.cz/geodos), [AIRDOS](https://docs.dos.ust.cz/airdos/), or [SPACEDOS](https://docs.dos.ust.cz/spacedos/) detectors. These specialized detectors are tailored for sustained, unattended operations, providing enhanced reliability and data accuracy in various environmental conditions.
 
 
 
@@ -81,6 +127,7 @@ For computers with Windows, you will need to install a driver for [FTDI USB](htt
 
 
 ### Steps to Read Data Stream
+
 1. Connect LABDOS01 using a USB-C cable.
 2. Ensure device recognition and enumeration as a virtual serial line.
 3. Launch data logging software (e.g., picocom, minicom, or Putty).
@@ -92,6 +139,7 @@ For computers with Windows, you will need to install a driver for [FTDI USB](htt
 - Use of a high-quality connection cable.
 
 ### Recording on SD card
+
 Data in the LABDOS01 are always logged when an SD card is present and functional. In that case, the LABDOS01 needs an external power supply e.g. power bank or smartphone. The LABDOS could be connected by any sufficiently reliable USB-C to USB-C/USB-A cable. The recording of the card is indicated by the illumination of LED2. If the card is inserted and LED2 does not blink between exposures, there might be an issue with the SD card. It's advisable to check the card on a computer. The problem could be due to using an incorrect type of SD card, improper formatting, or damage to the card media.
 
 {: .note }
@@ -136,6 +184,42 @@ The only consumable component in the detector is the SD card, which is used for 
 
 ### How to check the correct logging
 Red Power LED must be light on. The blue and green LEDs flash every ten seconds.
+
+### How to reset the LABDOS connected over the USB serial link? 
+
+The reset could be requested by toggling the DTR signal. The exact implementation of how the DTR UART signal could be accessed depends on the implementation of serial communication software. For example in [picocom](https://linux.die.net/man/8/picocom) is asserted by Ctrl+A and Ctrl+P. 
+
+### How to split Individual file Records of Energy Spectra from the LABDOS01 SDcard log file
+
+The LABDOS01 device performs measurements of energy spectra and stores them in a single file on an SD card, typically named "0.TXT". It is desirable to split the file into individual records to efficiently process and analyze this data. For this purpose, the `csplit` command can be used, allowing for the automated splitting of the logging file into smaller parts based on a specified line containing a desired pattern.
+
+Description:
+The `csplit` command is used to split the logging file of the LABDOS01 device, which contains partial records of energy spectra, into individual measurements. This command enables automated and efficient division of the input file into smaller sections based on a specified line with the desired pattern.
+
+Usage:
+
+1. Create a folder for the output files:
+   ```
+   mkdir split
+   ```
+
+2. Use the `csplit` command to split the logging file "0.TXT" into individual records:
+   ```
+   csplit -f split/0_ 0.TXT '/\$DOS,LABDOS01/' {*}
+   ```
+
+   The `csplit` command utilizes the regular expression `/\$DOS,LABDOS01/` to identify the line that separates the individual energy spectra records. The output files will be stored in the "split" folder with the prefix "0_" and assigned sequential numbers.
+
+   Upon executing this command, output files containing the individual energy spectra records from the "0.TXT" logging file will be created. These files can be further processed or analyzed independently.
+
+
+
+#### Inline variant of command with the creation of output folder and composing each sub-record file
+
+```
+mkdir -p split && cat *.TXT > compose.txt && csplit -b "%04d.dos" -f split/ compose.txt '/$DOS,LABDOS01/' {*}
+```
+
 
 ## Recycling and Disposal
 
