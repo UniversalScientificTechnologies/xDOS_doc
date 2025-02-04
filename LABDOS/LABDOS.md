@@ -40,7 +40,7 @@ The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. 
 
 ## Usage of LABDOS01
 
-Frequent flyers can utilize LABDOS01 in conjunction with a power bank when access to real-time measurements is not available. The device can be connected by a USB power source, while LABDOS01 continuously logs data to the SD card. This setup is particularly useful for travelers who wish to monitor radiation exposure during flights without the need for immediate data access. Users can upload the data from the SD card to the online platforms, where advanced analysis can be performed to interpret the radiation dose levels and other relevant metrics. This feature is useful for users who may not have access to sophisticated data analysis software, providing a user-friendly and efficient means of understanding the data captured by LABDOS01.
+Frequent flyers can utilize LABDOS01 in conjunction with a power bank when access to real-time measurements is not available. The device can be connected by a USB power source, while LABDOS01 continuously logs data to the SD card. This setup is particularly useful for travelers who wish to monitor radiation exposure during flights without the need for immediate data access. Users can upload the data from the SD card to online platforms (like [DOSPORTAL](https://docs.dos.ust.cz/dosportal/) as an example), where advanced analysis can be performed to interpret the radiation dose levels and other relevant metrics. This feature is useful for users who may not have access to sophisticated data analysis software, providing a user-friendly and efficient means of understanding the data captured by LABDOS01.
 
 
 {: .warning }
