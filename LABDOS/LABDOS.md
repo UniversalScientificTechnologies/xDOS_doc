@@ -13,7 +13,7 @@ LABDOS01 is a lightweight portable ionizing radiation spectrometer-dosimeter int
 
 ![LABDOS01 front and back side](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/LABDOS01B/doc/LABDOS01A_merge.jpg)
 
-This device should be used for experimental verification and planning before using our more sophisticated and application-specific devices like SPACEDOS, AIRDOS, or GEODOS.
+This device should be used for experimental verification and planning before using our more sophisticated and application-specific devices like [SPACEDOS](https://docs.dos.ust.cz/spacedos/), [AIRDOS](https://docs.dos.ust.cz/airdos/), or [GEODOS](https://docs.dos.ust.cz/geodos).
 
 ## Vendor Information 
 The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in the field of radiation detection and measurement. For any further information or support you can contact us via email at support@ust.cz
@@ -50,7 +50,7 @@ In the case use of a power bank, it is important to check that the power bank do
 
 In this type of use, LABDOS01 functions as an autonomous unit, recording data directly to its internal storage in the form of an industrial-grade SLC/SLC mode SD card. This setup is ideal for mid-term environmental monitoring or experiments where continuous human oversight is not feasible. The data is stored on the SD card, which can later be retrieved and analyzed. This application is particularly suitable for fixed installations in labs or for monitoring in remote locations.
 
-This mode is perfect for validating local conditions for future experiments. After initial data collection and analysis, it is recommended to replace LABDOS01 with one of the UST detectors optimized for long-term standalone use, such as GEODOS, AIRDOS, or SPACEDOS detectors. These specialized detectors are tailored for sustained, unattended operations, providing enhanced reliability and data accuracy in various environmental conditions.
+This mode is perfect for validating local conditions for future experiments. After initial data collection and analysis, it is recommended that LABDOS01 be replaced with one of the UST detectors optimized for long-term standalone use, such as GEODOS, AIRDOS, or SPACEDOS detectors. These specialized detectors are tailored for sustained, unattended operations, providing enhanced reliability and data accuracy in various environmental conditions.
 
 
 
