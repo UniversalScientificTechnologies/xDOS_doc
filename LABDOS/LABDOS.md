@@ -29,6 +29,8 @@ The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. 
 * [Open science](https://en.wikipedia.org/wiki/Open_science)
 * [Citizen science](https://en.wikipedia.org/wiki/Citizen_science)
 
+![LABDOS01 under test in accelerator beam](LABDOS01_testing.jpg)
+
 ## Technical Parameters
 - Detection element: Silicon PIN diode volume 44 mm³
 - Effective number of energy channels: 470 ±3
