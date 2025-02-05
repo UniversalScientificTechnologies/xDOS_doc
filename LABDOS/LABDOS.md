@@ -36,7 +36,7 @@ The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. 
 - Effective number of energy channels: 470 ±3
 - Deposited energy ranges: 60 keV to 7 MeV
 - Energy measurement resolution: 15 ±2 keV (varies with calibration method and particle type)
-- Power supply: 5V via USB-C port or JST-GH connectors
+- Power supply: 5V, 3 mA (excluding LEDs) via USB-C port or JST-GH connectors 
 - Radiation spectra integration time: 10 s
 - Deadtime: 
   - Up to 1 second for SD card writing
@@ -45,7 +45,7 @@ The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. 
   - USB 2.0 USB-C connector (Virtual Com Port baud rate 115200)
   - 3.3V UART link on JST-GH connector ([Pixhawk telemetry port](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf))
 - Size: 96x56x19mm
-- Weight: 80 grams
+- Weight: 76 grams
 - Environmental operational conditions:
   - Device protection: IP30 rating
   - Operating temperature range: 0°C to 35°C
@@ -92,7 +92,7 @@ Frequent flyers can utilize LABDOS01 in conjunction with a power bank when acces
 
 
 {: .warning }
-In the case use of a power bank, it is important to check that the power bank does not switch off after a while. It is a common issue with many power banks.
+In the case use of a power bank, it is important to check that the power bank does not switch off after a while. It is a common issue with many power banks caused by the extremely low power consumption of LABDOS01. The issue could be solved by connecting an additional dummy load to the power bank using a USB hub (USB cup heater, USB plasma ball, etc.). 
 
 ### Standalone Detector for Unattended Data Logging
 
