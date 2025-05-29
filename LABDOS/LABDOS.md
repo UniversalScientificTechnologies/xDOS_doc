@@ -108,6 +108,25 @@ When connected to a compatible mobile phone or a computer, LABDOS01 serves as a 
 
 ![Radiation monitoring in airliner cocpit](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/LABDOS01B/doc/img/LABDOS01_cockpit.jpg)
 
+
+### Laboratory Use with Artificial Sources
+
+In laboratory setups, it is possible to use LABDOS01 for detection of radiation from weak artificial sources (e.g., low-activity ²⁴¹Am, or particle accelerators). For such purposes, it is recommended to open the LABDOS01 housing and directly irradiate the internal copper entrance window.
+
+This configuration has been successfully validated in controlled accelerator environments such as HIMAC.
+
+![LABDOS01 under test in HIMAC accelerator beam](LABDOS01_HIMAC.png)
+
+LABDOS01 includes a \~50 µm copper foil with small hole covered by thinner aluminium foil located directly above the silicon PIN diode. This copper layer is thin enough to allow detection of charged particles. However, a thin aluminum protective foil is also placed above the hole in copper foil - this window is used for energy calibration during manufacturing.  If left in place, this aluminium foil blocks light and alpha particles and only allows detection of secondary electrons, resulting in distorted spectra.
+
+To allow detection of primary alpha particles:
+
+* **Carefully remove the aluminum foil** covering the window by tweezers.
+* Irradiate the detector directly through hole in the exposed copper foil window in complete darkness.
+
+{: .important }
+This operation requires mechanical disassembly and may void warranty. Proceed only if you fully understood the consequences and risks involved.
+
 ### Direct data Stream Capturing
 
 Reading the data stream from LABDOS01 via USB involves capturing and analyzing the data transmitted from the device to a connected computer or mobile device. The USB data streaming approach is particularly beneficial for mid-term monitoring scenarios where real-time data publication is desired, such as displaying radiation measurements on a website or generating live data feeds for other applications. This method requires dedicated software to handle the data streaming and publishing processes. The software interprets the data stream from LABDOS01 and converts it into a suitable format for online publishing or other forms of output, enabling continuous and dynamic sharing of radiation data in real-time. This feature is especially useful in scientific research, public monitoring projects, or educational demonstrations.
@@ -221,6 +240,15 @@ Usage:
 ```
 mkdir -p split && cat *.TXT > compose.txt && csplit -b "%04d.dos" -f split/ compose.txt '/$DOS,LABDOS01/' {*}
 ```
+
+
+### Can LABDOS01 be used to detect radiation from artificial sources like ²⁴¹Am?
+
+Yes, with limitations. LABDOS01 is optimized for detecting charged particles, such as those found in cosmic rays or ion beams. Its silicon PIN diode has low sensitivity to high-energy gamma photons, which interact weakly with thin silicon layers. Therefore, the response to gamma radiation from typical artificial sources (e.g. ⁶⁰Co, ¹³⁷Cs) is low, especially at higher energies.
+
+Alpha emitters like **²⁴¹Am** can be used in laboratory settings, but requires removing the aluminum protective foil that blocks direct particle access to the detector. To avoid distortion of the energy deposition spectrum by the **energy loss in the aluminium entrance window** (\~20 µm).
+
+For more information and practical instructions, see the section [Laboratory Use with Artificial Sources](#laboratory-use-with-artificial-sources).
 
 
 ## Recycling and Disposal
