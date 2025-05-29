@@ -127,6 +127,12 @@ To allow detection of primary alpha particles:
 {: .important }
 This operation requires mechanical disassembly and may void warranty. Proceed only if you fully understood the consequences and risks involved.
 
+![LABDOS01 irradiated by Americium-Plutonium radiation source](LABDOS01_AmPu.png)
+
+
+![LABDOS01 Americium-Plutonium deposited energy spectra](LABDOS01_AmPu_spectrum.png)
+
+
 ### Direct data Stream Capturing
 
 Reading the data stream from LABDOS01 via USB involves capturing and analyzing the data transmitted from the device to a connected computer or mobile device. The USB data streaming approach is particularly beneficial for mid-term monitoring scenarios where real-time data publication is desired, such as displaying radiation measurements on a website or generating live data feeds for other applications. This method requires dedicated software to handle the data streaming and publishing processes. The software interprets the data stream from LABDOS01 and converts it into a suitable format for online publishing or other forms of output, enabling continuous and dynamic sharing of radiation data in real-time. This feature is especially useful in scientific research, public monitoring projects, or educational demonstrations.
