@@ -24,7 +24,9 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
 
  * Detection element: Silicon PIN diode, volume 44 mm³
  * Effective number of energy channels: 470 ±3
+   * AIRDOS04C: 65536 energy channels
  * Deposited energy range: 60 keV to 7 MeV
+   * AIRDOS04C: 40 keV to 80 MeV
  * Energy measurement resolution: 15 ±2 keV
  * Service interface and charging source: USB-C PD 2.0 connector
  * Energy source: Up to five 18650 Li-ion cells with 64 Wh in total. That conforms [≤ 100 Wh / 2g IATA restrictions](https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passenger-lithium-battery.pdf)
@@ -38,3 +40,5 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
    * Operational and storage temperature range: 0°C to 50°C (32°F to 122°F)
    * Operational humidity conditions: non-condensing, 20% to 80% RH
 
+---
+Note: In 2025, a new version AIRDOS04C was introduced, featuring an improved analog section that enables a wider energy range (40 keV to ~80 MeV) and a higher number of energy channels (65,536).
