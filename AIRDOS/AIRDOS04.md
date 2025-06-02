@@ -41,4 +41,6 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
    * Operational humidity conditions: non-condensing, 20% to 80% RH
 
 ---
-Note: In 2025, a new version AIRDOS04C was introduced, featuring an improved analog section that enables a wider energy range (40 keV to ~80 MeV) and a higher number of energy channels (65,536).
+Note: In 2025, a new version **AIRDOS04C** was introduced, featuring an improved analog section that enables a wider energy range (40 keV to ~80 MeV) and a higher number of energy channels (65,536). The analog part of detector is hardware-compatible with the AIRDOS01B and with the digital part [BATDATUNIT01](https://docs.dos.ust.cz/airdos/BATDATUNIT01).
+
+
