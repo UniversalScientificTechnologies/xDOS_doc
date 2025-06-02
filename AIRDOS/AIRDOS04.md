@@ -28,7 +28,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
  * Deposited energy range: 60 keV to 7 MeV
    * AIRDOS04C: 40 keV to 80 MeV
  * Energy measurement resolution: 15 ±2 keV
- * Service interface and charging source: USB-C PD 2.0 connector
+ * Service interface and charging source: USB-C connector
  * Energy source: Up to five 18650 Li-ion cells with 64 Wh in total. That conforms [≤ 100 Wh / 2g IATA restrictions](https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passenger-lithium-battery.pdf)
  * Radiation spectra integration time: 10 s
  * Maintenance interval: ~1 month (data download, accu pack change)
