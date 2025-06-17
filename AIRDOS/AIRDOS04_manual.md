@@ -16,7 +16,7 @@ AIRDOS is a radiation dosimeter and spectrometer intended for long-term airborne
 ![AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/AIRDOS04A/doc/img/AIRDOS04.jpg)
 
 
-# Detector components and Functions
+# Detector Components and Functions
 
 ```mermaid
 flowchart TD
@@ -27,8 +27,8 @@ RAD(Cosmic Radiation particle)
 subgraph DET[Analog part (AIRDOS04 core)]
     PIN[PIN diode]
     AMP[Charge sensitive amplifier]
-    PEAK[Peak detector and pulse shaper with\nanalogue memory]
-    ADC[Analogue to digital conventer]
+    PEAK[Peak detector and pulse shaper with\nanalog memory]
+    ADC[Analogue to digital converter]
 
     PIN --> AMP
     AMP --> PEAK
@@ -67,13 +67,13 @@ The detection (analog) part consists of the following key components:
 
 **Sensing Element - PIN Diode**: The sensing element of the detection part is a semiconductor PIN diode. Selected for its ability to effectively detect ionizing radiation with high accuracy by absorbing particle energy, the diode is positioned under the top side of the box. Its precise location is marked on the top label of the casing, guiding proper orientation during installation.
 
-The design and structural features of the AIRDOS04's detection part are meticulously crafted to ensure both durability and high performance in cosmic radiation detection. Detection components are permanently in-build within a robust aluminum casing.
+The design and structural features of the AIRDOS04's detection part are meticulously crafted to ensure both durability and high performance in cosmic radiation detection. Detection components are permanently built into a robust aluminum casing.
 
 The detection part is fixed and non-removable, contrasting with the easily insertable data storage and power modules. This fixed installation is critical as it maintains the integrity and calibration of the sensitive components, ensuring consistent performance over the operational life of the detector.
 
-The detector is designed to allow for easy insertion of data storage and power modules. This feature is beneficial for quick maintenance, and data module replacement, enabling these maintenance tasks to be completed efficiently without disturbing the detector's core components.
+The detector is designed to allow for easy insertion of data storage and power modules. This feature is beneficial for quick maintenance and data module replacement, enabling these maintenance tasks to be completed efficiently without disturbing the detector's core components.
 
-## AIRDOS04`s Digital, Data Storage and Power Module
+## AIRDOS04`s Digital, Data Storage, and Power Module
 
 The AIRDOS04B, designed with efficiency and modularity in mind, separates its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity, and power sources.
 
@@ -118,7 +118,7 @@ In case of an error, the LED lights will start blinking or light up continuously
 In the unlikely situation when BATDATUNIT01 is already inserted into the AIRDOS04 and is powered off, you can turn it on by holding down the 'Power button' for one second. The indication of activation is realized in the same way as in the case of module insertion. The last way of turning on the detector is by connecting external power (USB-C connector). In this state, the detector is always powered on and records radiation data continuously until the detector is powered off.
 
 {: .highlight }
-The detector is not possible to power off by any of the buttons. The only method to power off the device is either to remove the BATDATUNIT from the AIRDOS or use special commands on the USB-C port. Inspect the [airdoscontrol utility](https://github.com/UniversalScientificTechnologies/AIRDOS04/tree/AIRDOS04A/sw) description for more details. 
+The detector is impossible to power off by any of the buttons. The only method to power off the device is either to remove the BATDATUNIT from the AIRDOS or use special commands on the USB-C port. Inspect the [airdoscontrol utility](https://github.com/UniversalScientificTechnologies/AIRDOS04/tree/AIRDOS04A/sw) description for more details. 
 
 When the detector’s data part is inside the box and is connected to a USB-C power source, the device will initiate charging while continuing its particle detection operations.
 
@@ -151,7 +151,7 @@ The presence of a sufficient power supply for the accumulator module is indicate
 
 # Standard maintenance
 
-Standard maintenance steps of the AIRDOS04 detector involve routine procedures essential for conducting long-term measurements. These maintenance tasks primarily include the following steps. For more detailed instructions, please, refer to our online form of this manual.
+Standard maintenance steps of the AIRDOS04 detector involve routine procedures essential for conducting long-term measurements. These maintenance tasks primarily include the following steps. For more detailed instructions, please refer to our online version of this manual.
 
  * **Replacing the Digital Part of the Detector**: Periodical swapping out of the digital module ensures continuous operation and minimizes downtime/maintenance time. This is particularly important in scenarios where the detector is used for extended periods.
  * **Downloading Recorded Data**: Periodically downloading data from the detector's storage is crucial for both data analysis and clearing storage space for ongoing measurements. This process is facilitated by the detector's user-friendly data retrieval system.
@@ -171,12 +171,12 @@ To analyze the AIRDOS04 logged data is mandatory to note the precise time of pow
 The procedure for getting the absolute time of detector shutdown consists of the following steps:
 
 1. Unscrew completely the AIRDOS digital module locking screws
-2. Prepare the "date" command in a computer with a synchronized real-time clock
-2. Pull-out digital module from AIRDOS
-3. Wait for a beep signal and press enter in the command line
+2. Prepare the "date" command on a computer with a synchronized real-time clock
+2. Pull out the digital module from AIRDOS
+3. Wait for a beep signal and press Enter in the command line
 4. Reuse the command for the second beep.
 
-The last recording of the data log corresponds to the time of the first beep subtracting the integration time. In the case of simply changing the digital part the procedure follows
+The last recording of the data log corresponds to the time of the first beep, subtracting the integration time. In the case of simply changing the digital part, the procedure follows
 
 1. **Prepare a New Digital Part**: Ensure you have a spare digital part that has empty data storage and is fully charged, therefore ready to replace the one currently in use.
 1. **Unscrew the Securing Screws on AIRDOS**: Begin by unscrewing the two large-headed securing screws on the detector in case it does not been done yet.
@@ -198,7 +198,7 @@ Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) i
 1. **Connect via USB-C**: Attach the USB-C cable from your computer to the detector's digital BATDATUNIT01 module.
 1. **Access the Mass-Storage Device**: Your computer should now recognize a connected portable mass-storage device.
 1. **Download and Delete Data**: Transfer the recorded data to your computer. After successfully transferring, make sure to completely delete the original data from the module to free up space for new recordings.
-1. **Disconnect the Storage from Computer OS**: Safely eject the mass-storage device from your computer.
+1. **Disconnect the Storage from the Computer OS**: Safely eject the mass-storage device from your computer.
 1. **Optional Disconnection of USB-C cable**: If you do not intend to charge the detector, you can disconnect the cable from the USB connector at this point.
 
 ## Recharging the Accumulators
@@ -210,7 +210,7 @@ To ensure the proper charging of the Li-Ion accumulators in the BATDATUNIT01-BAT
  * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. A flashing charging LED indicates an error or an issue with the Li-ion cells.
  * **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, and the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button.
 
-To ensure maximal safety it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during the charging.
+To ensure maximal safety, it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during charging.
 
 # Operational notes for AIRDOS04
 
@@ -237,7 +237,7 @@ The front panel of the BATDATUNIT01 module features various indicators and inter
  * **USB-C Port**: This is the interface for power input and data communication. When connected to a computer or power source, it facilitates charging the battery and accessing the data storage.
  * **Power In LED**: This LED light indicates when power is being supplied to the module through the USB-C port.
  * **Charging LED**: This LED lights when battery charging is active.
- * **Battery Level Indicators**: A series of LED lights display the current battery charge level. When the 'Power' button is pressed, these lights will illuminate to show how much charge in the accumulator remains, ranging from empty (0%) to full (100%).
+ * **Battery Level Indicators**: A series of LED lights display the current battery charge level. When the 'Power' button is pressed, these lights will illuminate to show how much charge remains in the accumulator, ranging from empty (0%) to full (100%).
  * **Power Button**: Pressing this button will power the module on, and when held, it will display the current battery level using the battery level indicators. Holding this button for more than 10 seconds causes a restart of the device.
  * **Data Transmission LEDs (RX/TX)**: These LEDs indicate active data transmission when the module is connected to a raw data interface, such as a computer. This is not applicable in mass-storage access mode
  * **LED Indicators (LED1, LED2, LED3)**: This set of LEDs indicates the status of the microcontroller unit (MCU), which is the central processor of the module, running the firmware and controlling the device's operations. These LEDs can be used to indicate specific statuses or alerts as defined by the device's firmware.
@@ -247,7 +247,7 @@ The front panel of the BATDATUNIT01 module features various indicators and inter
 
 ## Routine checks
 
-Routine checks are an optional part of using the AIRDOS04 detector. The following procedures could be performed regularly by the operating personnel. Performing these routine checks will ensure that the AIRDOS04 detector is operating properly, and has sufficient power for continued use without any disruptions. These simple procedures are crucial for long-term measurement scenarios.
+Routine checks are an optional part of using the AIRDOS04 detector. The following procedures could be performed regularly by the operating personnel. Performing these routine checks will ensure that the AIRDOS04 detector is operating properly and has sufficient power for continued use without any disruptions. These simple procedures are crucial for long-term measurement scenarios.
 
 ### Check of Data Recording activity indicator
 
@@ -257,7 +257,7 @@ Routine checks are an optional part of using the AIRDOS04 detector. The followin
  </div>
 
 
-**LED Blink Indicator**: To confirm that the detector is actively recording data, observe the LED lights. The detector blinks its LED indicator (MCU LEDs) after each exposure (usually 10 seconds long, depending on FW configuration), indicating that the spectrum has been written to the inbuilt memory media. This visual cue is an easy way for the operator to verify that the device is functioning correctly and data is being captured.
+**LED Blink Indicator**: To confirm that the detector is actively recording data, observe the LED lights. The detector blinks its LED indicator (MCU LEDs) after each exposure (usually 10 seconds long, depending on FW configuration), indicating that the spectrum has been written to the built-in memory media. This visual cue is an easy way for the operator to verify that the device is functioning correctly and data is being captured.
 
 ### Checking Battery Level (Applicable for BATDATUNIT01-BAT only)
 
@@ -267,7 +267,7 @@ Routine checks are an optional part of using the AIRDOS04 detector. The followin
  </div>
 
 
-**Using the Power Button**: For units equipped with the BATDATUNIT01-BAT, the battery level can be checked using the 'Power' button. An approximately 1s long press and release of this button will display the current battery level through the LED indicator. For more detailed information about obtaining the battery level, refer to the 'Battery Level' section of the manual.
+**Using the Power Button**: For units equipped with the BATDATUNIT01-BAT, the battery level can be checked using the 'Power' button. An approximately 1s-long press and release of this button will display the current battery level through the LED indicator. For more detailed information about obtaining the battery level, refer to the 'Battery Level' section of the manual.
 
 # Advanced maintenance
 
@@ -282,7 +282,7 @@ For more information on the availability and specifications of the recommended S
 
 ## Firmware update
 
-Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. AIRDOS04 firmware is completely located in BATDATUNIT module.  Please follow the instructions in [BATDATUNIT01 firmware update section](/airdos/BATDATUNIT01#firmware-update). 
+Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. AIRDOS04 firmware is completely located in the BATDATUNIT module.  Please follow the instructions in [BATDATUNIT01 firmware update section](/airdos/BATDATUNIT01#firmware-update). 
 
 # Data Evaluation
 
@@ -304,11 +304,28 @@ The data measured by the instrument are stored in its integrated data storage. D
 
 # Recycling and Disposal
 
-This is a high-end aerospace electronic device containing removable li-ion cells in an 18650 casing. Before disposal, remove the cells from the device. Dispose of the rechargeable li-ion cells according to the regulations of your country. The rest of the device constitutes electronic waste without additional batteries, dispose of it according to the regulations of your country. The device is not RoHS compliant because it contains lead solder to meet aerospace industry standards.
+This is a high-end aerospace electronic device containing removable Li-ion cells in a 18650 casing. Before disposal, remove the cells from the device. Dispose of the rechargeable Li-ion cells according to the regulations of your country. The rest of the device constitutes electronic waste without additional batteries; dispose of it according to the regulations of your country. The device is not RoHS compliant because it contains lead solder to meet aerospace industry standards.
 
 # Safety Instructions and Warranty
 
 The BATDATUNIT01 module contains up to five lithium-ion cells encased in 18650, providing a reliable and rechargeable power source for the AIRDOS04 detector. These cells are specifically chosen for their durability, safety, high energy density, and ability to maintain a consistent charge over numerous usage cycles, ensuring sustained operation of the detector in various field conditions.
 Universal Scientific Technologies s.r.o. shall not be liable for any damages, injuries, or regulatory non-compliance arising from improper use, maintenance, or unauthorized alterations of the device.
 The device is covered by a two-year limited warranty.
-Unauthorized interventions in the device or handling that contradict the instructions provided in the manual and detector online documentation will result in the loss of warranty.
+Unauthorized interventions in the device or handling that contradict the instructions provided in the manual and the detector's online documentation will result in the loss of warranty.
+
+# Product Changelog
+
+### 2025/5 – AIRDOS04C Release
+- New version **AIRDOS04C** introduced.
+- Improved analog section allowing:
+  - Extended energy range: 40 keV to ~80 MeV
+  - Increased number of energy channels: 65,536
+- Analog part remains backward-compatible with previous revisions of AIRDOS04.
+- Fully compatible with all revisions of digital module [BATDATUNIT01](https://docs.dos.ust.cz/airdos/BATDATUNIT01).
+
+### 2023/12 – AIRDOS04B Release
+- The **AIRDOS04B** was the first revision commercially available.
+
+### 2023/11 – AIRDOS04A
+- Internal prototype
+
