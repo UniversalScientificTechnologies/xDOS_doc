@@ -23,8 +23,7 @@ flowchart TD
 
 RAD(Cosmic Radiation particle)
 
-
-subgraph DET[Analog part (AIRDOS04 core)]
+subgraph DET[Analog part - AIRDOS04 core]
     PIN[PIN diode]
     AMP[Charge sensitive amplifier]
     PEAK[Peak detector and pulse shaper with\nanalog memory]
@@ -35,8 +34,7 @@ subgraph DET[Analog part (AIRDOS04 core)]
     PEAK --> ADC
 end
 
-
-subgraph CPU[Computing, data and power storage unit (BATDATUNIT01)]
+subgraph CPU[Computing, data and power storage unit - BATDATUNIT01]
     SENS[Hygrometer\nPressure sensor]
     MCU[Microcontroller]
     SD[Industrial\nSD card]
