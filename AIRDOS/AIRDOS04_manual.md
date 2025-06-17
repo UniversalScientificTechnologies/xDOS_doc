@@ -75,7 +75,7 @@ The detector is designed to allow for easy insertion of data storage and power m
 
 ## AIRDOS04`s Digital, Data Storage, and Power Module
 
-The AIRDOS04B, designed with efficiency and modularity in mind, separates its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity, and power sources.
+The AIRDOS04 is designed with efficiency and modularity in mind, separating its detection capabilities from its data storage and power supply functions. These functions are executed through interchangeable modules, which also act as processor units with firmware, data storage with high capacity, and power sources.
 
 Visit more information:
 
