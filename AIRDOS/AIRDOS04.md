@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "AIRDOS04: state-of-art dosimeter"
+title: "AIRDOS04: Airliner radiation dosimeter"
 permalink: /airdos/AIRDOS04
 parent: AIRDOS
 nav_order: "1"
@@ -39,7 +39,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and flight 
    * Operational humidity conditions: non-condensing, 20% to 80% RH
 
 ---
-_Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made with the goal of enhancing performance, usability, or compliance._
+_Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made to enhance performance, usability, or compliance._
 
 See [changelog](https://docs.dos.ust.cz/airdos/AIRDOS04/manual#product-changelog) for information about hardware revisions and version-specific features.
 
