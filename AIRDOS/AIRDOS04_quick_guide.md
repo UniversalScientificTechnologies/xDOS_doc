@@ -19,7 +19,7 @@ This is a simplified version of the full user guide for fast detector setup. Thi
    </iframe>
  </div>
 
-The AIRDOS04 airborne radiation dosimeter and spectrometer and its detachable module, BATDATUNIT01, are laid out on a table. Then should be effortlessly assembled, connecting the two parts. As they fit into place, the device acknowledges the successful assembly with a series of LED flashes and a brief beep, signaling it's powered on and operational. The AIRDOS04, now fully assembled, continues to exhibit its functionality by periodically blinking its LED. The detector is not possible to power off by any of the buttons.
+The AIRDOS04 airborne radiation dosimeter and spectrometer and its detachable module, BATDATUNIT01, are laid out on a table. Then should be effortlessly assembled, connecting the two parts. As they fit into place, the device acknowledges the successful assembly with a series of LED flashes and a brief beep, signaling it's powered on and operational. The AIRDOS04, now fully assembled, continues to exhibit its functionality by periodically blinking its LED. The detector is impossible to power off by any of the buttons.
 
 [Detailed instructions in full manual]({{site.baseurl}}/airdos/AIRDOS04#detector-power-up).
 
@@ -38,7 +38,7 @@ To confirm that the detector is actively recording data, observe the LEDs. The d
 
 ### Battery status
 
-Battery status could be checked outside from the detector or directly in the detector without interruption of measurement.
+Battery status could be checked outside the detector or directly in the detector without interruption of measurement.
 
 [Detailed instructions in full manual]({{site.baseurl}}/airdos/AIRDOS04#status-indicator-description).
 
@@ -82,7 +82,7 @@ The insertion process is the same as described in the 'Detector activation' sect
    </iframe>
  </div>
 
-Plug-in of USB-C cable to the AIRDOS04 device, initiating its power-up process. It is indicated by a series of visual and audible cues. The charging indicator lights up, signaling the commencement of the accumulator's charging cycle. The charging process is very slow to achieve the maximal capacity and endurance of the li-ion accumulators.
+Plug-in of USB-C cable to the AIRDOS04 device, initiating its power-up process. It is indicated by a series of visual and audible cues. The charging indicator lights up, signaling the commencement of the accumulator's charging cycle. The charging process is very slow to achieve the maximum capacity and endurance of the Li-ion accumulators.
 
 # Data-accessing (Connecting to PC)
 
