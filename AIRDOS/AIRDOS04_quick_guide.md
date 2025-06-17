@@ -19,7 +19,7 @@ This is a simplified version of the full user guide for fast detector setup. Thi
    </iframe>
  </div>
 
-The AIRDOS04 airborne radiation dosimeter and spectrometer and its detachable module, BATDATUNIT01, are laid out on a table. Then should be effortlessly assembled, connecting the two parts. As they fit into place, the device acknowledges the successful assembly with a series of LED flashes and a brief beep, signaling it's powered on and operational. The AIRDOS04, now fully assembled, continues to exhibit its functionality by periodically blinking its LED. The detector is impossible to power off by any of the buttons.
+The AIRDOS04 airborne radiation dosimeter and spectrometer and its detachable module, BATDATUNIT01, are laid out on a table. It should be effortlessly assembled, connecting the two parts. As they fit into place, the device acknowledges the successful assembly with a series of LED flashes and a brief beep, signaling it's powered on and operational. The AIRDOS04, now fully assembled, continues to exhibit its functionality by periodically blinking its LED. The detector is impossible to power off by any of the buttons.
 
 [Detailed instructions in full manual]({{site.baseurl}}/airdos/AIRDOS04#detector-power-up).
 
