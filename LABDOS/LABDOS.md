@@ -58,7 +58,7 @@ The main user interface is [USB](https://en.wikipedia.org/wiki/USB) with a USB-C
 
 ### JST-GH UART interface
 
-Optional data output over [UART](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter). It could also be used for firmware upgrades by switching solder jumper on the PCB. 
+Optional data output over [UART](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter). It could also be used for firmware upgrades by switching the solder jumper on the PCB. 
 
 |Signal| Description | 
 |--------|-----------|
@@ -69,11 +69,11 @@ Optional data output over [UART](https://en.wikipedia.org/wiki/Universal_asynchr
 | RTS |     |  
 | GND |   Signal ground  |   
 
-The interface could be used with [GHxPIN01](https://www.mlab.cz/module/GHxPIN01/) for connection to other laboratory devices or experiments. 
+The interface could be used with [GHxPIN01](https://www.mlab.cz/module/GHxPIN01/) for connection to other laboratory devices or experiments. The [MLAB.cz](https://www.mlab.cz/) contains plenty of additional hardware that could be used. 
 
 ![LABDOS01 opened with MLAB base board and GHxPIN01 module](LABDOS01S_opened_GHxPIN01.jpg)
 
-Additionally, there exists the TFUSBSERIAL01 gadget, which allows direct connection to the JST-GH UART connector. 
+Additionally, there exists the [TFUSBSERIAL01 gadget](https://docs.thunderfly.cz/avionics/TFUSBSERIAL01/), which could be used for direct connection to the JST-GH UART connector. 
 
 ### JST-GH Auxiliary IO
 
