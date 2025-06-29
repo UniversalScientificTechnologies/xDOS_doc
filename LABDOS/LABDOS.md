@@ -9,23 +9,23 @@ permalink: /labdos/LABDOS01
 
 ## Introduction
 
-LABDOS01 is a lightweight portable [open-science](https://en.wikipedia.org/wiki/Open_science) ionizing radiation spectrometer-dosimeter intended as an experimental device for laboratory measurements or as a personal dosimeter for frequent flyers. The dosimeter is connected via a USB bus, through which it is powered and read-out. This minimizes the demand for skills required to operate the dosimeter.
+LABDOS01 is a lightweight portable [open-science](https://en.wikipedia.org/wiki/Open_science) ionizing radiation spectrometer-dosimeter intended as an experimental device for laboratory measurements or as a personal dosimeter for frequent flyers. The dosimeter is connected via a USB bus, through which it is powered and read out. This minimizes the demand for skills required to operate the dosimeter.
 
 ![LABDOS01 front and back side](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/LABDOS01B/doc/LABDOS01A_merge.jpg)
 
 This device should be used for experimental verification and planning before using our more sophisticated and application-specific devices like [SPACEDOS](https://docs.dos.ust.cz/spacedos/), [AIRDOS](https://docs.dos.ust.cz/airdos/), or [GEODOS](https://docs.dos.ust.cz/geodos).
 
 ## Vendor Information 
-The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in the field of radiation detection and measurement. For any further information or support you can contact us via email at support@ust.cz
+The LABDOS01 detectors are procured by Universal Scientific Technologies s.r.o. (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in the field of radiation detection and measurement. For any further information or support, you can contact us via email at support@ust.cz
 
 ## Applications
 
-* AeroSpace or Terrestrial Radiation Monitoring
+* Aerospace or Terrestrial Radiation Monitoring
 * Aircraft Onboard Radiation Monitoring
-* Scientific High Altitude Balloons, e.g. [Pfotzer Maximum measurement](https://en.wikipedia.org/wiki/Georg_Pfotzer)
+* Scientific High Altitude Balloons, e.g., [Pfotzer Maximum measurement](https://en.wikipedia.org/wiki/Georg_Pfotzer)
 * Educational Toolkit, [cosmic ray monitoring](https://en.wikipedia.org/wiki/Cosmic_ray) 
 * Radiation Mapping in 3D together with GNSS and UAV
-* Space Weather Monitoring e.g. on high-altitude observatories
+* Space Weather Monitoring, e.g., on high-altitude observatories
 * [Open science](https://en.wikipedia.org/wiki/Open_science)
 * [Citizen science](https://en.wikipedia.org/wiki/Citizen_science)
 
@@ -73,7 +73,9 @@ The interface could be used with [GHxPIN01](https://www.mlab.cz/module/GHxPIN01/
 
 ![LABDOS01 opened with MLAB base board and GHxPIN01 module](LABDOS01S_opened_GHxPIN01.jpg)
 
-### JST-GH Auxilary IO
+Additionally, there exists the TFUSBSERIAL01 gadget, which allows direct connection to the JST-GH UART connector. 
+
+### JST-GH Auxiliary IO
 
 Mainly useful for special tasks like control of external devices depending on radiation intensity or spectral threshold energy. 
 Another usage is the connection to an autopilot in a UAV. See the [AIRDOS03](https://www.ust.cz/UST-dosimeters/AIRDOS/#airdos03-uavdos)  for details. 
@@ -114,21 +116,21 @@ When connected to a compatible mobile phone or a computer, LABDOS01 serves as a 
 
 ### Laboratory Use with Artificial Sources
 
-In laboratory setups, it is possible to use LABDOS01 for detection of radiation from weak artificial sources (e.g., low-activity ²⁴¹Am, or particle accelerators). For such purposes, it is recommended to open the LABDOS01 housing and directly irradiate the internal copper entrance window.
+In laboratory setups, it is possible to use LABDOS01 for the detection of radiation from weak artificial sources (e.g., low-activity ²⁴¹Am, or particle accelerators). For such purposes, it is recommended to open the LABDOS01 housing and directly irradiate the internal copper entrance window.
 
 This configuration has been successfully validated in controlled accelerator environments such as HIMAC.
 
 ![LABDOS01 under test in HIMAC accelerator beam](LABDOS01_HIMAC.png)
 
-LABDOS01 includes a \~50 µm copper foil with small hole covered by thinner aluminium foil located directly above the silicon PIN diode. This copper layer is thin enough to allow detection of charged particles. However, a thin aluminum protective foil is also placed above the hole in copper foil - this window is used for energy calibration during manufacturing.  If left in place, this aluminium foil blocks light and alpha particles and only allows detection of secondary electrons, resulting in distorted spectra.
+LABDOS01 includes a \~50 µm copper foil with a small hole covered by a thinner aluminium foil located directly above the silicon PIN diode. This copper layer is thin enough to allow detection of charged particles. However, a thin aluminum protective foil is also placed above the hole in the copper foil - this window is used for energy calibration during manufacturing.  If left in place, this aluminium foil blocks light and alpha particles and only allows detection of secondary electrons, resulting in distorted spectra.
 
 To allow detection of primary alpha particles:
 
-* **Carefully remove the aluminum foil** covering the window by tweezers.
-* Irradiate the detector directly through hole in the exposed copper foil window in complete darkness.
+* **Carefully remove the aluminum foil** covering the window with tweezers.
+* Irradiate the detector directly through the hole in the exposed copper foil window in complete darkness.
 
 {: .important }
-This operation requires mechanical disassembly and may void warranty. Proceed only if you fully understood the consequences and risks involved.
+This operation requires mechanical disassembly and may void the warranty. Proceed only if you fully understand the consequences and risks involved.
 
 ![LABDOS01 irradiated by Americium-Plutonium radiation source](LABDOS01_AmPu.png)
 
@@ -136,7 +138,7 @@ This operation requires mechanical disassembly and may void warranty. Proceed on
 ![LABDOS01 Americium-Plutonium deposited energy spectra](LABDOS01_AmPu_spectrum.png)
 
 
-### Direct data Stream Capturing
+### Direct Data Stream Capturing
 
 Reading the data stream from LABDOS01 via USB involves capturing and analyzing the data transmitted from the device to a connected computer or mobile device. The USB data streaming approach is particularly beneficial for mid-term monitoring scenarios where real-time data publication is desired, such as displaying radiation measurements on a website or generating live data feeds for other applications. This method requires dedicated software to handle the data streaming and publishing processes. The software interprets the data stream from LABDOS01 and converts it into a suitable format for online publishing or other forms of output, enabling continuous and dynamic sharing of radiation data in real-time. This feature is especially useful in scientific research, public monitoring projects, or educational demonstrations.
 
