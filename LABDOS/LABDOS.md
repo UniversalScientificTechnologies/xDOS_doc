@@ -147,6 +147,8 @@ Reading the data stream from LABDOS01 via USB involves capturing and analyzing t
 
 The device should appear as a virtual serial line without any external drivers. Many serial logging tools could be used to log the LABDOS output, for example, `picocom` or `minicom`. Look to [LABDOS01A/sw](https://github.com/UniversalScientificTechnologies/LABDOS01/tree/LABDOS01A/sw) for details. 
 
+
+
 #### Android
 
 The device should appear as a virtual serial line without any external drivers. Many serial logging tools could be used to log the LABDOS output, for example, [Serial USB terminal](https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal).
@@ -170,18 +172,18 @@ For computers with Windows, you will need to install a driver for [FTDI USB](htt
 
 ### Recording on SD card
 
-Data in the LABDOS01 are always logged when an SD card is present and functional. In that case, the LABDOS01 needs an external power supply e.g. power bank or smartphone. The LABDOS could be connected by any sufficiently reliable USB-C to USB-C/USB-A cable. The recording of the card is indicated by the illumination of LED2. If the card is inserted and LED2 does not blink between exposures, there might be an issue with the SD card. It's advisable to check the card on a computer. The problem could be due to using an incorrect type of SD card, improper formatting, or damage to the card media.
+Data in the LABDOS01 is always logged when an SD card is present and functional. In that case, the LABDOS01 needs an external power supply e.g. power bank or smartphone. The LABDOS could be connected by any sufficiently reliable USB-C to USB-C/USB-A cable. The recording of the card is indicated by the illumination of LED2. If the card is inserted and LED2 does not blink between exposures, there might be an issue with the SD card. It's advisable to check the card on a computer. The problem could be due to using an incorrect type of SD card, improper formatting, or damage to the card media.
 
 {: .note }
-SD cards in environments with elevated radiation levels may degrade more quickly. Therefore, it's recommended to proactively replace the SD card annually with a suitable and supported type. For information on availability and the correct type of card, contact technical support. Ony industrial SLC SD cards with properly implemented SPI interface are supported.
+SD cards in environments with elevated radiation levels may degrade more quickly. Therefore, it's recommended to proactively replace the SD card annually with a suitable and supported type. For information on availability and the correct type of card, contact technical support. Only industrial SLC SD cards with a properly implemented SPI interface are supported.
 
 {: .important }
-The presence and recording of an SD card in LABDOS01 can cause variable dead time, depending on the condition of the SD card and filesystem. This dead time can be as long as one second. To minimize dead time, remove the SD card and log data externally via the data stream (USB/UART). This method ensures more continuous data capture with reduced interruptions, making it more suitable for applications where minimizing of deadtime is critical.
+The presence and recording of an SD card in LABDOS01 can cause variable dead time, depending on the condition of the SD card and filesystem. This dead time can be as long as one second. To minimize dead time, remove the SD card and log data externally via the data stream (USB/UART). This method ensures more continuous data capture with reduced interruptions, making it more suitable for applications where minimizing deadtime is critical.
 
 
 ## Experiment Evaluation
 
-The data measured by the LABDOS are stored as text files. The exact format description of these files depends on the device's firmware. The recorded data files can be analyzed with custom software tools based on the [example dose calculation script](https://github.com/UniversalScientificTechnologies/LABDOS01/blob/LABDOS01B/notebooks/flight_dose_calculation.ipynb), or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
+The data measured by the LABDOS is stored as text files. The exact format description of these files depends on the device's firmware. The recorded data files can be analyzed with custom software tools based on the [example dose calculation script](https://github.com/UniversalScientificTechnologies/LABDOS01/blob/LABDOS01B/notebooks/flight_dose_calculation.ipynb), or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
 
 
 ## Maintenance
@@ -196,17 +198,20 @@ The only consumable component in the detector is the SD card, which is used for 
 
 **Updating Process**
 
-  1. Download the Latest Firmware: Access the latest firmware as a release on GitHub or request it directly from the manufacturer.
+  1. Download the Latest Firmware: Access the latest firmware as a release on GitHub or request it directly from the UST.
   1. Connect LABDOS01 to a Computer: Use a USB-C cable for connection.
-  1. Initiate Firmware Update: Follow the specific instructions available on the documentation page. Always refer to the online guide for the latest instructions as they may evolve.
-  1. Complete the Update: Avoid disconnecting during the update process.
+  1. Initiate Firmware Update (Avoid disconnecting during the update process.):
+     
+     `avrdude -v -patmega1284p -carduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:<fw_path>:i`
+
+      Replace `<fw_path>` with the path to the downloaded firmware file. Ensure the `/dev/ttyUSB0` port matches the port where the programming device is connected.
      
 **Additional requirements**
 
   1. Power Stability: Ensure a quality USB-C cable is used.
   1. Compatibility Check: Verify firmware compatibility with your LABDOS01 model.
   1. Post-Update Testing: After updating, it's important to test the detector to ensure it functions correctly as expected. This step verifies that the update has been successful and the device operates as intended. It can be done by 
-  1. connecting a detector to any device, where you can open the serial line terminal.
+  1. Connecting a detector to any device where you can open the serial line terminal.
   1. Remember, the steps outlined here are general guidelines. Always follow the latest online instructions (https://docs.dos.ust.cz/) for accurate and up-to-date procedures.
 
 
@@ -244,7 +249,7 @@ Usage:
 
 
 
-#### Inline variant of command with the creation of output folder and composing each sub-record file
+#### Inline variant of command with the creation of the output folder and composing each sub-record file
 
 ```
 mkdir -p split && cat *.TXT > compose.txt && csplit -b "%04d.dos" -f split/ compose.txt '/$DOS,LABDOS01/' {*}
