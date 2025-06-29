@@ -9,19 +9,19 @@ nav_order: "4"
 # BATDATUNIT01 - Power and data storage
 
 The [BATDATUNIT01](https://github.com/mlab-modules/BATDATUNIT01) is a specialized module optimized for use in the AIRDOS04 series of detectors.
-The AIRDOS04, designed to efficiency with use of modularity, separates calibrated sensor from its data storage and power supply functions. These functions are integrated to interchangeable modules, which also act as processor units with firmware, data storage, and power sources.
+The AIRDOS04, designed for efficiency with the use of modularity, separates the calibrated sensor from its data storage and power supply functions. These functions are integrated to interchangeable modules, which also act as processor units with firmware, data storage, and power sources.
 
 ![BATDATUNIT01 out of AIRDOS04 sensor unit](https://raw.githubusercontent.com/mlab-modules/BATDATUNIT01/BATDATUNIT01B/doc/img/BATDATUNIT01.jpg)
 
 The separation of the data storage and power supply from the detection part results from a requirement to ease of periodic maintenance of the AIRDOS04 detector. By compartmentalizing these functions, the detector allows for easier upgrades, maintenance, and customization based on specific user needs or changing technological advancements.
 
-The concept of an interchangeable digital part significantly reduces the maintenance time required to keep the detector operational. Maintenance on-site (such as on-board aircraft) involves swapping the digital part with another unit that is pre-prepared with cleared data storage, updated firmware and charged accumulator.
+The concept of an interchangeable digital part significantly reduces the maintenance time required to keep the detector operational. Maintenance on-site (such as on-board aircraft) involves swapping the digital part with another unit that is pre-prepared with cleared data storage, updated firmware, and a charged accumulator.
 
 All the firmware for the detector is also located in this digital part (BATDATUNIT). This ensures that firmware updates can be safely prepared out of the experiment site, off the aircraft, so that the time required for regular maintenance is not extended by firmware updates.
 
-1. **Integrated Data Storage and Power Supply**: The BATDATUNIT01 has substantial data storage capacity, allowing for data accumulation over prolonged periods. It also includes a built-in power source, which is important for the detector's long-term autonomous operation, or in the cases in environments where external power may not be readily available.
+1. **Integrated Data Storage and Power Supply**: The BATDATUNIT01 has substantial data storage capacity, allowing for data accumulation over prolonged periods. It also includes a built-in power source, which is important for the detector's long-term autonomous operation, or in cases in environments where external power may not be readily available.
 
-1. **Embedded Processor with Firmware**: BATDATUNIT01 contains a microcontroller that controls the entire detector system and peripherals. This processor is loaded with the firmware located also in BATDATUNIT01, ensuring proper detector operation and can be off site updated with new features or improvements.
+1. **Embedded Processor with Firmware**: BATDATUNIT01 contains a microcontroller that controls the entire detector system and peripherals. This processor is loaded with the firmware located also in BATDATUNIT01, ensuring proper detector operation, and can be off-site updated with new features or improvements.
 
 1. **Environmental Sensors**: The module is fitted with internal sensors, including a thermometer, hygrometer, and barometer. These sensors provide information on the ambient environment, factors that can be important for more precise data processing.
 
@@ -31,25 +31,25 @@ All the firmware for the detector is also located in this digital part (BATDATUN
 
 ### BATDATUNIT01-BAT - Integrated battery power source type
 
-The accumulator module of the AIRDOS04 detector offers an integrated energy storage solution. This module is equipped with up to five lithium-ion cells housed in 18650 battery cases, providing a significant power capacity that can sustain the detector's operation for up to one month. The maximum capacity corresponds to 64 Wh of energy. The exact number of cells and therefore capacity could be altered to fit the specific application requirements or restrictions. Contact us to get more details on that topic.
+The accumulator module of the AIRDOS04 detector offers an integrated energy storage solution. This module is equipped with up to five lithium-ion cells housed in 18650 battery cases, providing a significant power capacity that can sustain the detector's operation for up to one month. The maximum capacity corresponds to 64 Wh of energy. The exact number of cells and, therefore, capacity could be altered to fit the specific application requirements or restrictions. Contact us to get more details on that topic.
 
 The battery module could  be continuously connected to a USB-C power supply, functioning similarly to an [Uninterruptible Power Supply (UPS)](https://en.wikipedia.org/wiki/Uninterruptible_power_supply). In scenarios where the external power supply experiences outages, the accumulator module ensures that the AIRDOS04 continues to operate without interruption, maintaining consistent data collection and detector functionality.
 
-The AIRDOS uses the same protection techniques as has been used in [SPACEDOS03](/spacedos/SPACEDOS03) on board of [ISS](https://en.wikipedia.org/wiki/International_Space_Station). Therefore each cell in the battery is over-voltage, under-voltage, over-current, and over-temperature protected.  Should be also noted that the over-current protection is managed for each cell separately by a non-reversible fuse. That means any uncommon power situation results in electrical disconnection of the affected cell. This protective action is not user-reversible for safety reasons.
-Additionally, the cells are mounted in medical equipment grade cell holders, which ensures that each cell is separated enough, to avoid thermal runaway of the battery in case of an internal short circuit of one cell. For that the worst case there is an over-pressure fuse in each cell cylinder to avoid an explosion. Also, the plastic material used in AIRDOS has reduced toxicity in case of combustion.
+The AIRDOS uses the same protection techniques as have been used in [SPACEDOS03](/spacedos/SPACEDOS03) on board of [ISS](https://en.wikipedia.org/wiki/International_Space_Station). Therefore, each cell in the battery is over-voltage, under-voltage, over-current, and over-temperature protected.  It should also be noted that the over-current protection is managed for each cell separately by a non-reversible fuse. That means any uncommon power situation results in the electrical disconnection of the affected cell. This protective action is not user-reversible for safety reasons.
+Additionally, the cells are mounted in medical equipment-grade cell holders, which ensures that each cell is separated enough to avoid thermal runaway of the battery in case of an internal short circuit of one cell. For that, the worst case there is an over-pressure fuse in each cell cylinder to avoid an explosion. Also, the plastic material used in AIRDOS has reduced toxicity in case of combustion.
 
 
 ### BATDATUNIT01-EXT - External power source type
 
-The digital/data module variant is without any lithium accumulators for applications where batteries are not allowed due to safety restrictions. Designed for environments where a continuous external power source is readily available, this module prioritizes data handling and processing capabilities while relying on external power, through a USB-C connection.
+The digital/data module variant is without any lithium accumulators for applications where batteries are not allowed due to safety restrictions. Designed for environments where a continuous external power source is readily available, this module prioritizes data handling and processing capabilities while relying on external power through a USB-C connection.
 
-This module contains the same critical digital components and firmware of the AIRDOS04 as BATDATUNIT01-BAT. Its design facilitates efficient data management, allowing for quick data transfer and analysis when connected to a computer or other devices. The absence of an accumulator is useful in cases where you need to put a detector in places where lithium cells are not permitted.
+This module contains the same critical digital components and firmware as the AIRDOS04 as BATDATUNIT01-BAT. Its design facilitates efficient data management, allowing for quick data transfer and analysis when connected to a computer or other devices. The absence of an accumulator is useful in cases where you need to put a detector in places where lithium cells are not permitted.
 
 The integrated data storage of the detector is accessible as a mass-storage device via the USB-C interface. This feature provides fast and user-friendly access to the internal storage, without requiring any external memory readers. More information about the initialization of mass-storage mode is written in the “Device operations” part of this manual.
 
 ## Firmware update
 
-The both types of BATDATUNIT contains AIRDOS04 firmware. Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. The following guide provides a step-by-step approach to updating the firmware using the AVRDUDE tool.
+Both types of BATDATUNIT contain AIRDOS04 firmware. Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. The following guide provides a step-by-step approach to updating the firmware using the AVRDUDE tool.
 
 ### Preparation
 
