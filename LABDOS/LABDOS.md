@@ -143,6 +143,18 @@ Reading the data stream from LABDOS01 via USB involves capturing and analyzing t
 
 ![LABDOS01 smartphone connection](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/LABDOS01B/doc/LABDOS01A_smartphone-tablet_connection.jpg "LABDOS01A connected to a smartphone")
 
+### Steps to Read Data Stream
+
+1. Connect LABDOS01 using a USB-C cable.
+2. Ensure device recognition and enumeration as a virtual serial line.
+3. Launch data logging software (e.g., picocom, minicom, or Putty).
+4. Adjust settings in your logging software according to the data format and baud rate (default baud rate is 115200) used by LABDOS01.
+5. Start capturing the data stream.
+
+{: .important }
+- Verify that you use the correct data format and firmware for the intended experiment.
+- Use of a high-quality connection cable.
+
 #### Linux
 
 The device should appear as a virtual serial line without any external drivers. Many serial logging tools could be used to log the LABDOS output, for example, `picocom` or `minicom`. Look to [LABDOS01A/sw](https://github.com/UniversalScientificTechnologies/LABDOS01/tree/LABDOS01A/sw) for details. 
@@ -192,19 +204,6 @@ The device should appear as a virtual serial line without any external drivers. 
 #### Windows
 
 For computers with Windows, you will need to install a driver for [FTDI USB](https://ftdichip.com/drivers/) converter. Then you could use the [putty](https://www.putty.org/) which is a program that can be used for logging. One of the tutorials on how to set up data logging using Putty is [here](https://my.kualo.com/knowledgebase/?kbcat=0&article=888) for example.
-
-
-### Steps to Read Data Stream
-
-1. Connect LABDOS01 using a USB-C cable.
-2. Ensure device recognition and enumeration as a virtual serial line.
-3. Launch data logging software (e.g., picocom, minicom, or Putty).
-4. Adjust settings in your logging software according to the data format and baud rate (default baud rate is 115200) used by LABDOS01.
-5. Start capturing the data stream.
-
-{: .important }
-- Verify that you use the correct data format and firmware for the intended experiment.
-- Use of a high-quality connection cable.
 
 ### Recording on SD card
 
