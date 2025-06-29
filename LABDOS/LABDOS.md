@@ -69,7 +69,7 @@ Optional data output over [UART](https://en.wikipedia.org/wiki/Universal_asynchr
 | RTS |     |  
 | GND |   Signal ground  |   
 
-The interface could be used with [GHxPIN01](https://www.mlab.cz/module/GHxPIN01/) for connection to other laboratory devices or experiments. The [MLAB.cz](https://www.mlab.cz/) contains plenty of additional hardware that could be used. 
+The interface could be used with [GHxPIN01](https://www.mlab.cz/module/GHxPIN01/) for connection to other laboratory devices or experiments. The [MLAB.cz](https://www.mlab.cz/) contains plenty of compatible hardware that could be then used. 
 
 ![LABDOS01 opened with MLAB base board and GHxPIN01 module](LABDOS01S_opened_GHxPIN01.jpg)
 
