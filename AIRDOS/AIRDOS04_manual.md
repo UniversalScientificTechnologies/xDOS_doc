@@ -314,7 +314,7 @@ Unauthorized interventions in the device or handling that contradict the instruc
 # Product Changelog
 
 ### 2025/5 – AIRDOS04C Release
-- New version **AIRDOS04C** introduced.
+- SD card storage size increased to 2 GB.
 - Improved analog section allowing:
   - Extended energy range: 40 keV to ~80 MeV
   - Increased number of energy channels: 65,536
