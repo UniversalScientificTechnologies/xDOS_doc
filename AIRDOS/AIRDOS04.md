@@ -14,16 +14,16 @@ AIRDOS is a state-of-the-art cosmic radiation dosimeter and spectrometer unit. I
 ![AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/AIRDOS04A/doc/img/AIRDOS04.jpg)
 
 
-The instrument is designed primarily for the dosimetry of cabin crew and flight attendants of commercial flights. Thanks to its design of detachable data storage and power source from accumulators, the required maintenance time is minimal. The calibrated AIRDOS04 detector can be placed on board continuously, and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
+The instrument is designed primarily for the dosimetry of cabin crew and commercial flight attendants. Thanks to its design of detachable data storage and power source from accumulators, the required maintenance time is minimal. The calibrated AIRDOS04 detector can be placed on board continuously, and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
 
 [Get started now]({{site.baseurl}}/airdos/AIRDOS04/quickstart){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
-**Vendor Information**: The AIRDOS04 detectors are procured by [Universal Scientific Technologies s.r.o.](https://www.ust.cz/) (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable products in radiation detection and measurement. For more details about the company and its officers, please visit their website at [www.ust.cz](https://www.ust.cz/). For any further information or support, you can contact us [via email](https://www.ust.cz/about/#email).
+**Vendor Information**: The AIRDOS04 detectors are procured by [Universal Scientific Technologies s.r.o.](https://www.ust.cz/) (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable radiation detection and measurement products. For more details about the company and its officers, please visit their website at [www.ust.cz](https://www.ust.cz/). For any further information or support, you can contact us [via email](https://www.ust.cz/about/#email).
 
 # Technical parameters
 
  * Detection element: Silicon PIN diode, volume 44 mm³
- * Effective number of energy channels: ~65500
+ * Effective number of energy channels: ~65000
  * Deposited energy range: 40 keV to 80 MeV
  * Energy measurement resolution: 15 ±2 keV
  * Service interface and charging source: USB-C connector
