@@ -28,11 +28,13 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
  * Energy measurement resolution: 15 ±2 keV
  * Service interface and charging source: USB-C connector
  * Energy source: Up to five 18650 Li-ion cells with 64 Wh in total. That conforms [≤ 100 Wh / 2g IATA restrictions](https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passenger-lithium-battery.pdf)
+   * Can also be operated without accumulators completely with the use of an aircraft's on-board USB power source. 
  * Radiation spectra integration time: 10 s
  * Maintenance interval: ~1 month (data download, accu pack change)
  * Maintenance duration: under 5 minutes
  * Size: 166 x 107 x 57 mm (two  of these should fit into the Aircraft printed manual bay)
  * Weight is 0.88 kg (With five Li-ion accumulator cells in [BATDATUNIT01](https://docs.dos.ust.cz/airdos/BATDATUNIT01))
+   * 0.62 kg without Li-ion accumulators  
  * Environmental operational conditions
    * Device protection: IP30 rating (fully assembled)
    * Operational and storage temperature range: 0°C to 50°C (32°F to 122°F)
