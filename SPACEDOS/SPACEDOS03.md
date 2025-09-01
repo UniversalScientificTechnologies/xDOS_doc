@@ -13,7 +13,7 @@ nav_order: 3
 
 SPACEDOS03 is an open-source semiconductor particle detector (dosimeter and spectrometer) for space applications. The detector is based on a silicon PIN diode. The Detector is designed as autonomous for long-term measurement campaigns and therefore contains its power source from high-capacity battery cells and a recording medium in the form of an industrial SD card. The device is designed to be able to work for half a year continuously.
 
-The detector is mounted into a 3D-printed box that contains positions for passive TLDs and track detectors. The main purpose of the device is experimental testing of radiation shielding materials in the real environment.
+The detector is mounted in a 3D-printed box that contains positions for passive TLDs and track detectors. The main purpose of the device is experimental testing of radiation shielding materials in the real environment.
 
 ## Parameters
 
