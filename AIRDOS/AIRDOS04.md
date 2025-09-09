@@ -68,7 +68,7 @@ These facilities let us test AIRDOS04 in both mono‑energetic/mono‑species an
 
 ## Flight-data
 
-During routine airline operations, AIRDOS04 records the typical evolution of the radiation environment with altitude and geomagnetic latitude. The figures below show a representative flight where the dose rate rises with climb, levels at cruise, and decreases on descent; the spectral content and environmental variables (pressure, temperature) evolve accordingly.
+During routine operations, AIRDOS04 records the typical evolution of the cabin radiation environment. The figures below show a representative flight where the dose rate rises with climb, levels at cruise, and decreases on descent; the spectral content and environmental variables (pressure, temperature) evolve accordingly.
 
 
 ![Measured doserate during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_doserate.png)
@@ -76,7 +76,7 @@ During routine airline operations, AIRDOS04 records the typical evolution of the
 *Dose‑rate vs. time along the flight profile.*
 
 > * Flight duration: 11 h, number of spectral measurements: 3854.
-> * Dose in silicon over the flight: 14.444 μGy ± 1.132 μGy**.
+> * Dose in silicon over the flight: 14.444 μGy ± 1.132 μGy.
 
 
 ![Measured radiation spectra during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_radiation_spectra.png)
