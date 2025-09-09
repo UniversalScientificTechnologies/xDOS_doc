@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "AIRDOS04: Airliner radiation dosimeter"
-permalink: /airdos/AIRDOS04
+permalink: /airdos/AIRDOS04/
 parent: AIRDOS
 nav_order: "1"
 has_children: true
