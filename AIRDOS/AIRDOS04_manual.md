@@ -77,7 +77,7 @@ The AIRDOS04 is designed with efficiency and modularity in mind, separating its 
 
 Visit more information:
 
-[BATDATUNIT01](./BATDATUNIT01){: .btn .btn-green }
+[BATDATUNIT01](/airdos/BATDATUNIT01){: .btn .btn-green }
 
 
 # AIRDOS04 handling instructions
@@ -284,7 +284,11 @@ Updating the firmware of your AIRDOS particle detector is an important process f
 
 # Data Evaluation
 
-The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with custom software tools based on [this example script](https://github.com/UniversalScientificTechnologies/AIRDOS04/blob/AIRDOS04A/notebooks/flight_dose_calculation.ipynb), or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
+The data measured by the instrument are stored in its integrated data storage. Data files can be obtained following the procedure described in the "Downloading Recorded Data to a User's Computer" section. The format description of these files is available on the device's documentation website and depends on the device's firmware. These files can be analyzed with custom software tools based on [this example script](https://github.com/UniversalScientificTechnologies/AIRDOS04/blob/AIRDOS04C/notebooks/flight_dose_calculation.ipynb), or you can use the [dosportal](https://portal.dos.ust.cz) web application for managing and evaluating data measured by UST instruments.
+
+
+![Measured doserate during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_doserate.png)
+
 
 # Troubleshooting
 

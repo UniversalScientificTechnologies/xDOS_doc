@@ -30,6 +30,10 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
  * Energy source: Up to five 18650 Li-ion cells with 64 Wh in total. That conforms [≤ 100 Wh / 2g IATA restrictions](https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passenger-lithium-battery.pdf)
    * Can also be operated without accumulators completely with the use of an aircraft's on-board USB power source. 
  * Radiation spectra integration time: 10 s
+ * Environmental sensors
+   * Relative Humidity
+   * Temperature
+   * Barometric pressure
  * Maintenance interval: ~1 month (data download, accu pack change)
  * Maintenance duration: under 5 minutes
  * Size: 166 x 107 x 57 mm (two  of these should fit into the Aircraft printed manual bay)
@@ -44,6 +48,24 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 _Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made to enhance performance, usability, or compliance._
 
 See [changelog](https://docs.dos.ust.cz/airdos/AIRDOS04/manual#product-changelog) for information about hardware revisions and version-specific features.
+
+# Examples of data
+
+AIRDOS04 has been extensively tested on multiple scientific missions including particle accelerators or experimental compagins. 
+
+## Verification on artificial radiation sources
+
+![Fragments in HIMAC beam detected by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_HIMAC_fragments.png)
+
+![CERF mixed field radiation spectra by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_CERF_spectra.png)
+
+## Flight-data
+
+![Measured doserate during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_doserate.png)
+
+![Measured radiation spectra during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_radiation_spectra.png)
+
+![Environmental variables by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_flight_environment.png)
 
 
 
