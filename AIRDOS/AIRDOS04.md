@@ -45,9 +45,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
    * Operational humidity conditions: non-condensing, 20% to 80% RH
 
 ---
-_Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made to enhance performance, usability, or compliance._
-
-See [changelog](https://docs.dos.ust.cz/airdos/AIRDOS04/manual#product-changelog) for information about hardware revisions and version-specific features.
+_Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made to enhance performance, usability, or compliance. See [changelog](https://docs.dos.ust.cz/airdos/AIRDOS04/manual#product-changelog) for information about hardware revisions and version-specific features._
 
 # Examples of data
 
@@ -55,7 +53,7 @@ AIRDOS04 has been verified in well‑characterized reference radiation fields, d
 
 ## Verification on artificial radiation sources
 
-AIRDOS04 has undergone beam/field exposures at following facilities :
+AIRDOS04 has undergone beam/field exposures at the following facilities :
 
 * **HIMAC (Heavy‑Ion Medical Accelerator in Chiba, Japan)** — a clinical/research synchrotron complex delivering high‑energy heavy‑ion beams with precise energy and intensity control. It is widely used to study fragmentation and dosimetry in well‑defined mono‑species beams.
 * **CERF at CERN (CERN‑EU High‑Energy Reference Field)** — a *mixed* high‑energy hadron field created from secondary particles in a controlled geometry, routinely used to benchmark dosimeters and spectrometers in conditions representative of aviation altitudes.
@@ -77,8 +75,8 @@ During routine airline operations, AIRDOS04 records the typical evolution of the
 
 *Dose‑rate vs. time along the flight profile.*
 
-> * Flight duration: $\Delta t = 11.000\,\text{h}$, number of spectra: $n_\text{meas}=3854$.
-> * Dose in silicon over the flight: **$14.444\,\mu\text{Gy} \pm 1.132\,\mu\text{Gy}$**.
+> * Flight duration: 11 h, number of spectral measurements: 3854.
+> * Dose in silicon over the flight: 14.444 μGy ± 1.132 μGy**.
 
 
 ![Measured radiation spectra during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_radiation_spectra.png)
@@ -86,5 +84,5 @@ During routine airline operations, AIRDOS04 records the typical evolution of the
 
 
 ![Environmental variables by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_flight_environment.png)
-*Concurrent pressure and temperature records provide context for ascent/cruise/descent phases and help correlate flight-phases with radiation trends.*
+*Concurrent pressure and temperature records provide context for ascent/cruise/descent phases and help correlate aircraft flight-phases with radiation trends.*
 
