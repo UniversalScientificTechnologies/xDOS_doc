@@ -2,7 +2,7 @@
 layout: page
 title: "AIRDOS04: Quick start guide"
 permalink: /airdos/AIRDOS04/quickstart
-parent: AIRDOS
+parent: "AIRDOS04: Airliner radiation dosimeter"
 nav_order: "2"
 ---
 

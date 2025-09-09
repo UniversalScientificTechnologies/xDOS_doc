@@ -2,7 +2,7 @@
 layout: page
 title: "AIRDOS04: User manual"
 permalink: /airdos/AIRDOS04/manual
-parent: AIRDOS
+parent: "AIRDOS04: Airliner radiation dosimeter"
 nav_order: "3"
 redirect_from:
   /permalink/airdos_manual/

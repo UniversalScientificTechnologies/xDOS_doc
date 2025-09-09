@@ -2,7 +2,7 @@
 layout: page
 title: "BATDATUNIT01: Power and data storage"
 permalink: /airdos/BATDATUNIT01
-parent: AIRDOS
+parent: "AIRDOS04: Airliner radiation dosimeter"
 nav_order: "4"
 ---
 

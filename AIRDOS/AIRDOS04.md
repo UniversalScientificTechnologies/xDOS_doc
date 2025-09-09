@@ -4,6 +4,7 @@ title: "AIRDOS04: Airliner radiation dosimeter"
 permalink: /airdos/AIRDOS04
 parent: AIRDOS
 nav_order: "1"
+has_children: true
 ---
 
 
@@ -12,7 +13,6 @@ nav_order: "1"
 AIRDOS is a state-of-the-art cosmic radiation dosimeter and spectrometer unit. It is intended for long-term airborne measurement of cosmic radiation and dosimetry in mixed ionizing radiation fields on board aircraft.
 
 ![AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/AIRDOS04A/doc/img/AIRDOS04.jpg)
-
 
 The instrument is designed primarily for the dosimetry of cabin crew and commercial flight attendants. Thanks to its design of detachable data storage and power source from accumulators, the required maintenance time is minimal. The calibrated AIRDOS04 detector can be placed on board continuously, and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
 
