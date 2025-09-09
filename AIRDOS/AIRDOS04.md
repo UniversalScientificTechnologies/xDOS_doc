@@ -66,6 +66,21 @@ These facilities let us test AIRDOS04 in both mono‑energetic/mono‑species an
 ![CERF mixed field radiation spectra by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_CERF_spectra.png)
 *CERF exposure: spectrum measured in a standardized mixed high‑energy field; spectral shape and rates are consistent with the reference field characterization.*
 
+### Energy calibration (Am‑241 & Pu‑239)
+
+The each produced AIRDOS04 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
+
+![Energy calibration with Am‑241 and Pu‑239](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_Am-241_Pu-239.png)
+*Energy‑calibration spectrum from a typical unit. Labeled lines correspond to distinct radiation types and serve as fixed points for the channel‑to‑energy conversion.*
+
+Identified energies and radiation types:
+
+* **59.5 keV (γ from Am‑241):** Low‑energy gamma line used as the lowest-energy calibration anchor; in silicon it produces a well‑defined full‑energy peak (dominated by photoelectric absorption), validating the low‑noise of spectrometer.
+* **5.486 MeV (α from Am‑241):** High‑energy alpha‑particle line; alphas of this energy stop within tens of micrometres in Si and deposit essentially their full energy, providing a sharp peak for the MeV‑range anchor and resolution check.
+* **5.15 MeV (α from Pu‑239):** Second alpha line near the Am‑241 peak; the ≈0.336 MeV separation between the two alpha lines is a sensitive cross‑check of the energy scale and spectral resolution.
+
+These three lines jointly establish the keV‑per‑channel calibration and verify the detector’s linearity from tens of keV up to several MeV.
+
 ## Flight-data
 
 During routine operations, AIRDOS04 records the typical evolution of the cabin radiation environment. The figures below show a representative flight where the dose rate rises with climb, levels at cruise, and decreases on descent; the spectral content and environmental variables (pressure, temperature) evolve accordingly.
@@ -85,4 +100,6 @@ During routine operations, AIRDOS04 records the typical evolution of the cabin r
 
 ![Environmental variables by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_flight_environment.png)
 *Concurrent pressure and temperature records provide context for ascent/cruise/descent phases and help correlate aircraft flight-phases with radiation trends.*
+
+
 
