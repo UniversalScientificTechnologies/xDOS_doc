@@ -31,9 +31,9 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
    * Can also be operated without accumulators completely with the use of an aircraft's on-board USB power source. 
  * Radiation spectra integration time: 10 s
  * Environmental sensors
-   * Relative Humidity
-   * Temperature
-   * Barometric pressure
+   * Relative Humidity 0 to 100 %RH (accuracy 2	%RH)
+   * Temperature -40 to 125 °C (accuracy 0.5 °C)
+   * Barometric pressure 1 to 120 kPa (accuracy 150 Pa)
  * Maintenance interval: ~1 month (data download, accu pack change)
  * Maintenance duration: under 5 minutes
  * Size: 166 x 107 x 57 mm (two  of these should fit into the Aircraft printed manual bay)
