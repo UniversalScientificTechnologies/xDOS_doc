@@ -51,21 +51,40 @@ See [changelog](https://docs.dos.ust.cz/airdos/AIRDOS04/manual#product-changelog
 
 # Examples of data
 
-AIRDOS04 has been extensively tested on multiple scientific missions including particle accelerators or experimental compagins. 
+AIRDOS04 has been verified in well‑characterized reference radiation fields, during operational airline flights, and on stratospheric balloon campaigns. The following sections demonstrate the instrument’s capabilities in mixed fields dominated by charged particles.
 
 ## Verification on artificial radiation sources
 
+AIRDOS04 has undergone beam/field exposures at following facilities :
+
+* **HIMAC (Heavy‑Ion Medical Accelerator in Chiba, Japan)** — a clinical/research synchrotron complex delivering high‑energy heavy‑ion beams with precise energy and intensity control. It is widely used to study fragmentation and dosimetry in well‑defined mono‑species beams.
+* **CERF at CERN (CERN‑EU High‑Energy Reference Field)** — a *mixed* high‑energy hadron field created from secondary particles in a controlled geometry, routinely used to benchmark dosimeters and spectrometers in conditions representative of aviation altitudes.
+
+These facilities let us test AIRDOS04 in both mono‑energetic/mono‑species and mixed‑field scenarios.
+
 ![Fragments in HIMAC beam detected by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_HIMAC_fragments.png)
+*HIMAC exposure: heavy‑ion interactions and nuclear fragmentation features are visible at high deposited energies, confirming the spectrometric response and dynamic range.*
 
 ![CERF mixed field radiation spectra by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_CERF_spectra.png)
+*CERF exposure: spectrum measured in a standardized mixed high‑energy field; spectral shape and rates are consistent with the reference field characterization.*
 
 ## Flight-data
 
+During routine airline operations, AIRDOS04 records the typical evolution of the radiation environment with altitude and geomagnetic latitude. The figures below show a representative flight where the dose rate rises with climb, levels at cruise, and decreases on descent; the spectral content and environmental variables (pressure, temperature) evolve accordingly.
+
+
 ![Measured doserate during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_doserate.png)
 
+*Dose‑rate vs. time along the flight profile.*
+
+> * Flight duration: $\Delta t = 11.000\,\text{h}$, number of spectra: $n_\text{meas}=3854$.
+> * Dose in silicon over the flight: **$14.444\,\mu\text{Gy} \pm 1.132\,\mu\text{Gy}$**.
+
+
 ![Measured radiation spectra during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_radiation_spectra.png)
+*In‑flight deposited‑energy spectra.*
+
 
 ![Environmental variables by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_flight_environment.png)
-
-
+*Concurrent pressure and temperature records provide context for ascent/cruise/descent phases and help correlate flight-phases with radiation trends.*
 
