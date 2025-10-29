@@ -26,7 +26,7 @@ GEODOS02 is used in field research campaigns, such as thunderstorm-chasing exper
 * Compact and modular design
 * External data recording via USB
 * Optional rechargeable Li-ion backup cell
-* Time synchronization through connected host computer
+* Time synchronization through the connected host computer
 * Open-source hardware and firmware
 
 ## Technical Specifications
@@ -34,7 +34,7 @@ GEODOS02 is used in field research campaigns, such as thunderstorm-chasing exper
 | Parameter                | Value                                 |
 | ------------------------ | ------------------------------------- |
 | Detection crystal        | NaI(Tl) ⌀10 mm × 20 mm with SiPM      |
-| Energy range             | 0.3 – 1 MeV (extendable up to 40 MeV) |
+| Energy range             | 0.3 – 18 MeV (extendable up to 40 MeV) |
 | Time resolution          | 20 µs                                 |
 | ADC conversion time      | 104 µs                                |
 | Dead time                | 2 µs                                  |
