@@ -2,7 +2,7 @@
 layout: page
 title: GEODOS
 alt_text: Ground-Based Radiation Detection
-permalink: /geodos
+permalink: /geodos/
 has_children: true
 nav_order: 2
 has_toc: false
