@@ -12,11 +12,22 @@ permalink: /spacedos/SPACEDOS01B
 
 ![Top view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_top.jpg)
 
+## Applications
+- Space Dosimetry and spectrometry for unmanned missions
+   - TLR9 space dosimetry instrument
+   - Real-time determination of the absorbed dose in silicon and dose equivalent
+   - To study the material shielding
+- Space Radiation Research
+   - Determine the LET energy spectrum of the cosmic particles
+   - Measure the time evolution of the radiation flux
+   - Operated on board of CubeSat
+
 ## Main technical parameters
 
-  * Deposited Energy range: from 100 keV to 9 MeV optionally extended to range from 200 keV to 12 MeV (divided into eight logarithmic channels)
-  * Measurement environment: vacuum < 3.2×10−2 Pa
+  * Deposited Energy range: from 100 keV to 9 MeV, optionally extended to range from 200 keV to 12 MeV (divided into eight logarithmic channels)
+  * Measurement environment: vacuum < 3.2×10^-2 Pa
   * Energy Resolution: < 50 keV/channel
+  * Particle types: electrons, protons, heavy ions
   * Integration Time: 15 s
   * Power supply: 3.3 V / 3 mA
   * Interface: UART (RS232) TTL
@@ -83,7 +94,7 @@ git hash | 20 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | 
 This information says hello after turning the power on.
 
 ### Initiation complete
-_Transmitted once after initialization after power on._
+_Transmitted once after initialization, after powering on._
 
 ```
 #ICSD
@@ -93,7 +104,7 @@ Initiation of the SPACEDOS HW is done.
 Initiation is completed up to one second after the power is on.
 
 ### DPSD - SpaceDos Data Payload message
-_Transmited every 15 seconds._
+_Transmitted every 15 seconds._
 
 ```
 $DPSD, <uptime>, <noise channel>, <0.1 MeV>, <0.14 MeV>, <0.21 MeV>, <0.33 MeV>, <0.66 MeV>, <1.68 MeV>, <4.72 MeV>, <'>=9 MeV'>, <DC offset>
@@ -120,7 +131,7 @@ _Transmitted every 15 seconds._
 $HKSD, <measurement No.> , <uptime>, <filter suppressions>, <position of the 1-st channel>, <1-st ch.>, <2-nd ch.>, <3-rd ch.>,...
 ```
 
-This is a packet with housekeeping information. Transmission of this packet is done besides other experiment's housekeeping data. The total length of this packet should be shortened.
+This is a packet with housekeeping information. Transmission of this packet is done besides other experiments' housekeeping data. The total length of this packet should be shortened.
 
 Value | Range | type |Note
 --- | --- | --- | ---
@@ -159,7 +170,7 @@ _Transmitted after 5760 beacon messages. (approximately once a day)_
 $ADSD, <0.1 MeV 1 day old>, <0.14 MeV one day old>, <0.66 MeV one day old>, <0.1 MeV two days old>, <0.14 MeV two days old>, <0.66 MeV two days old>
 ```
 
-This message contains two days old data for beacon transmission purposes.
+This message contains two days of old data for beacon transmission purposes.
 
 Value | Length | Type |Note
 --- | --- | --- | ---
