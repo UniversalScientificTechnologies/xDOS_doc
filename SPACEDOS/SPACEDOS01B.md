@@ -30,7 +30,7 @@ permalink: /spacedos/SPACEDOS01B
   * Energy Resolution: < 50 keV/channel
   * Particle types: electrons, protons, heavy ions
   * Integration Time: 15 s
-  * Power supply: 3.3 V / 3 mA
+  * Power supply: 3.3 V / 3 mA (Typical consumption: 2.6 mA @ 3.3 V)
   * Interface: UART (RS232) TTL
   * Temperature Stability: from -50 ℃ to +50 ℃ within error of +50 keV
   * Used Sensor: HAMAMATSU S11773-02 (PIN diode 5 x 5 x 0.5 mm)
@@ -56,11 +56,11 @@ PD2 |  Universal Input pin
 PD3 |  Universal Output pin
 RX0 |  RS232 Receive (3.3 V)
 TX0 |  RS232 Transmit (3.3 V)
-RST# | Reset (trough capacitor)
+RST# | Reset (through capacitor)
 GND |  Ground
 3V3 |  Power supply +3.3 V
 
-Typical consumption: 2.6 mA at 3.3 V
+Electromagnetic Compatibility according to ECSS-E-ST-20-07C Rev.2
 
 ## Communication protocol
 
