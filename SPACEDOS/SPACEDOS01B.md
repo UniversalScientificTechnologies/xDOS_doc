@@ -14,13 +14,14 @@ permalink: /spacedos/SPACEDOS01B
 
 ## Applications
 - Space Dosimetry and spectrometry for unmanned missions
-   - TLR9 space dosimetry instrument
+   - TLR9 space dosimetry instrument - flight heritage: Sokrat-R (NORAD ID 44404) satellite
    - Real-time determination of the absorbed dose in silicon and dose equivalent
    - To study the material shielding
 - Space Radiation Research
    - Determine the LET energy spectrum of the cosmic particles
    - Measure the time evolution of the radiation flux
    - Operated on board of CubeSat
+
 
 ## Main technical parameters
 
