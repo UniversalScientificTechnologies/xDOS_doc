@@ -15,7 +15,7 @@ DOSPORTAL is an innovative cloud-based tool developed by UST, designed to facili
 DOSPORTAL is primarily designed for use with UST's particle detectors: [LABDOS](/labdos), [AIRDOS](/airdos), and GEODOS. You can learn more about these detectors in other sections of this documentation or on the [official website](https://www.ust.cz/UST-dosimeters/).
 
 {: .warning }
-> Please note that DOSPORTAL is currently in an active development phase and is not yet publicly available. The anticipated launch of the service to the public in a test version is scheduled for Q3 2024.
+> Please note that DOSPORTAL is currently in an development phase and is not yet publicly available. For more updates about scheduled start, please contact us.
 
 
 ### Purpose of the Documentation
@@ -49,3 +49,4 @@ Brief overview of main elements of DOSPORTAL
   - **Calibration**: Automatically applies the latest available calibration from the associated detector.
 
 - **Measurement**: 
+
