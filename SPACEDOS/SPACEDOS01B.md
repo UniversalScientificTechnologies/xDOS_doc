@@ -44,7 +44,7 @@ permalink: /spacedos/SPACEDOS01B
 SPACEDOS01 measures ionizing radiation using silicon semiconductor sensor and provides energy-resolved spectral data of deposited energy. These spectral measurements form the primary measurement output of the instrument.
 
 From the spectral data, derived quantities such as dose rate and total dose are calculated by integrating the deposited energy over the detector mass and over time.
-The dose rate represents the instantaneous radiation intensity derived from the measured energy spectrum, while the total dose (TID) corresponds to the time-integrated dose accumulated during operation.
+The dose rate represents the instantaneous radiation intensity derived from the measured energy spectrum, while the Total Ionizing Dose (TID) corresponds to the time-integrated dose accumulated during operation.
 
 Spectral information enables separation of radiation components by deposited energy and supports analysis of temporal and spatial variations of the radiation environment.
 
