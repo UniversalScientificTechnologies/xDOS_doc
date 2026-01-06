@@ -38,6 +38,18 @@ permalink: /spacedos/SPACEDOS01B
   * H x W x L: 15mm x 41mm x 94 mm
   * Weight: 33 g
 
+
+### Meaning of Measured Data
+
+SPACEDOS01 measures ionizing radiation using silicon semiconductor sensor and provides energy-resolved spectral data of deposited energy. These spectral measurements form the primary measurement output of the instrument.
+
+From the spectral data, derived quantities such as dose rate and total dose are calculated by integrating the deposited energy over the detector mass and over time.
+The dose rate represents the instantaneous radiation intensity derived from the measured energy spectrum, while the total dose (TID) corresponds to the time-integrated dose accumulated during operation.
+
+Spectral information enables separation of radiation components by deposited energy and supports analysis of temporal and spatial variations of the radiation environment.
+
+All derived quantities depend on integration geometry, calibration, shielding conditions, and mission-specific configuration.
+
 ## Physical dimensions
 
 ![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_PCB01A.png)
