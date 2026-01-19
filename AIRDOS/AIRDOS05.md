@@ -1,15 +1,15 @@
 ---
 layout: page
-title: "AIRDOS05: Airliner radiation dosimeter"
+title: "AIRDOS05: High-Altitude Airliner radiation dosimeter"
 permalink: /airdos/AIRDOS05/
 parent: AIRDOS-temp
 nav_order: "1"
 has_children: true
 ---
 
-# AIRDOS05 - Airborne radiation with external display
+# AIRDOS05 - Airborne radiation sensor with external display
 
-AIRDOS is a state-of-the-art cosmic radiation dosimeter and spectrometer unit. It is intended for long-term high-altitude (above FL490 or 15000 a.m.s.l.) airborne measurement of cosmic radiation and dosimetry in mixed ionizing radiation fields on board aircraft.
+AIRDOS is a state-of-the-art cosmic radiation dosimeter and spectrometer unit. It is intended for long-term high-altitude (above FL490 or 15000 a.m.s.l.) airborne measurement of cosmic radiation and dosimetry in mixed ionising radiation fields on board aircraft.
 
 ![AIRDOS05](/AIRDOS/img/AIRDOS05.jpg)
 
@@ -17,7 +17,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 
 # External Dosimeter Display Unit
 
-ICAO Annex 6 (Part I) requires that aeroplanes intended to be operated above 15 000 m (49 000 ft) carry equipment that continuously indicates the total cosmic-radiation dose rate being received and the cumulative dose on each flight, with a display readily visible to a flight crew member. For this purpose, AIRDOS05 can be complemented by an external Dosimeter Display Unit (DDU) that presents the current dose-rate and accumulated dose directly to the crew. The DDU can be placed in the cockpit at a suitable location, for example using a hook-and-loop fastener, as shown in the photograph below.
+ICAO Annex 6 (Part I) requires that aeroplanes intended to be operated above 15,000 m (49,000 ft) carry equipment that continuously indicates the total cosmic-radiation dose rate being received and the cumulative dose on each flight, with a display readily visible to a flight crew member. For this purpose, AIRDOS05 can be complemented by an external Dosimeter Display Unit (DDU) that presents the current dose-rate and accumulated dose directly to the crew. The DDU can be placed in the cockpit at a suitable location, for example, using a hook-and-loop fastener, as shown in the photograph below.
 
 ![AIRDOS05](/AIRDOS/img/AIRDOS05_DDU.jpg)
 
@@ -86,14 +86,14 @@ These facilities let us test AIRDOS05 in both mono‑energetic/mono‑species an
 
 #### Energy calibration (Am‑241 & Pu‑239)
 
-The each produced AIRDOS05 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
+Each produced AIRDOS05 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
 
 ![Energy calibration with Am‑241 and Pu‑239](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_Am-241_Pu-239.png)
-*Energy‑calibration spectrum from a typical unit. Labeled lines correspond to distinct radiation types and serve as fixed points for the channel‑to‑energy conversion.*
+*Energy‑calibration spectrum from a typical unit. Labelled lines correspond to distinct radiation types and serve as fixed points for the channel‑to‑energy conversion.*
 
 Identified energies and radiation types:
 
-* **59.5 keV (γ from Am‑241):** Low‑energy gamma line used as the lowest-energy calibration anchor; in silicon it produces a well‑defined full‑energy peak (dominated by photoelectric absorption), validating the low‑noise of spectrometer.
+* **59.5 keV (γ from Am‑241):** Low‑energy gamma line used as the lowest-energy calibration anchor; in silicon it produces a well‑defined full‑energy peak (dominated by photoelectric absorption), validating the low‑noise of the spectrometer.
 * **5.486 MeV (α from Am‑241):** High‑energy alpha‑particle line; alphas of this energy stop within tens of micrometres in Si and deposit essentially their full energy, providing a sharp peak for the MeV‑range anchor and resolution check.
 * **5.15 MeV (α from Pu‑239):** Second alpha line near the Am‑241 peak; the ≈0.336 MeV separation between the two alpha lines is a sensitive cross‑check of the energy scale and spectral resolution.
 
