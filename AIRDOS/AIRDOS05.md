@@ -71,12 +71,12 @@ AIRDOS05 detection technology is based on AIRDOS04, which has been verified in w
 
 ### Verification on artificial radiation sources
 
-AIRDOS05 has undergone beam/field exposures at the following facilities :
+AIRDOS04/05 has undergone beam/field exposures at the following facilities :
 
 * **HIMAC (Heavy‑Ion Medical Accelerator in Chiba, Japan)** — a clinical/research synchrotron complex delivering high‑energy heavy‑ion beams with precise energy and intensity control. It is widely used to study fragmentation and dosimetry in well‑defined mono‑species beams.
 * **CERF at CERN (CERN‑EU High‑Energy Reference Field)** — a *mixed* high‑energy hadron field created from secondary particles in a controlled geometry, routinely used to benchmark dosimeters and spectrometers in conditions representative of aviation altitudes.
 
-These facilities let us test AIRDOS05 in both mono‑energetic/mono‑species and mixed‑field scenarios.
+These facilities let us test AIRDOS04/05 in both mono‑energetic/mono‑species and mixed‑field scenarios.
 
 ![Fragments in HIMAC beam detected by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_HIMAC_fragments.png)
 *HIMAC exposure: heavy‑ion interactions and nuclear fragmentation features are visible at high deposited energies, confirming the spectrometric response and dynamic range.*
@@ -86,7 +86,7 @@ These facilities let us test AIRDOS05 in both mono‑energetic/mono‑species an
 
 #### Energy calibration (Am‑241 & Pu‑239)
 
-Each produced AIRDOS05 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
+Each produced AIRDOS04/05 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
 
 ![Energy calibration with Am‑241 and Pu‑239](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_Am-241_Pu-239.png)
 *Energy‑calibration spectrum from a typical unit. Labelled lines correspond to distinct radiation types and serve as fixed points for the channel‑to‑energy conversion.*
@@ -101,7 +101,7 @@ These three lines jointly establish the keV‑per‑channel calibration and veri
 
 ### Flight-data
 
-During routine operations, AIRDOS05 records the evolution of the cabin radiation environment. The figures below show a representative flight where the dose rate rises with climb, levels at cruise, and decreases on descent; the spectral content and environmental variables (pressure, temperature) evolve accordingly.
+During routine operations, AIRDOS04/05 records the evolution of the cabin radiation environment. The figures below show a representative flight where the dose rate rises with climb, levels at cruise, and decreases on descent; the spectral content and environmental variables (pressure, temperature) evolve accordingly.
 
 
 ![Measured doserate during flight by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_doserate.png)
