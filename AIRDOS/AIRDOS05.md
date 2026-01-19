@@ -42,6 +42,7 @@ ICAO Annex 6 (Part I) requires that aeroplanes intended to be operated above 15 
  * Energy measurement resolution: 15 ±2 keV
  * Service interface and charging source: USB-C connector
  * DDU interface:  Bluetooth LE 5.0
+ * Optional OLED display
  * Energy source: Up to five 18650 Li-ion cells with 64 Wh in total. That conforms [≤ 100 Wh / 2g IATA restrictions](https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passenger-lithium-battery.pdf)
    * Can also be operated without accumulators completely with the use of an aircraft's on-board USB power source. 
  * Radiation spectra integration time: 10 s
@@ -62,11 +63,11 @@ ICAO Annex 6 (Part I) requires that aeroplanes intended to be operated above 15 
    * Operational humidity conditions: non-condensing, 20% to 80% RH
 
 ---
-_Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made to enhance performance, usability, or compliance. See [changelog](https://docs.dos.ust.cz/airdos/AIRDOS05/manual#product-changelog) for information about hardware revisions and version-specific features._
+_Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made to enhance performance, usability, or compliance._
 
 ## Examples of data
 
-AIRDOS05 has been verified in well‑characterized reference radiation fields, during operational airline flights, and on stratospheric balloon campaigns. The following sections demonstrate the instrument’s capabilities in mixed fields dominated by charged particles.
+AIRDOS05 detection technology is based on AIRDOS04, which has been verified in well‑characterized reference radiation fields, during operational airline flights, and on stratospheric balloon campaigns. The following sections demonstrate the instrument’s capabilities in mixed fields dominated by charged particles.
 
 ### Verification on artificial radiation sources
 
@@ -77,17 +78,17 @@ AIRDOS05 has undergone beam/field exposures at the following facilities :
 
 These facilities let us test AIRDOS05 in both mono‑energetic/mono‑species and mixed‑field scenarios.
 
-![Fragments in HIMAC beam detected by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS05/refs/heads/AIRDOS05C/doc/img/AIRDOS05_HIMAC_fragments.png)
+![Fragments in HIMAC beam detected by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_HIMAC_fragments.png)
 *HIMAC exposure: heavy‑ion interactions and nuclear fragmentation features are visible at high deposited energies, confirming the spectrometric response and dynamic range.*
 
-![CERF mixed field radiation spectra by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS05/refs/heads/AIRDOS05C/doc/img/AIRDOS05_CERF_spectra.png)
+![CERF mixed field radiation spectra by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_CERF_spectra.png)
 *CERF exposure: spectrum measured in a standardized mixed high‑energy field; spectral shape and rates are consistent with the reference field characterization.*
 
 #### Energy calibration (Am‑241 & Pu‑239)
 
 The each produced AIRDOS05 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
 
-![Energy calibration with Am‑241 and Pu‑239](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS05/refs/heads/AIRDOS05C/doc/img/AIRDOS05_Am-241_Pu-239.png)
+![Energy calibration with Am‑241 and Pu‑239](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_Am-241_Pu-239.png)
 *Energy‑calibration spectrum from a typical unit. Labeled lines correspond to distinct radiation types and serve as fixed points for the channel‑to‑energy conversion.*
 
 Identified energies and radiation types:
@@ -103,7 +104,7 @@ These three lines jointly establish the keV‑per‑channel calibration and veri
 During routine operations, AIRDOS05 records the evolution of the cabin radiation environment. The figures below show a representative flight where the dose rate rises with climb, levels at cruise, and decreases on descent; the spectral content and environmental variables (pressure, temperature) evolve accordingly.
 
 
-![Measured doserate during flight by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS05/refs/heads/AIRDOS05C/doc/img/AIRDOS05_doserate.png)
+![Measured doserate during flight by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_doserate.png)
 
 *Dose‑rate vs. time along the flight profile.*
 
@@ -111,11 +112,11 @@ During routine operations, AIRDOS05 records the evolution of the cabin radiation
 > * Dose in silicon over the flight: 14.444 μGy ± 1.132 μGy.
 
 
-![Measured radiation spectra during flight by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS05/refs/heads/AIRDOS05C/doc/img/AIRDOS05_radiation_spectra.png)
+![Measured radiation spectra during flight by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_radiation_spectra.png)
 *In‑flight deposited‑energy spectra.*
 
 
-![Environmental variables by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS05/refs/heads/AIRDOS05C/doc/img/AIRDOS05_flight_environment.png)
+![Environmental variables by AIRDOS05](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_flight_environment.png)
 *Concurrent pressure and temperature records provide context for ascent/cruise/descent phases and help correlate aircraft flight-phases with radiation trends.*
 
 
