@@ -30,7 +30,10 @@ ICAO Annex 6 (Part I) requires that aeroplanes intended to be operated above 15,
   * Display: 
     * Resolution: 200(H) × 200(V) 
     * Active Area: 27 × 27 mm 
-  * Battery LiPo Battery 3.7V 200mAh, USB-C charging
+  * Power supply:
+    * Battery LiPo Battery 3.7V 200mAh
+    * USB-C charging
+    * 24-hour endurance after charging
   * Data interface:  Bluetooth LE 5.0
   * Mass: 13g
 
