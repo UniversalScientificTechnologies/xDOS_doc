@@ -83,7 +83,7 @@ $ENV,30,309.39,23.8,45.0,24.7,44.3,23.72,984.81
 - Each line type in the file serves a specific purpose in capturing and representing data from the particle detector.
 
 
-# Version 2 (Under Construction !!!!!!!!!!!!!)
+# Version 2 (Preliminary release)
 
 ## File Structure
 
