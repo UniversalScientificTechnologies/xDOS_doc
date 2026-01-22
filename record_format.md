@@ -68,6 +68,14 @@ $HIST,4,53.5,4,255,255,255,102,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 $BATT,6,63.58,227,0,0,975,20.25
 ```
 
+### Environment data
+
+Information about temperature, humidity, and pressure.
+
+```
+$ENV,30,309.39,23.8,45.0,24.7,44.3,23.72,984.81
+```
+
 ## Notes
 
 - The plain text file format ensures compatibility and ease of parsing for both humans and machines.
