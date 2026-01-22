@@ -78,7 +78,7 @@ These signals provide additional functions, including synchronization or inter-d
 
 ## Mechanical design
 
-The instrument consists two PCBs connected by standard 2.54 mm pitch 15x2 pin-header. The pin-header could be the both straight or angled, depending of the desired "L" or parallel "II" PCB configuration. In case of parallel mounting the PCBs are separated by a screw collumns. 
+The instrument consists of two PCBs connected by a standard 2.54 mm pitch 15x2 pin-header. The pin-header could be both straight or angled, depending on the desired "L" or parallel "II" PCB configuration. In the case of parallel mounting, the PCBs are separated by screw columns, and the sensing PCB is above the data processing PCB. 
 
 ![AIRDOS03 data processing board dimensions](https://raw.githubusercontent.com/ThunderFly-aerospace/TFUNIPAYLOAD01/refs/heads/TFUNIPAYLOAD01B/doc/img/TFUNIPAYLOAD01_dimensions.png)
 
@@ -86,9 +86,9 @@ The instrument consists two PCBs connected by standard 2.54 mm pitch 15x2 pin-he
 
 ## Output data format
 
-The data are produced as continuous data stream on the UART port. The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/).
+The data are produced as a continuous data stream on the UART port. The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/).
 
-Alternatively the device could output [Particle Detector Output File Format](/xdos_format) common for SPACEDOS, AIRDOS and GEODOS instruments. 
+Alternatively, the device could output [Particle Detector Output File Format](/xdos_format) common for SPACEDOS, AIRDOS, and GEODOS instruments. 
 
 
 
