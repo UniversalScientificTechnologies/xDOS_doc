@@ -4,7 +4,7 @@ title: GEODOS
 alt_text: Ground-Based Radiation Detection
 permalink: /geodos/
 has_children: true
-nav_order: 2
+nav_order: 3
 has_toc: false
 ---
 

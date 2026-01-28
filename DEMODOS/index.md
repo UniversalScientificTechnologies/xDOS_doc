@@ -4,6 +4,7 @@ title: DEMODOS
 permalink: /demodos/
 has_children: true
 has_toc: false
+nav_order: 8
 ---
 
 # DEMODOS: Remote-Controlled Dosimeter Simulator for Training and Education

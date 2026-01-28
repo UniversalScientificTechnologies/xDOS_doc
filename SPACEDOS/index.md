@@ -5,7 +5,7 @@ alt_text: Spaceborne Radiation Dosimetry
 permalink: /spacedos/
 has_children: true
 has_toc: false
-nav_order: 2
+nav_order: 5
 ---
 
 The SPACEDOS solid-state dosimeter series is suitable for extreme radiation conditions of space missions. Silicon semiconductor deposited energy spectrometer technology has outstanding sensitivity to charged particles, which are the main and the most dangerous part of the primary cosmic ray. 
