@@ -32,7 +32,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
     * Active Area: 27 × 27 mm 
   * Power supply:
     * Battery LiPo Battery 3.7V 200mAh
-    * USB-C charging
+    * USB charging
     * 24-hour endurance after charging
   * Data interface:  Bluetooth LE 5.0
   * Mass: 13g
