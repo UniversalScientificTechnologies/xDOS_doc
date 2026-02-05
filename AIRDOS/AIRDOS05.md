@@ -15,6 +15,14 @@ AIRDOS is a state-of-the-art cosmic radiation dosimeter and spectrometer unit. I
 
 The instrument is designed primarily for the dosimetry of cabin crew and commercial flight attendants. Thanks to its design of detachable data storage and power source from accumulators, the required maintenance time is minimal. The calibrated AIRDOS05 detector can be placed on board continuously, and it is only necessary to  replace the accumulator/storage module according to the set maintenance interval.
 
+## Applications
+
+* Cosmic radiation field measurements at flight altitudes
+* Benchmarking and validation of radiation models
+* High-altitude airborne dosimetry campaigns
+* Space-weather related radiation studies
+* Reference dosimeter for comparative measurements
+
 # External Dosimeter Display Unit
 
 [ICAO Annex 6 (Part I)](https://elibrary.icao.int/product/290990) requires that aeroplanes intended to be operated above 15,000 m (49,000 ft) carry equipment that continuously indicates the total cosmic-radiation dose rate being received and the cumulative dose on each flight, with a display readily visible to a flight crew member. For this purpose, AIRDOS05 can be complemented by an external Dosimeter Display Unit (DDU) that presents the current dose-rate and accumulated dose directly to the crew. The DDU can be placed in the cockpit at a suitable location, for example, using a hook-and-loop fastener, as shown in the photograph below.
