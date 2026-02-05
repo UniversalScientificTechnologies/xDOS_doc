@@ -17,7 +17,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 
 ## Applications
 
-* Cosmic radiation field measurements at flight altitudes
+* Cosmic radiation field research at flight altitudes
 * Benchmarking and validation of radiation models
 * High-altitude airborne dosimetry campaigns
 * Space-weather related radiation studies
