@@ -19,7 +19,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 
 * Cosmic radiation field research at flight altitudes
 * Benchmarking and validation of radiation models
-* High-altitude airborne dosimetry campaigns
+* High-altitude airborne dosimetry indicator
 * Space-weather related radiation studies
 * Reference dosimeter for comparative measurements
 
