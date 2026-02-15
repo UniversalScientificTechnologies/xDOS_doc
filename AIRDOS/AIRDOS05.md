@@ -34,7 +34,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 
 ### DDU Specification
 
-  * Length: 46 x 35.5 x 9.5 mm 
+  * Dimensions: 46 x 35.5 x 9.5 mm 
   * Display: 
     * Resolution: 200(H) × 200(V) 
     * Active Area: 27 × 27 mm 
