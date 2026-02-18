@@ -86,9 +86,9 @@ The instrument consists of two PCBs connected by a standard 2.54 mm pitch 15x2 p
 
 ## Output data format
 
-The data are produced as a continuous data stream on the UART port. The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/).
+The data are produced as a continuous 9600 bps data stream on the UART port. The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/).
 
-Alternatively, the device could output [Particle Detector Output File Format](/xdos_format) common for SPACEDOS, AIRDOS, and GEODOS instruments. 
+Alternatively, with the different firmware, the device could output the [Particle Detector Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
 
 
 
