@@ -1,6 +1,6 @@
 ---
 layout: page
-parent: resources
+parent: Tools and resources
 title: UST Dosimeters file format
 permalink: /xdos_format
 ---

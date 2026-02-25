@@ -1,5 +1,5 @@
 ---
-title: resources
+title: Tools and resources
 has_children: true
 ---
 

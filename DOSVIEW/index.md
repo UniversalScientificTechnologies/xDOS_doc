@@ -2,6 +2,7 @@
 layout: page
 title: DOSVIEW
 permalink: /dosview/
+parent: Tools and resources
 has_children: true
 has_toc: false
 nav_order: 6
