@@ -5,7 +5,7 @@ title: UST Dosimeters file format
 permalink: /xdos_format
 ---
 
-# Particle Detector Output File Format
+# UST Detectors Output Format
 
 This document describes the output file format for the AIRDOS and LABDOS series of particle detectors. The file is formatted in plain text, which not only facilitates easy readability by humans but also allows for quick and efficient machine parsing. This format is particularly designed to accommodate multiple logs (detector cycles) within a single file, enabling these logs to be segmented into individual logs for detailed analysis. The current version of this file format is actively in use.
 
@@ -14,7 +14,7 @@ This document describes the output file format for the AIRDOS and LABDOS series 
 
 ## File Structure
 
-The output file is composed of various data messages, each representing different types of data captured by the detector. The structure of these lines is adopted from [NMEA 0183](https://en.wikipedia.org/wiki/NMEA_0183). The messages are stored in a file or transmitted on the UART port. Typically, the baud rate used is 9600 with 8 databits and one stop bit. Handshake is not applicable 
+The output file is composed of various data messages, each representing different types of data captured by the detector. The structure of these lines is adopted from [NMEA 0183](https://en.wikipedia.org/wiki/NMEA_0183). The messages are stored in a file or transmitted on the UART port. Typically, the baud rate used is 9600 with 8 databits and one stop bit. Handshake is not applicable. 
 
 ## Example:
 ```
@@ -112,7 +112,7 @@ Not implemented yet
 ```
   $DOS,AIRDOS04X,1.0.0--Release,0,9b5cf9571b15da03150b04ad0d93ecf7ad6cea92,Release,1290c00806a200922449a000a00000c6
 ```
-- **Format**: `$DOS, [DetectorModel], [FirmwareVersion], [Bulid number], [SerialNumber], [BuildUniqueId], [Build origin], [SN]`
+- **Format**: `$DOS, [DetectorModel], [FirmwareVersion], [Build number], [SerialNumber], [BuildUniqueId], [Build origin], [SN]`
 - **Description**: Identifies the detector model, firmware version, a unique identifier for the device, user information, and session ID.
 
 ### Digital part identifier (applicable for AIRDOS04)
