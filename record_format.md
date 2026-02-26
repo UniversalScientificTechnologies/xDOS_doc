@@ -83,7 +83,7 @@ $ENV,30,309.39,23.8,45.0,24.7,44.3,23.72,984.81
 - Each line type in the file serves a specific purpose in capturing and representing data from the particle detector.
 
 
-# Version 2 (Preliminary release)
+# Version 1.5
 
 ## File Structure
 
@@ -148,3 +148,196 @@ Information about temperature, humidity, and pressure.
 ```
 $ENV,30,309.39,23.8,45.0,24.7,44.3,23.72,984.81
 ```
+
+
+
+# Version 2
+
+Version 2 is used by AIRDOS04C and is specified in detail in [FW repository](https://github.com/UniversalScientificTechnologies/AIRDOS04/blob/AIRDOS04C/fw/AIRDOS04/OUTPUT_FORMAT.md)).
+
+Each record is one text line. Data lines start with `$` and use comma-separated fields. Lines are terminated by newline (`\n`); within measurement blocks the firmware may use `\r\n`.
+
+## Message types
+
+The v2 stream can be viewed as three groups:
+
+- **Header messages**: emitted once at the beginning of the file. They describe *what device produced the data*.
+- **Particle messages**: the actual radiation/event payload, emitted repeatedly in fixed integration blocks (uasually 10 s). A block starts with `$START`, may contain many `$E` lines, and ends with `$STOP`.
+- **Status messages**: emitted on a lower frequenty (or on specific service events). They carry environmental readings, battery health, and RTC/service state.
+
+
+## Header messages
+
+#### `$DOS` — device identification
+- **When**: once at the beginning of the file (startup header)
+- **Meaning**: identifies device type (`AIRDOS04C`), firmware/build info and Git hash, and the analog board serial number.
+- **Format**:
+
+```
+$DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_analog_16B_hex>
+```
+
+- **Example**:
+
+```
+$DOS,AIRDOS04C,2.0.0-0-User,0,a3e23b543a4de5dc3d057462bb6109bf3db0b44b,User,0910410874100851c40ba080a08000b3
+```
+
+#### `$DIG` — digital module identification
+- **When**: once at the beginning of the file
+- **Meaning**: identifies the digital board (`BATDATUNIT01B`), its serial number and configuration bytes.
+- **Format**:
+
+```
+$DIG,<DIGTYPE>,<serial_digital_16B_hex>,<DIG_EEPROM>
+```
+
+- **Example**:
+
+```
+$DIG,BATDATUNIT01B,09104108741008520c0ca080a080005e,ffff
+```
+
+#### `$ADC` — analog module identification
+- **When**: once at the beginning of the file
+- **Meaning**: identifies the analog front-end board (`USTSIPIN03A`), its serial number and ADC configuration bytes.
+- **Format**:
+
+```
+$ADC,<ADC_NAME>,<serial_analog_16B_hex>,<ADC_EEPROM>
+```
+
+- **Example**:
+
+```
+$ADC,USTSIPIN03A,0910410874100851c40ba080a08000b3,ffff
+```
+
+#### `$BATP` — battery presence
+- **When**: once at the beginning of the file
+- **Meaning**: reports whether a battery was detected at startup and the measured battery voltage (mV).
+- **Format**:
+
+```
+$BATP,<present>,<battery_mV>
+```
+
+- **Example**:
+
+```
+$BATP,1,4150
+```
+
+#### `$TIME` — time and synchronization info
+- **When**: once at the beginning of the file
+- **Meaning**: provides RTC seconds, last synchronization time stored in EEPROM, computed current Unix time, sync age, and human-readable UTC timestamp.
+- **Format**:
+
+```
+$TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-DD HH:MM:SS>
+```
+
+- **Example**:
+
+```
+$TIME,1234567,1708862400,1708863634,0,2025-02-25 14:30:34
+```
+
+
+## Particle messages (integration block)
+
+#### `$START` — start of integration block
+- **When**: every integration period (nominally every 10 s)
+- **Meaning**: marks start of a measurement block (integration window) and provides the reference system timer value.
+- **Format**:
+
+```
+$START,<count>,<event_time_0>
+```
+
+- **Example**:
+
+```
+$START,0,1
+```
+
+#### `$E` — single above-threshold event
+- **When**: zero or more times within an integration block
+- **Meaning**: one line per event above threshold, with event time (in ticks) and the raw ADC value (used to classify the event).
+- **Format**:
+
+```
+$E,<long_event_time>,<event_channel>
+```
+
+- **Example**:
+
+```
+$E,488,24
+```
+
+#### `$STOP` — end of integration block
+- **When**: every integration period, after the block’s `$E` lines
+- **Meaning**: closes the measurement block and reports end time, total number of above-threshold events, and the histogram counters for energy channels.
+- **Format**:
+
+```
+$STOP,<count>,<tm>.<tm_s100>,<systime>,<events_count>,<histogram_0>,<histogram_1>,<histogram_2>,<histogram_3>
+```
+
+- **Example**:
+
+```
+$STOP,179,4275399681.0,31359,427,19373,11,24,7
+```
+
+## Status messages
+
+#### `$RTCCHK` — RTC check / initialization status
+- **When**: on RTC check / (re)initialization (typically at startup or when needed)
+- **Meaning**: records whether RTC settings were OK or had to be initialized, including selected RTC register values.
+- **Format**:
+
+```
+$RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
+```
+
+- **Example**:
+
+```
+$RTCCHK,1234567.50,OK,reg07=0x00,reg28=0x97
+```
+
+#### `$ENV` — environmental sensors
+- **When**: periodically (every ~5 minutes)
+- **Meaning**: temperatures and humidities from two sensors plus temperature and pressure from a pressure sensor.
+- **Format**:
+
+```
+$ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
+```
+
+- **Example**:
+
+```
+$ENV,179,4275399683.0,29.1,44.0,27.5,45.5,29.31,989.05
+```
+
+#### `$BATT` — battery status
+- **When**: periodically (every ~30 minutes)
+- **Meaning**: battery voltage/current/capacity/temperature values from the fuel gauge.
+- **Format**:
+
+```
+$BATT,<count>,<tm>.<tm_s100>,<voltage_mV>,<current_mA>,<remaining_mAh>,<full_charge_mAh>,<temperature_C>
+```
+
+- **Example**:
+
+```
+$BATT,720,12345.50,4150,-120,1800,2000,25.3
+```
+
+## Notes
+- Lines starting with `#` are debug/service messages (typically on the debug serial port) and are not part of the data stream.
+
