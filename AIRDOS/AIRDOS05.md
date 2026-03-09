@@ -9,7 +9,7 @@ has_children: true
 
 # AIRDOS05 - Airborne radiation sensor with external display
 
-AIRDOS is a state-of-the-art cosmic radiation dosimeter and spectrometer unit. It is intended for long-term high-altitude (above FL490 or 15000 a.m.s.l.) airborne measurement of cosmic radiation and dosimetry in mixed ionising radiation fields on board aircraft.
+AIRDOS is an automation-ready cosmic radiation dosimeter and spectrometer unit. It is intended for long-term high-altitude (above FL490 or 15000 a.m.s.l.) airborne measurement of cosmic radiation and dosimetry in mixed ionising radiation fields on board aircraft.
 
 ![AIRDOS05](/AIRDOS/img/AIRDOS05.jpg)
 
