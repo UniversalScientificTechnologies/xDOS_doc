@@ -21,10 +21,10 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 **Vendor Information**: The AIRDOS04 detectors are procured by [Universal Scientific Technologies s.r.o.](https://www.ust.cz/) (UST) company. A company specializing in advanced dosimetry and spectrometry equipment. UST is known for its cutting-edge technology and reliable radiation detection and measurement products. For more details about the company and its officers, please visit their website at [www.ust.cz](https://www.ust.cz/). For any further information or support, you can contact us [via email](https://www.ust.cz/about/#email).
 
 # Special features
- * High sensitivity to charged particles
+ * High sensitivity to charged particles (protons, electrons, heavy ions)
  * Maximum internal voltage 5V (extremely safe for crewed flights)
- * Maximum device power during use 120 mW
-
+ * Maximum device power during use 120 mW (low risk of extensive heating)
+ 
 # Technical parameters
 
  * Detection element: Silicon PIN diode, volume 44 mm³
