@@ -23,7 +23,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 # Special features
  * High sensitivity to charged particles (protons, electrons, heavy ions)
  * Maximum internal voltage 5V (extremely safe for crewed flights)
- * Maximum device power during use 120 mW (low risk of extensive heating)
+ * Maximum device power during use 90 mW (low risk of extensive heating)
  
 # Technical parameters
 
