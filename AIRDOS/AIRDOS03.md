@@ -44,11 +44,19 @@ The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination w
 * Lightweight, compact electronics
   * 71 × 51 × 25 mm
   * 40 grams
-* Interface options: UART (JST-GH - Pixhawk-compatible)
+* Interface options: UART (6pin [JST-GH](https://www.jst.com/products/crimp-style-connectors-wire-to-board-type/gh-connector/) - Pixhawk-compatible)
   * UART could be converted to USB-C by [TFUSBSERIAL01](https://docs.thunderfly.cz/avionics/TFUSBSERIAL01/)
   * Device suitable for real-time spectrum measurement and in-flight data logging.
 
 AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with the [Pixhawk connector standard](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf) and enables integration with onboard telemetry systems or flight controllers.
+
+
+### Boards dimensions
+
+![AIRDOS03 data processing board dimensions](https://raw.githubusercontent.com/ThunderFly-aerospace/TFUNIPAYLOAD01/refs/heads/TFUNIPAYLOAD01B/doc/img/TFUNIPAYLOAD01_dimensions.png)
+
+![AIRDOS03 sensor board dimensions](https://raw.githubusercontent.com/ust-modules/USTSIPIN03/refs/heads/USTSIPIN03C/doc/img/AIRDOS04_dimensions.png)
+
 
 ### UART Pinout
 
@@ -78,11 +86,17 @@ These signals provide additional functions, including synchronization or inter-d
 
 ## Mechanical design
 
-The instrument consists of two PCBs connected by a standard 2.54 mm pitch 15x2 pin-header. The pin-header could be both straight or angled, depending on the desired "L" or parallel "II" PCB configuration. In the case of parallel mounting, the PCBs are separated by screw columns, and the sensing PCB is above the data processing PCB. 
+The instrument consists of two PCBs connected by a standard 2.54 mm pitch 15x2 pin-header. The pin-header could be both straight or angled, depending on the desired "L" or parallel "II" PCB stackup configuration. 
 
-![AIRDOS03 data processing board dimensions](https://raw.githubusercontent.com/ThunderFly-aerospace/TFUNIPAYLOAD01/refs/heads/TFUNIPAYLOAD01B/doc/img/TFUNIPAYLOAD01_dimensions.png)
+### Parallel stackup
 
-![AIRDOS03 sensor board dimensions](https://raw.githubusercontent.com/ust-modules/USTSIPIN03/refs/heads/USTSIPIN03C/doc/img/AIRDOS04_dimensions.png)
+In the case of parallel mounting, the PCBs are directly above each other and separated by 9mm height screw columns. The data and sensing PCB could be swapped. 
+
+### L-shape stackup
+
+In the case of parallel mounting, the angled pin-header is used for connection of PCBs. 
+
+![AIRDOS03 L-shape](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS03/refs/heads/AIRDOS03B/doc/img/AIRDOS03_L-shape.jpg)
 
 ## Output data format
 
