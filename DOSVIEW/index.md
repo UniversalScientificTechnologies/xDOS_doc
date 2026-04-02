@@ -37,7 +37,7 @@ sudo pip3 install --upgrade dosview
 This command will check for the latest version of Dosview on PyPI and update it if a newer version is available. Using pip to manage your installation makes it easy to keep Dosview updated.
 
 ### From GitHub Repository Using pip
-If you prefer to install the latest version directly from the source code on GitHub, follow these steps:
+If you prefer to install the latest version directly from the [source code on GitHub](https://github.com/UniversalScientificTechnologies/dosview), follow these steps:
 1. Ensure you have pip3 installed on your system.
 2. Run the following command:
    ```
