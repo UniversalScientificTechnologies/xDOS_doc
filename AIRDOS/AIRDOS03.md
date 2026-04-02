@@ -44,11 +44,11 @@ The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination w
 * Lightweight, compact electronics
   * 71 × 51 × 25 mm
   * 40 grams
-* Interface options: UART (6pin [JST-GH](https://www.jst.com/products/crimp-style-connectors-wire-to-board-type/gh-connector/) - Pixhawk-compatible)
+* Interface options: 6pin UART ([Pixhawk-compatible TELEM/UART JST-GH connectors](https://docs.thunderfly.cz/avionics/TFCAB01/#uarttelemserial-cables))
   * UART could be converted to USB-C by [TFUSBSERIAL01](https://docs.thunderfly.cz/avionics/TFUSBSERIAL01/)
-  * Device suitable for real-time spectrum measurement and in-flight data logging.
+  * Dataformat selected by firmware either MAVlink or [UST dosimeters data format](/xdos_format#version-2).
 
-AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with the [Pixhawk connector standard](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf) and enables integration with onboard telemetry systems or flight controllers.
+AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with the [Pixhawk connector standard](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf) and enables integration with onboard telemetry systems or flight controllers  suitable for real-time spectrum measurement and in-flight data logging.
 
 
 ### Boards dimensions
@@ -100,9 +100,9 @@ In the case of parallel mounting, the angled pin-header is used for connection o
 
 ## Output data format
 
-The data are produced as a continuous 9600 bps data stream on the UART port. The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/).
+The data are produced as a continuous 9600 bps data stream on the UART port (could be swithed to 115200 to decrease dead-time). The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/). Alternatively, with the different firmware, the device could output the [UST Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
 
-Alternatively, with the different firmware, the device could output the [Particle Detector Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
+There are two [AIRDOS03 firmware binaries](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/build) wich selects the format type.  
 
 
 
