@@ -10,7 +10,7 @@ nav_order: "9"
 # AIRDOS03 - Lightweight airborne dosimeter and spectrometer
 
 [AIRDOS03](https://docs.thunderfly.cz/avionics/AIRDOS03/), also called “UAVDOS”, is a semiconductor ionizing radiation sensor developed in cooperation with [ThunderFly s.r.o.](https://www.thunderfly.cz/) as a measuring device for the [TF-ATMON](https://docs.thunderfly.cz/instruments/TF-ATMON) measuring toolchain. The detector is designed to be lightweight and capable of connecting to a wide range of unmanned drone flight controllers. 
-Design meet requirements for TF-ATMON’s sensors and therefore can share a power supply, data storage, or telemetry link with common drone avionics. This eliminates excess weight that would otherwise have to be carried by the drone, thereby decreasing the flight range or duration and lowering flight parameters. The particle detector is, at the same time, compatible with the [Pixhawk](https://www.pixhawk.org/) standard for connecting devices to drones.
+Design meets requirements for TF-ATMON’s sensors and therefore can share a power supply, data storage, or telemetry link with common drone avionics. This eliminates excess weight that would otherwise have to be carried by the drone, thereby decreasing the flight range or duration and lowering flight parameters. The particle detector is, at the same time, compatible with the [Pixhawk](https://www.pixhawk.org/) standard for connecting devices to drones.
 
 ![AIRDOS03 sensor electronics](https://raw.githubusercontent.com/ust-modules/USTSIPIN03/refs/heads/USTSIPIN03C/doc/img/AIRDOS04_sensor_top.png)
 
@@ -46,15 +46,18 @@ The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination w
   * 40 grams
 * Interface options: 6pin UART ([Pixhawk-compatible TELEM/UART JST-GH connectors](https://docs.thunderfly.cz/avionics/TFCAB01/#uarttelemserial-cables))
   * UART could be converted to USB-C by [TFUSBSERIAL01](https://docs.thunderfly.cz/avionics/TFUSBSERIAL01/)
-  * Dataformat selected by firmware either MAVlink or [UST dosimeters data format](/xdos_format#version-2).
+  * Data format selected by firmware, either MAVlink or [UST dosimeters data format](/xdos_format#version-2).
 
 AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with the [Pixhawk connector standard](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf) and enables integration with onboard telemetry systems or flight controllers  suitable for real-time spectrum measurement and in-flight data logging.
 
 
 ### Boards dimensions
 
+#### AIRDOS03 Interface PCB
 ![AIRDOS03 data processing board dimensions](https://raw.githubusercontent.com/ThunderFly-aerospace/TFUNIPAYLOAD01/refs/heads/TFUNIPAYLOAD01B/doc/img/TFUNIPAYLOAD01_dimensions.png)
 
+
+#### AIRDOS03 Sensor PCB
 ![AIRDOS03 sensor board dimensions](https://raw.githubusercontent.com/ust-modules/USTSIPIN03/refs/heads/USTSIPIN03C/doc/img/AIRDOS04_dimensions.png)
 
 
@@ -90,7 +93,11 @@ The instrument consists of two PCBs connected by a standard 2.54 mm pitch 15x2 p
 
 ### Parallel stackup
 
-In the case of parallel mounting, the PCBs are directly above each other and separated by 9mm height screw columns. The data and sensing PCB could be swapped. 
+In the case of parallel mounting, the sensor and interface PCBs are directly above each other and separated by 9mm height screw columns. The data and sensing PCB could be swapped before soldering the pin-headers. In the default configuration shown in the following photos, the sensor element itself is between the PCB boards. 
+
+![AIRDOS03 sesnor board side](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS03/refs/heads/AIRDOS03B/doc/img/AIRDOS03_Parallel-shape_sensor_board.jpg)
+
+![AIRDOS03 interface board side](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS03/refs/heads/AIRDOS03B/doc/img/AIRDOS03_Parallel-shape_interface_board.jpg)
 
 ### L-shape stackup
 
