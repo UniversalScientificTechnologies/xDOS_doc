@@ -53,13 +53,16 @@ AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with
 
 ### Boards dimensions
 
+#### AIRDOS03 Sensor PCB
+
+![AIRDOS03 sensor board dimensions](https://raw.githubusercontent.com/ust-modules/USTSIPIN03/refs/heads/USTSIPIN03C/doc/img/AIRDOS04_dimensions.png)
+
 #### AIRDOS03 Interface PCB
+
 ![AIRDOS03 data processing board dimensions](https://raw.githubusercontent.com/ThunderFly-aerospace/TFUNIPAYLOAD01/refs/heads/TFUNIPAYLOAD01B/doc/img/TFUNIPAYLOAD01_dimensions.png)
 
 
-#### AIRDOS03 Sensor PCB
-![AIRDOS03 sensor board dimensions](https://raw.githubusercontent.com/ust-modules/USTSIPIN03/refs/heads/USTSIPIN03C/doc/img/AIRDOS04_dimensions.png)
-
+The sensor interface is technically based on [ThunderFly's TFUNIPAYLOAD01](https://docs.thunderfly.cz/avionics/TFUNIPAYLOAD01/) PCB, which provides multiple interface options. The main connectors are the following:
 
 ### UART Pinout
 
