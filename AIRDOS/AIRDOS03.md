@@ -12,7 +12,7 @@ nav_order: "9"
 [AIRDOS03](https://docs.thunderfly.cz/avionics/AIRDOS03/), also called “UAVDOS”, is a semiconductor ionizing radiation sensor developed in cooperation with [ThunderFly s.r.o.](https://www.thunderfly.cz/) as a measuring device for the [TF-ATMON](https://docs.thunderfly.cz/instruments/TF-ATMON) measuring toolchain. The detector is designed to be lightweight and capable of connecting to a wide range of unmanned drone flight controllers. 
 Design meets requirements for TF-ATMON’s sensors and therefore can share a power supply, data storage, or telemetry link with common drone avionics. This eliminates excess weight that would otherwise have to be carried by the drone, thereby decreasing the flight range or duration and lowering flight parameters. The particle detector is, at the same time, compatible with the [Pixhawk](https://www.pixhawk.org/) standard for connecting devices to drones.
 
-![AIRDOS03 sensor electronics](https://raw.githubusercontent.com/ust-modules/USTSIPIN03/refs/heads/USTSIPIN03C/doc/img/AIRDOS04_sensor_top.png)
+![AIRDOS03 sensor electronics close up](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS03/refs/heads/AIRDOS03B/doc/img/AIRDOS03.jpg)
 
 The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination with the sensor, enables the search for areas with increased radiation intensity and optimally utilizes flight time to collect high-quality data. Refer to [ThunderFly's AIRDOS03 documentation](https://docs.thunderfly.cz/avionics/AIRDOS03/) for more details. 
 
@@ -101,15 +101,15 @@ In the case of parallel mounting, the sensor and interface PCBs are directly abo
 
 ### L-shape stackup
 
-In the case of parallel mounting, the angled pin-header is used for connection of PCBs. 
+In the case of parallel mounting, the angled pin-header is used for the connection of PCBs. 
 
 ![AIRDOS03 L-shape](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS03/refs/heads/AIRDOS03B/doc/img/AIRDOS03_L-shape.jpg)
 
 ## Output data format
 
-The data are produced as a continuous 9600 bps data stream on the UART port (could be swithed to 115200 to decrease dead-time). The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/). Alternatively, with the different firmware, the device could output the [UST Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
+The data are produced as a continuous 9600 bps data stream on the UART port (could be switched to 115200 to decrease dead-time). The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/). Alternatively, with the different firmware, the device could output the [UST Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
 
-There are two [AIRDOS03 firmware binaries](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/build) wich selects the format type.  
+There are two [AIRDOS03 firmware binaries](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/build) which select the format type.  
 
 
 
