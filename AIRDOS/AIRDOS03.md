@@ -31,9 +31,9 @@ The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination w
 * Mapping radiation gradients near ground-based or airborne sources
 * Scientific support for space weather and high-altitude dosimetry research
 
-## Reference use case: FIK-10 stratospheric balloon
+## FIK-10 stratospheric balloon
 
-AIRDOS03 was used as part of the [FIK-10 stratospheric balloon mission](https://github.com/ODZ-UJF-AV-CR/FIK-10), providing an example of the detector's use in a lightweight high-altitude platform. The flight data below show the main measured quantities recorded during the balloon campaign.
+As reference use case, AIRDOS03 was used as part of the [FIK-10 stratospheric balloon mission](https://github.com/ODZ-UJF-AV-CR/FIK-10), providing an example of the detector's use in a lightweight high-altitude platform. The flight data below show the main measured quantities recorded during the balloon campaign.
 
 ![FIK-10 stratospheric balloon flight data measured with AIRDOS03](https://raw.githubusercontent.com/ODZ-UJF-AV-CR/FIK-10/refs/heads/main/doc/img/flight_data.png)
 
