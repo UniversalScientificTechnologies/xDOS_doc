@@ -31,6 +31,14 @@ The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination w
 * Mapping radiation gradients near ground-based or airborne sources
 * Scientific support for space weather and high-altitude dosimetry research
 
+## Reference use case: FIK-10 stratospheric balloon
+
+AIRDOS03 was used as part of the [FIK-10 stratospheric balloon mission](https://github.com/ODZ-UJF-AV-CR/FIK-10), providing an example of the detector's use in a lightweight high-altitude platform. The flight data below show the main measured quantities recorded during the balloon campaign.
+
+![FIK-10 stratospheric balloon flight data measured with AIRDOS03](https://raw.githubusercontent.com/ODZ-UJF-AV-CR/FIK-10/refs/heads/main/doc/img/flight_data.png)
+
+*FIK-10 flight data: radiation measurements shown together with environmental and flight-profile context from the stratospheric balloon mission.*
+
 ## Technical parameters
 
 * Measurement of the deposited energy of ionizing radiation in the 40 keV to 80 MeV
@@ -113,6 +121,5 @@ In the case of parallel mounting, the angled pin-header is used for the connecti
 The data are produced as a continuous 9600 bps data stream on the UART port (could be switched to 115200 to decrease dead-time). The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/). Alternatively, with the different firmware, the device could output the [UST Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
 
 There are two [AIRDOS03 firmware binaries](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/build) which select the format type.  
-
 
 
