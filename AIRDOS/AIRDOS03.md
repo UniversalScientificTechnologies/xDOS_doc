@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "AIRDOS03: The Drone-Compatible Detector"
+title: "AIRDOS03: Dosimeter designed for drones"
 permalink: /airdos/AIRDOS03
 parent: AIRDOS
 nav_order: "9"
