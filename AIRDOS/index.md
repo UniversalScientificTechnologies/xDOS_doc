@@ -9,7 +9,7 @@ nav_order: 4
 
 The AIRDOS series detectors by [Universal Scientific Technologies s.r.o (UST)](https://www.ust.cz/) are advanced airborne radiation detectors designed for measuring radiation in aerial environments, suited for civil aviation dosimetry and [secondary cosmic ray](https://en.wikipedia.org/wiki/Cosmic_ray) research. These detectors offer monitoring of the atmospheric radiation situation and exposure, with various models tailored for different aircraft integration.
 
-![An Aircraft in flight](https://github.com/UniversalScientificTechnologies/xDOS_doc/assets/5196729/c584a46b-f326-493a-b0ba-69e903eb223b)
+![AIRDOS Atmospheric Coverage](img/AIRDOS_application_coverage.png)
 
 
 In civil aviation, measuring cosmic radiation is a main use of AIRDOS04 or AIRDOS05 detectors. Cosmic radiation, more intense at high altitudes, poses a risk to the health of flight crews and passengers. The measurement of radiation dose acquired during flights by aircraft crews is mandated by legislation in some countries. The aircraft AIRDOS detectors from UST are equipped to provide this measurement, ensuring compliance with these regulatory needs. The AIRDOS detectors are threaded as [Portable Electronic Devices(PEDS)](https://www.easa.europa.eu/en/document-library/terms-of-reference-and-rulemaking-group-compositions/tor-rmt0637-rmt0061-25063) from the scope of EASA. 
