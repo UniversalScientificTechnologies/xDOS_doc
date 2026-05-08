@@ -8,8 +8,8 @@ has_toc: false
 nav_order: 2
 ---
 
-LABDOS are a lightweight portable dosimeters intended as an experimental device for laboratory measurements.
+LABDOS are a lightweight portable dosimeters intended as an experimental device for simple laboratory measurements.
 
-[Get more details about LABDOS01](/labdos/LABDOS01){: .btn .btn-green .mr-4 }
+![LABDOS instrument](https://raw.githubusercontent.com/UniversalScientificTechnologies/LABDOS01/refs/heads/LABDOS01B/doc/LABDOS01.jpg)
 
-This devices should be used for experimental verification and planning before using our more sophisticated and application-specific devices like SPACEDOS, AIRDOS or GEODOS
+These devices should be used for experimental verification and planning before using our more sophisticated and application-specific devices like SPACEDOS, AIRDOS or GEODOS

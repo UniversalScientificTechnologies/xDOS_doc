@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "LABDOS01: Operational manual"
+title: "LABDOS01: Semiconductor-based USB-C Sensor"
 parent: "LABDOS - Universal Laboratory Instruments"
 permalink: /labdos/LABDOS01
 ---
