@@ -1,6 +1,6 @@
 ---
 layout: page
-title: GEODOS01
+title: "GEODOS01 - Stand-alone Outdoor Radiation Monitor"
 parent: "GEODOS - Ground Level ionizing radiation sensors"
 permalink: /geodos/GEODOS01/
 nav_order: 1

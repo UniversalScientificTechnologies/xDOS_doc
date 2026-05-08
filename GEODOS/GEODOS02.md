@@ -1,6 +1,6 @@
 ---
 layout: page
-title: GEODOS02
+title: "GEODOS02 - Mobile Radiation Detector for Research Vehicles"
 parent: "GEODOS - Ground Level ionizing radiation sensors"
 permalink: /geodos/GEODOS02/
 nav_order: 2
