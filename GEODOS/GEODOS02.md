@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GEODOS02
-parent: GEODOS
+parent: "GEODOS - Ground Level ionizing radiation sensors"
 permalink: /geodos/GEODOS02/
 nav_order: 2
 ---

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "SPACEDOS02: Onboard dosimeter"
-parent: SPACEDOS
+parent: "SPACEDOS - Space radiation detectors"
 permalink: /spacedos/SPACEDOS02
 has_children: true
 nav_order: 3

@@ -2,7 +2,7 @@
 layout: page
 title: "DOSVIEW: Log viewer"
 permalink: /dosview/log_viewer
-parent: DOSVIEW
+parent: "DOSVIEW - Detector Data Log Viewer"
 nav_order: "1"
 ---
 

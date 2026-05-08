@@ -1,6 +1,6 @@
 ---
 layout: page
-title: GEODOS
+title: "GEODOS - Ground Level ionizing radiation sensors"
 alt_text: Ground-Based Radiation Detection
 permalink: /geodos/
 has_children: true

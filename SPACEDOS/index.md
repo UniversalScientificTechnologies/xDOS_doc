@@ -1,6 +1,6 @@
 ---
 layout: page
-title: SPACEDOS
+title: "SPACEDOS - Space radiation detectors"
 alt_text: Spaceborne Radiation Dosimetry
 permalink: /spacedos/
 has_children: true

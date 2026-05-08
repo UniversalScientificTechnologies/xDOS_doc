@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "LABDOS01: Operational manual"
-parent: LABDOS
+parent: "LABDOS - Universal Laboratory Instruments"
 permalink: /labdos/LABDOS01
 ---
 

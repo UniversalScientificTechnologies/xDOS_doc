@@ -1,6 +1,6 @@
 ---
 layout: page
-title: LABDOS 
+title: LABDOS - Universal Laboratory Instruments
 alt_text: Experimental Radiation Detection instrument
 permalink: /labdos
 has_children: true

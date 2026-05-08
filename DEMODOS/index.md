@@ -1,10 +1,10 @@
 ---
 layout: page
-title: DEMODOS
+title: "DEMODOS - Simulator for Dosimetry Training"
 permalink: /demodos/
 has_children: true
 has_toc: false
-nav_order: 8
+nav_order: 6
 ---
 
 # DEMODOS: Remote-Controlled Dosimeter Simulator for Training and Education

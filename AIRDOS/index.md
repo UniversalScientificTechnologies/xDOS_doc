@@ -1,6 +1,6 @@
 ---
 layout: page
-title: AIRDOS
+title: "AIRDOS - Atmospheric Radiation sensors"
 alt_text: In-Flight Ionizing Radiation Detector
 permalink: /airdos/
 has_children: true

@@ -2,7 +2,7 @@
 layout: page
 title: "Engineering Model"
 parent: "SPACEDOS01: Radiation detector"
-grand_parent: SPACEDOS
+grand_parent: "SPACEDOS - Space radiation detectors"
 permalink: /spacedos/SPACEDOS01A
 ---
 

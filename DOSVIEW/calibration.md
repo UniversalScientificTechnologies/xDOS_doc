@@ -2,7 +2,7 @@
 layout: page
 title: "DOSVIEW: Calibration"
 permalink: /dosview/calibration
-parent: DOSVIEW
+parent: "DOSVIEW - Detector Data Log Viewer"
 nav_order: "2"
 ---
 

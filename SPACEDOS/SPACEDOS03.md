@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "SPACEDOS03: Onboard shielding verifier"
-parent: SPACEDOS
+parent: "SPACEDOS - Space radiation detectors"
 permalink: /spacedos/SPACEDOS03
 has_children: true
 nav_order: 3

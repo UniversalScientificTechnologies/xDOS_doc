@@ -1,6 +1,6 @@
 ---
 layout: page
-title: DOSPORTAL
+title: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/
 parent: Tools and resources
 has_children: true

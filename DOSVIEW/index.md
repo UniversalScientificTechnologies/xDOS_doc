@@ -1,6 +1,6 @@
 ---
 layout: page
-title: DOSVIEW
+title: "DOSVIEW - Detector Data Log Viewer"
 permalink: /dosview/
 parent: Tools and resources
 has_children: true
