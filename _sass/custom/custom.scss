@@ -21,3 +21,45 @@
 .nav-list .nav-list-item .nav-list-link:hover, .nav-list .nav-list-item .nav-list-link.active {
   background-image: linear-gradient(-90deg, #d5d5d5 0%, rgba(255, 255, 255, 0.8) 80%, rgba(255, 255, 255, 0) 100%);
 }
+
+.image-zoom-trigger {
+  display: block;
+  cursor: zoom-in;
+}
+
+.image-zoom-trigger img {
+  display: block;
+}
+
+.image-lightbox {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.86);
+  bottom: 0;
+  cursor: zoom-out;
+  display: none;
+  justify-content: center;
+  left: 0;
+  padding: 2rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+}
+
+.image-lightbox:target {
+  display: flex;
+}
+
+.image-lightbox img {
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.35);
+  max-height: 92vh;
+  max-width: 96vw;
+}
+
+.image-lightbox__close {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
