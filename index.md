@@ -1,5 +1,5 @@
 ---
-title: UST detectors overview
+title: UST Dosimeters Overview
 layout: home
 nav_order: 1
 ---
