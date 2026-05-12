@@ -73,14 +73,14 @@ These facilities let us test AIRDOS04 in both mono‑energetic/mono‑species an
 
 ### Energy calibration (Am‑241 & Pu‑239)
 
-The each produced AIRDOS04 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
+Each produced AIRDOS04 unit is individually energy‑calibrated using two reference sources, Am‑241 and Pu‑239. A calibration protocol is supplied with every delivered instrument.
 
 ![Energy calibration with Am‑241 and Pu‑239](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_Am-241_Pu-239.png)
 *Energy‑calibration spectrum from a typical unit. Labeled lines correspond to distinct radiation types and serve as fixed points for the channel‑to‑energy conversion.*
 
 Identified energies and radiation types:
 
-* **59.5 keV (γ from Am‑241):** Low‑energy gamma line used as the lowest-energy calibration anchor; in silicon it produces a well‑defined full‑energy peak (dominated by photoelectric absorption), validating the low‑noise of spectrometer.
+* **59.5 keV (γ from Am‑241):** Low‑energy gamma line used as the lowest-energy calibration anchor; in silicon it produces a well‑defined full‑energy peak (dominated by photoelectric absorption), validating the low‑noise of the spectrometer.
 * **5.486 MeV (α from Am‑241):** High‑energy alpha‑particle line; alphas of this energy stop within tens of micrometres in Si and deposit essentially their full energy, providing a sharp peak for the MeV‑range anchor and resolution check.
 * **5.15 MeV (α from Pu‑239):** Second alpha line near the Am‑241 peak; the ≈0.336 MeV separation between the two alpha lines is a sensitive cross‑check of the energy scale and spectral resolution.
 
@@ -96,7 +96,7 @@ During routine operations, AIRDOS04 records the typical evolution of the cabin r
 *Dose‑rate vs. time along the flight profile.*
 
 > * Flight duration: 11 h, number of spectral measurements: 3854.
-> * Dose in silicon over the flight: 14.444 μGy ± 1.132 μGy.
+> * Dose in silicon over the flight: 14.444 μGy ± 1.132 μGy.  The method of converting DSi to ambient dose equivalent H*(10) is still under scientific study, and [this paper](https://doi.org/10.1093/rpd/ncq505) could be used as a reference. 
 
 
 ![Measured radiation spectra during flight by AIRDOS04](https://raw.githubusercontent.com/UniversalScientificTechnologies/AIRDOS04/refs/heads/AIRDOS04C/doc/img/AIRDOS04_radiation_spectra.png)
