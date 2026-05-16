@@ -50,6 +50,18 @@ GEODOS02 is used in field research campaigns, such as thunderstorm-chasing exper
 
 GEODOS02 units are mounted in research cars for large-area surveys of ionizing radiation associated with thunderstorms.
 
+## Integration with the VLF lightnin signal receiver
+
+For coincidence studies with lightning radio emission, GEODOS02 can be coupled to a UST [RSMS02 VLF receiver](https://docs.ust.cz/RSMS02/) so that individual scintillation pulses are timestamped on exactly the same clock as the VLF waveform. In this configuration:
+
+* A larger NaI(Tl) crystal is optically coupled with a silicon-photomultiplier module.
+* The single-ended SiPM signal is connected through a [SATABAL01](https://www.mlab.cz/module/SATABAL01/) balun transformer.
+* The resulting differential signal is fed to a spare ADC channel of the RSMS02 VLF receiver, recorded with full waveform fidelity at 10 MS/s.
+
+The result is a system that can store the time-resolved individual scintillation pulse together with the simultaneous VLF lightning waveform, with a maximum recording length identical to the VLF receiver's pre/post-trigger buffer (~1.45 s). An example single-pulse capture (a cosmic-ray muon outside of storm activity) is shown below:
+
+![Single SiPM pulse digitised on a VLF receiver ADC](scintillator_pulse.png)
+
 ## Data and Operation
 
 The detector provides a **USB data stream** containing energy and timestamp of each detected event. The host computer is responsible for recording, timestamping, and storage. The data structure is compatible with the same histogram and event message types used in GEODOS01.

@@ -28,3 +28,8 @@ This detector incorporates advanced semiconductor technology to ensure autonomou
 ## AIRDOS03: Unmanned aircraft detector for atmospheric science
 
 The instrument is designed to be extremely lightweight and capable of connecting to a wide range of unmanned drone flight controllers. The particle detector could be used in a wide range of UAV airframes, including stratospheric balloons, airplanes, or multirotors. 
+
+* **[Stratospheric balloon campaigns](/airdos/stratospheric_balloons/)** — AIRDOS-class detectors carried in the FIK flight series for atmospheric radiation mapping (Regener–Pfotzer maximum, latitudinal effects) and for qualification of modified detector designs before longer missions.
+* **UAV-based in-situ measurements** — see [AIRDOS03](/airdos/AIRDOS03) on the TF-G2 autogyro.
+
+For *ground-level* radiation phenomena associated with thunderstorms — radon-progeny washout, ground-level gamma enhancements — see the [GEODOS](/geodos/) family.

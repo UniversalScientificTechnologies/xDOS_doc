@@ -39,6 +39,21 @@ As a reference use case, AIRDOS03 was used as part of the [FIK-10 stratospheric 
 
 *FIK-10 flight data: radiation measurements shown together with environmental and flight-profile context from the stratospheric balloon mission.*
 
+For the broader FIK campaign — multi-detector payloads (AIRDOS-C + SPACEDOS + G-M), the joint Regener–Pfotzer maximum determination, telemetry/microphonics, and operational notes — see the dedicated [Stratospheric balloon campaigns](/airdos/stratospheric_balloons/) page.
+
+## UAV deployment — TF-G2 autogyro
+
+AIRDOS03 (also referred to as **UAVDOS** in publications) has been integrated into the fuselage of the [TF-G2 unmanned autogyro](https://docs.thunderfly.cz/instruments/TF-G2) for in-situ atmospheric ionizing radiation measurements near and inside thunderstorms. The detector is enclosed under a waterproof fabric cover and connected to the [TF-ATMON](https://docs.thunderfly.cz/instruments/TF-ATMON) avionics over a serial link.
+
+The TF-ATMON system synchronizes radiation data with:
+
+* the autogyro's flight trajectory (3D position + attitude),
+* the [THUNDERMILL01](https://docs.ust.cz/THUNDERMILL/THUNDERMILL01/) electric-field mill mounted in the rotor head,
+* environmental data (temperature, humidity, pressure),
+* radio telemetry to the ground station.
+
+The TF-G2 autogyro is launched directly from the roof platform of a [storm measurement vehicle](https://docs.ust.cz/StormCar/) — the autorotation rotor head provides safe operation in turbulent conditions near thunderstorms, where multicopters and fixed-wing aircraft are not viable. This deployment is the basis for in-situ thunderstorm radiation measurements: the UAV positions the detector at heights and locations that ground stations cannot reach.
+
 ## Technical parameters
 
 * Measurement of the deposited energy of ionizing radiation in the 40 keV to 80 MeV
