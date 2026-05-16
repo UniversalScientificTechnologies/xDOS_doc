@@ -3,7 +3,7 @@ layout: page
 title: "AIRDOS03: Dosimeter designed for drones"
 permalink: /airdos/AIRDOS03
 parent: "AIRDOS - Atmospheric Radiation sensors"
-nav_order: "9"
+nav_order: "3"
 ---
 
 

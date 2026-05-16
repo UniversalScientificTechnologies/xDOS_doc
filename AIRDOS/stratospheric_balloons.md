@@ -3,7 +3,7 @@ layout: page
 title: "Stratospheric balloon campaigns"
 parent: "AIRDOS - Atmospheric Radiation sensors"
 permalink: /airdos/stratospheric_balloons/
-nav_order: 20
+nav_order: 99
 ---
 
 # Stratospheric balloon campaigns with AIRDOS-class detectors
