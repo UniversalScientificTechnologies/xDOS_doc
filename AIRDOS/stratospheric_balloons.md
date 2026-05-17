@@ -2,13 +2,13 @@
 layout: page
 title: "Stratospheric balloon campaigns"
 parent: "AIRDOS - Atmospheric Radiation sensors"
-permalink: /airdos/stratospheric_balloons/
+permalink: /airdos/balloons/
 nav_order: "99"
 ---
 
 # Stratospheric balloon campaigns with AIRDOS-class detectors
 
-AIRDOS detectors have been the primary scientific payload in a series of **FIK** stratospheric balloon flights operated jointly with the Nuclear Physics Institute of the Czech Academy of Sciences. The flights serve a dual purpose:
+AIRDOS detectors have been the primary scientific payload in a series of **FIK** stratospheric balloon flights operated jointly with the [Nuclear Physics Institute of the Czech Academy of Sciences](https://www.ujf.cas.cz/en) in Řež. The flights serve a dual purpose:
 
 1. **Atmospheric radiation mapping** — establishing the altitude dependence of secondary cosmic radiation up to ~30 km and the location of the [Regener–Pfotzer maximum](#regenerpfotzer-maximum).
 2. **Instrument qualification** — testing AIRDOS and other detector designs against the temperature, pressure, mechanical, and electromagnetic environment of a stratospheric flight before they are deployed on a longer mission (UAV, satellite).
@@ -56,6 +56,12 @@ The main open challenge is launching balloons under the strong wind conditions t
 ![Stratospheric balloon takeoff under high wind](balloon_wind_takeoff.jpg)
 
 This is one of the reasons for the parallel development of the [TF-G2 autogyro](https://docs.thunderfly.cz/instruments/TF-G2) UAV platform — a controllable carrier that can position the same detectors in or near a storm cell with much higher reliability than an uncontrolled balloon. The latest [AIRDOS03](/airdos/AIRDOS03) variant was designed specifically for that UAV use.
+
+## Available platform — TF-B1 balloon kit
+
+The avionics that flew the later FIK missions has been productized as the **[TF-B1 stratospheric balloon kit](https://docs.thunderfly.cz/instruments/TF-B1/)**, available from ThunderFly. The kit is a complete carrier: airframe, TF-ATMON avionics with redundant telemetry (TFSIK01 + TFLORA01), GNSS tracking and recovery beacon, modular UART payload interface, and battery system suitable for stratospheric temperatures. Any AIRDOS-, SPACEDOS- or GEODOS-class detector can be attached as a TF-ATMON payload without writing platform-specific firmware — the on-board logger records the payload data together with synchronized environment and trajectory information out of the box.
+
+For groups planning a stratospheric campaign without first having to develop their own balloon avionics, TF-B1 is the recommended starting point.
 
 ## Related publications
 

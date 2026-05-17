@@ -39,7 +39,7 @@ As a reference use case, AIRDOS03 was used as part of the [FIK-10 stratospheric 
 
 *FIK-10 flight data: radiation measurements shown together with environmental and flight-profile context from the stratospheric balloon mission.*
 
-For the broader FIK campaign — multi-detector payloads (AIRDOS-C + SPACEDOS + G-M), the joint Regener–Pfotzer maximum determination, telemetry/microphonics, and operational notes — see the dedicated [Stratospheric balloon campaigns](/airdos/stratospheric_balloons/) page.
+For the broader FIK campaign — multi-detector payloads (AIRDOS-C + SPACEDOS + G-M), the joint Regener–Pfotzer maximum determination, telemetry/microphonics, and operational notes — see the dedicated [Stratospheric balloon campaigns](/airdos/balloons/) page.
 
 ## UAV deployment — TF-G2 autogyro
 
