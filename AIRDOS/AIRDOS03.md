@@ -19,7 +19,7 @@ The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination w
 ## Key Features
 
 * Fully compatible with [TF-ATMON](https://docs.thunderfly.cz/instruments/TF-ATMON) and Pixhawk ecosystem
-* Lightweight and extremely low-power (5 V / 3 mA)
+* Lightweight and extremely low-power
 * Spectral data output for scientific analysis
 * Can operate in real-time streaming mode or store data onboard
 * Modular open-source firmware for custom scientific missions
@@ -70,6 +70,7 @@ The TF-G2 autogyro is launched directly from the roof platform of a [storm measu
 * Interface options: 6pin UART ([Pixhawk-compatible TELEM/UART JST-GH connectors](https://docs.thunderfly.cz/avionics/TFCAB01/#uarttelemserial-cables))
   * UART could be converted to USB-C by [TFUSBSERIAL01](https://docs.thunderfly.cz/avionics/TFUSBSERIAL01/)
   * Data format selected by firmware, either MAVlink or [UST dosimeters data format](/xdos_format#version-2).
+  * Required power 4.5 to 5.4 V @ 3 mA
 
 AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with the [Pixhawk connector standard](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf) and enables integration with onboard telemetry systems or flight controllers  suitable for real-time spectrum measurement and in-flight data logging.
 
@@ -133,8 +134,62 @@ In the case of parallel mounting, the angled pin-header is used for the connecti
 
 ## Output data format
 
-The data are produced as a continuous 9600 bps data stream on the UART port (could be switched to 115200 to decrease dead-time). The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/). Alternatively, with the different firmware, the device could output the [UST Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
+The data are produced as a continuous 115200 bps data stream on the UART port. The default firmware generates [MAVLink Tunnel packets](https://mavlink.io/en/services/tunnel.html), eliminating the need to modify autopilot firmware. This solution is suited for rapid deployment and testing of new environmental or scientific sensors connected to an autopilot without firmware development. It provides a plug-and-play bridge between your sensor and [TF-ATMON ecosystem](/instruments/TF-ATMON/). Alternatively, with the different firmware, the device could output the [UST Output File Format](/xdos_format) on the same port, common to [SPACEDOS](/spacedos/), [AIRDOS](/airdos/), and [GEODOS](/geodos/) instruments. 
 
-There are two [AIRDOS03 firmware binaries](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/build) which select the format type.  
+There are two [AIRDOS03 firmware binaries](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/build) which select the format type.
+
+### Data processing tools (MAVLink firmware)
+
+The MAVLink firmware variant ships with Python tools in the [`tools/`](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/AIRDOS03_MAVLink/tools) directory for converting and analysing recorded data.
+
+#### `mavlink_to_airdos.py`
+
+Decodes a live MAVLink tunnel stream from the detector (or a previously captured binary file) and outputs [xDOS Dosimeter File Format](/xdos_format) compatible with [dosview log viewer](/dosview/). Requires `pymavlink` (`pip install pymavlink`).
+
+```bash
+# from a connected serial port
+python tools/mavlink_to_airdos.py --port /dev/ttyUSB0 --baud 115200
+
+# from a previously captured binary stream
+python tools/mavlink_to_airdos.py --stdin < capture.bin
+```
+
+#### `ulog_to_airdos.py`
+
+Extracts AIRDOS03 data logged by a PX4 autopilot into a ULog file (`.ulg`) and converts it to the [xDOS](/xdos_format) text format. This is the standard path when the detector is integrated into a TF-ATMON flight. Requires `pyulog` (`pip install pyulog`).
+
+```bash
+python tools/ulog_to_airdos.py log100.ulg > output.txt
+```
+
+#### `flux_analysis.py`
+
+A Jupyter-style analysis script that reads a ULog file and plots particle flux over time. Produces two figures: `flux_graph.png` (flux time series with altitude overlay from barometric data and vibration diagnostics) and `flux_vs_altitude.png` (flux as a function of altitude). Requires `pyulog`, `pandas`, and `matplotlib`. The input file path and channel threshold are set at the top of the script (`ULOG_FILE`, `HIST_MIN_CHANNEL`).
+
+## Firmware customization
+
+The AIRDOS03 firmware is open-source and can be modified and rebuilt by the user. Both firmware variants (`AIRDOS03_MAVLink` and `AIRDOS03_USTDFF`) are maintained as standalone [PlatformIO](https://platformio.org/) projects in the [AIRDOS03 GitHub repository](https://github.com/UniversalScientificTechnologies/AIRDOS03).
+
+To build a firmware variant locally:
+
+```bash
+pio run --project-dir fw/AIRDOS03_MAVLink
+# or
+pio run --project-dir fw/AIRDOS03_USTDFF
+```
+
+To build and upload directly via PlatformIO (requires a connected UART Peripheral port on AIRDOS, the reset is required on CTS pin):
+
+```bash
+pio run --project-dir fw/AIRDOS03_MAVLink -t upload
+```
+
+New firmware can also be flashed using `avrdude` with the MightyCore bootloader over the UART interface:
+
+```bash
+avrdude -v -patmega1284p -carduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:fw_AIRDOS03_MAVLink_AIRDOS03.hex:i
+```
+
+Pre-built `.hex` binaries are available in the [fw/build](https://github.com/UniversalScientificTechnologies/AIRDOS03/tree/AIRDOS03B/fw/build) directory of the repository.
 
 
