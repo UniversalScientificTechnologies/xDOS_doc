@@ -67,7 +67,7 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
  * Maintenance duration: under 5 minutes
  * Automatic power-off in landed aircraft
  * Size: 166 x 107 x 57 mm (two  of these should fit into the Aircraft printed manual bay)
- * Weight is 0.88 kg (With five Li-ion accumulator cells in [BATDATUNIT01](https://docs.dos.ust.cz/airdos/BATDATUNIT01))
+ * Weight is 0.88 kg (With five Li-ion accumulator cells in [BATDATUNIT01](/airdos/BATDATUNIT01))
    * 0.62 kg without Li-ion accumulators  
  * Environmental operational conditions
    * Device protection: IP30 rating (fully assembled)
