@@ -19,7 +19,7 @@ This is a simplified version of the full user guide for fast detector setup. Thi
    </iframe>
  </div>
 
-The AIRDOS04 airborne radiation dosimeter and spectrometer and its detachable module, BATDATUNIT01, are laid out on a table. It should be effortlessly assembled, connecting the two parts. As they fit into place, the device acknowledges the successful assembly with a series of LED flashes and a brief beep, signaling it's powered on and operational. The AIRDOS04, now fully assembled, continues to exhibit its functionality by periodically blinking its LED. The detector is impossible to power off by any of the buttons.
+The AIRDOS04 airborne radiation dosimeter and spectrometer and its detachable module, BATDATUNIT01, are laid out on a table. It should be effortlessly assembled, connecting the two parts. As they fit into place, the device acknowledges the successful assembly with a series of LED flashes and a brief beep, signaling it's powered on and operational. The AIRDOS04, now fully assembled, continues to exhibit its functionality by periodically blinking its LED. The detector can be powered off by holding the 'MCU button' until the three indicator LEDs count down and switch off, then releasing it; the button is sampled only once per measurement cycle, so in the worst case it must be held for up to about thirteen seconds. Powering off with the button only works on battery power - while USB-C power is connected the request is ignored and the device keeps running, so disconnect USB-C first. The device then stays off and is switched on again with the 'Power button' (an approximately one-second hold).
 
 [Detailed instructions in full manual]({{site.baseurl}}/airdos/AIRDOS04#detector-power-up).
 
