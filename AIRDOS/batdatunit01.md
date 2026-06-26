@@ -3,7 +3,7 @@ layout: page
 title: "BATDATUNIT01: Power and data storage"
 permalink: /airdos/BATDATUNIT01
 parent: "AIRDOS - Atmospheric Radiation sensors"
-nav_order: "10"
+nav_order: 3
 ---
 
 # BATDATUNIT01 - Power and data storage

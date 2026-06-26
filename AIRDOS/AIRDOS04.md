@@ -3,7 +3,7 @@ layout: page
 title: "AIRDOS04: Airliner radiation dosimeter"
 permalink: /airdos/AIRDOS04/
 parent: "AIRDOS - Atmospheric Radiation sensors"
-nav_order: "2"
+nav_order: 2
 has_children: true
 ---
 

@@ -123,11 +123,7 @@ With the recent firmware, the detector can be powered off with the 'MCU button'.
 After the detector has been powered off with the 'MCU button', it will **not** switch back on by itself while the BATDATUNIT01 is re-inserted in the detector. To switch it on again, hold the 'Power button' for about one second (or connect a USB-C power source).
 
 {: .highlight }
-The 'MCU button' can power the detector off only while it runs on its internal battery. As long as external power is supplied through the USB-C connector, the power-off request is ignored: the device plays the power-off tone but then resumes normal operation and keeps recording (the charger keeps the device powered from USB regardless of the shutdown request). To power the detector off, first disconnect the USB-C cable and then use the 'MCU button' or one of the other power-off methods.
-
-When the detector’s data part is inside the box and is connected to a USB-C power source, the device will initiate charging while continuing its particle detection operations.
-
-Conversely, if the data part is outside the box and a USB connection is established, the detector switches to a mass-storage mode. This mode allows for data transfer to your computer, but the particle detection function is inactive during this period. In this mode, LED3 (green) is continuously lit.
+The ‘MCU button’ can power the detector off only while it runs on its internal battery. As long as external power is supplied through the USB-C connector, the power-off request is ignored: the device plays the power-off tone but then resumes normal operation and keeps recording (the charger keeps the device powered from USB regardless of the shutdown request). To power the detector off, first disconnect the USB-C cable and then use the ‘MCU button’ or one of the other power-off methods.
 
 ## Battery level
 
@@ -146,21 +142,30 @@ The battery charge level of the accumulator module can be easily determined by p
    </iframe>
  </div>
 
-The accumulator module (BATDATUNIT01-BAT) begins charging automatically upon connecting a USB to the USB-C connector. The charging process is intentionally slow for two primary reasons:
+When the detector's data part is inside the box and connected to a USB-C power source, the device initiates charging while continuing its particle detection operations. The accumulator module (BATDATUNIT01-BAT) begins charging automatically upon connecting a USB to the USB-C connector.
+
+To charge the module, follow these steps:
+
+ * **Acquire a USB Power Source**: This can be a USB adapter or a computer equipped with a USB 2.0 port. The power source must be capable of providing at least 0.5 A of current.
+ * **Connect the USB-C cable**: Insert the USB-C end of the cable into the data unit and the USB-A end into the power source.
+ * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. A flashing charging LED indicates an error or an issue with the Li-ion cells.
+ * **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, and the "Power-in" LED will stay on, signaling that the charging process is complete. You can check the battery level by pressing the "Power" button.
+
+To ensure maximal safety, it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during charging.
+
+The charging process is intentionally slow for two primary reasons:
 
 **Battery Life Extension and Capacity Maximization**: Slow charging is a strategic choice to extend the lifespan of the batteries and maximize the charged capacity. This approach ensures that the batteries maintain their efficiency and longevity over multiple charging cycles, which is crucial for the continuous and reliable operation of the AIRDOS04 detector.
 
 **Compatibility with most Standard USB 2.0 Ports**: The module is designed to be charged using a regular USB 2.0 port commonly found on computers. This design consideration enhances the versatility of the charging process, allowing users to recharge the module with any available USB 2.0 ports without needing specialized charging equipment.
-
-The presence of a sufficient power supply for the accumulator module is indicated by the "Power in" green LED. The progress of the charging process is displayed by the "Charging" orange LED light. Once the battery is fully charged, the "Charging" LED light will turn off, signaling that the charging process is complete. This visual indication system provides users with an easy and intuitive way to monitor the charging status and power availability of the device.
 
 # Standard maintenance
 
 Standard maintenance steps of the AIRDOS04 detector involve routine procedures essential for conducting long-term measurements. These maintenance tasks primarily include the following steps. For more detailed instructions, please refer to our online version of this manual.
 
  * **Replacing the Digital Part of the Detector**: Periodical swapping out of the digital module ensures continuous operation and minimizes downtime/maintenance time. This is particularly important in scenarios where the detector is used for extended periods.
- * **Downloading Recorded Data**: Periodically downloading data from the detector's storage is crucial for both data analysis and clearing storage space for ongoing measurements. This process is facilitated by the detector's user-friendly data retrieval system.
- * **Recharging the Batteries**: For variants with an accumulator, ensuring the batteries are regularly charged is important. This maintains the detector’s autonomous operation capability, especially in situations where a continuous external power source is not available.
+ * **Downloading Recorded Data**: Periodically downloading data from the detector’s storage is crucial for both data analysis and clearing storage space for ongoing measurements. This process is facilitated by the detector’s user-friendly data retrieval system.
+ * **Recharging the Batteries**: After each measurement campaign, recharge the accumulator module before storing it. Follow the procedure in the [Battery charging](#battery-charging) section above.
 
 Adhering to these standard maintenance procedures will ensure that the AIRDOS04 operates efficiently and reliably over extended periods, providing accurate and consistent measurement results.
 
@@ -205,17 +210,6 @@ Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) i
 1. **Download and Delete Data**: Transfer the recorded data to your computer. After successfully transferring, make sure to completely delete the original data from the module to free up space for new recordings.
 1. **Disconnect the Storage from the Computer OS**: Safely eject the mass-storage device from your computer.
 1. **Optional Disconnection of USB-C cable**: If you do not intend to charge the detector, you can disconnect the cable from the USB connector at this point.
-
-## Recharging the Accumulators
-
-To ensure the proper charging of the Li-Ion accumulators in the BATDATUNIT01-BAT module, follow these steps:
-
- * **Acquire a USB Power Source**: This can be a USB adapter or a computer equipped with a USB 2.0 port. The power source must be capable of providing at least 0.5 A of current.
- * **Connect the USB-C to USB-A Cable**: Insert the USB-C end of the cable into the data unit and the USB-A end into the power source.
- * **Verify the Charging Process**: Look for the "Power-in" and "Charging" LED indicators on the data unit. The "Power-in" LED should be constantly lit, and the "Charging" LED should remain on to indicate that charging is continuing. A flashing charging LED indicates an error or an issue with the Li-ion cells.
- * **Check for Full Charge**: Once the batteries are fully charged, the "Charging" LED will turn off, and the "Power-in" LED will stay on, signaling that the charging process is complete and the unit is ready for use. You can check the battery level by pressing the “Power” button.
-
-To ensure maximal safety, it is suggested to leave the fully charged module resting for at least one hour. This procedure releases internal mechanical stress from the accumulator's build-up during charging.
 
 # Operational notes for AIRDOS04
 
