@@ -113,7 +113,7 @@ The detector is turned on immediately after the digital part is inserted into th
 
 In case of an error, the LED lights will start blinking or light up continuously, and the device will automatically shut down after approximately 10 seconds.
 
-In the unlikely situation when BATDATUNIT01 is already inserted into the AIRDOS04 and is powered off, you can turn it on by holding down the 'Power button' for one second. The indication of activation is realized in the same way as in the case of module insertion. The last way of turning on the detector is by connecting external power (USB-C connector). In this state, the detector is always powered on and records radiation data continuously until the detector is powered off.
+In the situation when BATDATUNIT01 is already inserted into the AIRDOS04 and is powered off, you can turn it on by holding down the 'Power button' for one second. The indication of activation is realized in the same way as in the case of module insertion. The last way of turning on the detector is by connecting external power (USB-C connector). In this state, the detector is always powered on and records radiation data continuously until the detector is powered off.
 
 ## Detector power-off
 
@@ -155,9 +155,9 @@ To ensure maximal safety, it is suggested to leave the fully charged module rest
 
 The charging process is intentionally slow for two primary reasons:
 
-**Battery Life Extension and Capacity Maximization**: Slow charging is a strategic choice to extend the lifespan of the batteries and maximize the charged capacity. This approach ensures that the batteries maintain their efficiency and longevity over multiple charging cycles, which is crucial for the continuous and reliable operation of the AIRDOS04 detector.
+**Battery Life Extension and Capacity Maximization**: Slow charging is a design choice to extend the lifespan of the batteries, ensure safety, and maximize the charged capacity.
 
-**Compatibility with most Standard USB 2.0 Ports**: The module is designed to be charged using a regular USB 2.0 port commonly found on computers. This design consideration enhances the versatility of the charging process, allowing users to recharge the module with any available USB 2.0 ports without needing specialized charging equipment.
+**Compatibility with most Standard USB Ports**: The module is designed to be charged using a common USB port. This allows users to recharge the module with any available USB port without needing specialized charging equipment.
 
 # Standard maintenance
 
@@ -180,7 +180,7 @@ To analyze the AIRDOS04 logged data is mandatory to note the precise time of pow
 
 The procedure for getting the absolute time of detector shutdown consists of the following steps:
 
-1. Unscrew completely the AIRDOS digital module locking screws
+1. Unscrew the AIRDOS digital module locking screws
 2. Prepare the "date" command on a computer with a synchronized real-time clock
 2. Pull out the digital module from AIRDOS
 3. Wait for a beep signal and press Enter in the command line
@@ -218,7 +218,7 @@ Mass-storage mode is automatically activated when the data unit (BATDATUNIT01) i
 The AIRDOS04 detector assembly is designed to fit into the manual bay of commercial aircraft, a location that should accommodate up to two AIRDOS04 units. When selecting the placement of the detector within an aircraft, there are critical factors to consider to ensure accurate measurements and the longevity of the device:
 
  * **Consideration of Aircraft Structure**: The surrounding structure of the aircraft can significantly influence the measured spectrum, fluence, and type of incoming particles. It's essential to choose a location where the impact of the aircraft's structure on the detector's readings is minimized or known.
- * **Avoidance of High-Vibration Areas**: The detector should be placed in an area that is relatively free from excessive vibrations. High vibration levels can affect the detector's performance (false detections due to microphone/piezo effects in highly sensitive analog components) and potentially cause damage or calibration degradation to its sensitive components in case of extreme vibrations.
+ * **Avoidance of High-Vibration Areas**: The detector should be placed in an area that is relatively free from excessive vibrations. High vibration levels can affect the detector's performance (false detections due to microphone/piezo effects in highly sensitive analog components) and potentially cause damage or calibration degradation to its sensitive components in the case of extreme vibrations.
  * **Default placement Orientation**: The standard placement orientation for the AIRDOS04 is on a flat, horizontal surface. On the bottom side of the detector's box, rubber feet are placed to ensure stability. These feet provide multiple purposes: they minimize movement on smooth surfaces, provide good adherence to the placement surface, and help eliminate the transfer of vibrations into the system. This design feature is crucial for maintaining the accuracy of the detector’s measurement from the adverse effects of unnecessary movement or vibration.
  * **Avoidance of Direct Sunlight**: The detector should not be placed in areas with direct exposure to sunlight. Prolonged exposure to direct sunlight or high temperatures can lead to internal overheating and potentially affect the detector's performance and durability.
  * **Environmental Condition Limits**: The AIRDOS04 should operate within certain environmental limits to ensure its effectiveness and safety. Given its IP30 rating, it is not designed to withstand direct exposure to water or dust. Recommended operational environmental conditions include:
@@ -238,7 +238,7 @@ The front panel of the BATDATUNIT01 module features various indicators and inter
  * **Charging LED**: This LED lights when battery charging is active.
  * **Battery Level Indicators**: A series of LED lights display the current battery charge level. When the 'Power' button is pressed, these lights will illuminate to show how much charge remains in the accumulator, ranging from empty (0%) to full (100%).
  * **Power Button**: Pressing this button powers the module on and, with the module running, displays the current battery level using the battery level indicators. Holding this button for more than 10 seconds forces a hardware restart of the device.
- * **MCU Button**: Holding this button powers the module off. LED1, LED2, and LED3 switch off one by one as a roughly three-second countdown; once all three are off, release the button to power the module off (release before the countdown finishes to cancel). Because the button is sampled only once per measurement cycle, in the worst case it must be held for up to about thirteen seconds before all LEDs are off. A button that stays pressed (stuck or blocked) does not power the module off - the device returns to normal operation after about fifteen seconds. The MCU button also has no effect while USB-C power is connected: the shutdown request is ignored and the module keeps running, so the USB-C cable must be disconnected before the module can be powered off this way. After a power-off with the MCU button, the device stays off and does not switch back on by itself while inserted; turn it on again with the 'Power button' (an approximately one-second hold).
+ * **MCU Button**: Holding this button powers the module off. LED1, LED2, and LED3 switch off one by one as a roughly three-second countdown; once all three are off, release the button to power the module off (release before the countdown finishes to cancel). Because the button is sampled only once per measurement cycle, in the worst case, it must be held for up to about thirteen seconds before all LEDs are off. A button that stays pressed (stuck or blocked) does not power the module off - the device returns to normal operation after about fifteen seconds. The MCU button also has no effect while USB-C power is connected: the shutdown request is ignored, and the module keeps running, so the USB-C cable must be disconnected before the module can be powered off this way. After a power-off with the MCU button, the device stays off and does not switch back on by itself while inserted; turn it on again with the 'Power button' (an approximately one-second hold).
  * **Data Transmission LEDs (RX/TX)**: These LEDs indicate active data transmission when the module is connected to a raw data interface, such as a computer. This is not applicable in mass-storage access mode
  * **LED Indicators (LED1, LED2, LED3)**: This set of LEDs indicates the status of the microcontroller unit (MCU), which is the central processor of the module, running the firmware and controlling the device's operations. These LEDs can be used to indicate specific statuses or alerts as defined by the device's firmware.
    - LED3 (Orange) - Detection exposure is done, writing data to data storage
