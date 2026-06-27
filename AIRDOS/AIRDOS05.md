@@ -77,6 +77,14 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 ---
 _Note: Technical specifications are subject to change without prior notice as we continuously improve our devices. Any changes are made to enhance performance, usability, or compliance._
 
+## Digital, Data Storage, and Power Module
+
+The AIRDOS05 uses the same [BATDATUNIT01](/airdos/BATDATUNIT01) digital module as the AIRDOS04. This module houses the microcontroller, firmware, data storage, and — in the BATDATUNIT01-BAT variant — the Li-ion accumulator pack.
+
+For a description of all front-panel indicators, buttons, and LEDs, see the [BATDATUNIT01 status indicator description](/airdos/BATDATUNIT01#status-indicator-description).
+
+[BATDATUNIT01](/airdos/BATDATUNIT01){: .btn .btn-green }
+
 ## Examples of data
 
 AIRDOS05 detection technology is based on AIRDOS04, which has been verified in well‑characterized reference radiation fields, during operational airline flights, and on stratospheric balloon campaigns. The following sections demonstrate the instrument’s capabilities in mixed fields dominated by charged particles.
