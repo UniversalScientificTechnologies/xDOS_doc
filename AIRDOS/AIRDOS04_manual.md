@@ -171,22 +171,10 @@ Adhering to these standard maintenance procedures will ensure that the AIRDOS04 
 
 ## Replacing the Digital Part of the Detector
 
-To analyze the AIRDOS04 logged data is mandatory to note the precise time of power on and shutdown. These time points allow fitting the recorded data log to real aircraft flight data.  
-
  <div style="width:100%; padding-top: 56.25%;position: relative;overflow: hidden;">
    <iframe style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;" src="https://youtube.com/embed/oRRdgOo-tw0">
    </iframe>
  </div>
-
-The procedure for getting the absolute time of detector shutdown consists of the following steps:
-
-1. Unscrew the AIRDOS digital module locking screws
-2. Prepare the "date" command on a computer with a synchronized real-time clock
-2. Pull out the digital module from AIRDOS
-3. Wait for a beep signal and press Enter in the command line
-4. Reuse the command for the second beep.
-
-The last recording of the data log corresponds to the time of the first beep, subtracting the integration time. In the case of simply changing the digital part, the procedure follows
 
 1. **Prepare a New Digital Part**: Ensure you have a spare digital part that has empty data storage and is fully charged, therefore ready to replace the one currently in use.
 1. **Unscrew the Securing Screws on AIRDOS**: Begin by unscrewing the two large-headed securing screws on the detector in case it does not been done yet.
@@ -329,6 +317,23 @@ Unauthorized interventions in the device or handling that contradict the instruc
 
 ### 2023/12 – AIRDOS04B Release
 - The **AIRDOS04B** was the first revision commercially available.
+
+#### Obsolete procedure: Absolute time synchronization during module swap
+
+{: .warning }
+This procedure applies to **AIRDOS04B only**, and only when using a battery-less BATDATUNIT01 powered exclusively via USB. It became obsolete with AIRDOS04C. For current revisions, absolute time is recorded automatically.
+
+To analyze the AIRDOS04B logged data it was mandatory to note the precise time of power on and shutdown. These time points allowed fitting the recorded data log to real aircraft flight data.
+
+The procedure for getting the absolute time of detector shutdown consisted of the following steps:
+
+1. Unscrew the AIRDOS digital module locking screws.
+2. Prepare the `date` command on a computer with a synchronized real-time clock.
+3. Pull out the digital module from AIRDOS.
+4. Wait for a beep signal and press Enter in the command line.
+5. Reuse the command for the second beep.
+
+The last recording of the data log corresponds to the time of the first beep, minus the integration time.
 
 ### 2023/11 – AIRDOS04A
 - Internal prototype
