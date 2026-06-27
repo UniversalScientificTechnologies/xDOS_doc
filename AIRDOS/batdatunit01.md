@@ -47,6 +47,24 @@ This module contains the same critical digital components and firmware as BATDAT
 
 The integrated data storage of the detector is accessible as a mass-storage device via the USB-C interface. This feature provides fast and user-friendly access to the internal storage, without requiring any external memory readers. More information about the initialization of mass-storage mode is written in the “Device operations” part of this manual.
 
+## Status indicator description
+
+The front panel of the BATDATUNIT01 module features various indicators and interfaces that provide essential information about the device's status and functionalities:
+
+![BATDATUNIT01_label](https://github.com/UniversalScientificTechnologies/xDOS_doc/assets/137726417/de9010d2-07a3-4304-beb0-002e86284ad1)
+
+ * **USB-C Port**: This is the interface for power input and data communication. When connected to a computer or power source, it facilitates charging the battery and accessing the data storage.
+ * **Power In LED**: This LED light indicates when power is being supplied to the module through the USB-C port.
+ * **Charging LED**: This LED lights when battery charging is active.
+ * **Battery Level Indicators**: A series of LED lights display the current battery charge level. When the 'Power' button is pressed, these lights will illuminate to show how much charge remains in the accumulator, ranging from empty (0%) to full (100%).
+ * **Power Button**: Pressing this button powers the module on and, with the module running, displays the current battery level using the battery level indicators. Holding this button for more than 10 seconds forces a hardware restart of the device.
+ * **MCU Button**: Holding this button powers the module off. LED1, LED2, and LED3 switch off one by one as a roughly three-second countdown; once all three are off, release the button to power the module off (release before the countdown finishes to cancel). Because the button is sampled only once per measurement cycle, in the worst case, it must be held for up to about thirteen seconds before all LEDs are off. A button that stays pressed (stuck or blocked) does not power the module off - the device returns to normal operation after about fifteen seconds. The MCU button also has no effect while USB-C power is connected: the shutdown request is ignored, and the module keeps running, so the USB-C cable must be disconnected before the module can be powered off this way. After a power-off with the MCU button, the device stays off and does not switch back on by itself while inserted; turn it on again with the 'Power button' (an approximately one-second hold).
+ * **Data Transmission LEDs (RX/TX)**: These LEDs indicate active data transmission when the module is connected to a raw data interface, such as a computer. This is not applicable in mass-storage access mode.
+ * **LED Indicators (LED1, LED2, LED3)**: This set of LEDs indicates the status of the microcontroller unit (MCU), which is the central processor of the module, running the firmware and controlling the device's operations. These LEDs can be used to indicate specific statuses or alerts as defined by the device's firmware.
+   - LED3 (Orange) - Detection exposure is done, writing data to data storage
+   - LED2 (Red) - It is not possible to write data to internal storage. In the case of this indicator, check the status of integrated mass storage.
+   - LED1 (green) - mass-storage mode accessible through USB
+
 ## Firmware update
 
 Both types of BATDATUNIT contain the AIRDOS firmware, shared between AIRDOS04 and AIRDOS05. Updating the firmware of your AIRDOS particle detector is an important process for ensuring the device is equipped with the latest features and any known bugs are solved. The following guide provides a step-by-step approach to updating the firmware using the AVRDUDE tool.
