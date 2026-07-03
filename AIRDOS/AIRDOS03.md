@@ -56,8 +56,9 @@ The TF-G2 autogyro is launched directly from the roof platform of a [storm measu
 
 ## Technical parameters
 
-* Measurement of the deposited energy of ionizing radiation in the 40 keV to 80 MeV
+* Measurement of the deposited energy of ionizing radiation in the 40 keV to 80 MeV range
 * Energy resolution 15 ±2 keV per channel (firmware-dependent)
+* Temperature drift 3,1 keV/°C
 * Effective number of energy channels: ~65000
 * 44 mm³ detection volume
 * Radiation spectra integration time: 10 s (configurable by firmware)
@@ -69,11 +70,10 @@ The TF-G2 autogyro is launched directly from the roof platform of a [storm measu
   * 40 grams
 * Interface options: 6pin UART ([Pixhawk-compatible TELEM/UART JST-GH connectors](https://docs.thunderfly.cz/avionics/TFCAB01/#uarttelemserial-cables))
   * UART could be converted to USB-C by [TFUSBSERIAL01](https://docs.thunderfly.cz/avionics/TFUSBSERIAL01/)
-  * Data format selected by firmware, either MAVlink or [UST dosimeters data format](/xdos_format#version-2).
+  * Data format selected by firmware, either MAVLink or [UST dosimeters data format](/xdos_format#version-2).
   * Required power 4.5 to 5.4 V @ 3 mA
 
 AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with the [Pixhawk connector standard](https://github.com/pixhawk/Pixhawk-Standards/blob/master/DS-009%20Pixhawk%20Connector%20Standard.pdf) and enables integration with onboard telemetry systems or flight controllers  suitable for real-time spectrum measurement and in-flight data logging.
-
 
 ### Boards dimensions
 
