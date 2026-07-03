@@ -19,7 +19,7 @@ The [TF-ATMON](https://www.thunderfly.cz/tf-atmon.html) system, in combination w
 ## Key Features
 
 * Fully compatible with [TF-ATMON](https://docs.thunderfly.cz/instruments/TF-ATMON) and Pixhawk ecosystem
-* Lightweight and extremely low-power
+* Lightweight, compact and extremely low-power
 * Spectral data output for scientific analysis
 * Can operate in real-time streaming mode or store data onboard
 * Modular open-source firmware for custom scientific missions
@@ -65,9 +65,13 @@ The TF-G2 autogyro is launched directly from the roof platform of a [storm measu
 * Environmental sensors
   * Relative Humidity 0 to 100 %RH (accuracy 2	%RH)
   * Temperature -40 to 125 °C (accuracy 0.5 °C)
-* Lightweight, compact electronics
+* Mass and size:
   * 71 × 51 × 25 mm
   * 40 grams
+* Environmental operational conditions
+  * Device protection: IP20 rating
+  * Operational temperature range: -40°C to 50°C
+  * Operational humidity conditions: non-condensing, 20% to 80% RH
 * Interface options: 6pin UART ([Pixhawk-compatible TELEM/UART JST-GH connectors](https://docs.thunderfly.cz/avionics/TFCAB01/#uarttelemserial-cables))
   * UART could be converted to USB-C by [TFUSBSERIAL01](https://docs.thunderfly.cz/avionics/TFUSBSERIAL01/)
   * Data format selected by firmware, either MAVLink or [UST dosimeters data format](/xdos_format#version-2).
