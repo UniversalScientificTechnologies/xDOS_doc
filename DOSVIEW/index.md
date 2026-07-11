@@ -23,7 +23,7 @@ enabling them to quickly understand the content of their logs without complex so
 Installing Dosview is straightforward. You can choose from several methods depending on your preference and the setup of your environment:
 
 ### From PyPI Repositories (Recommended for General Use)
-To install Dosview from the Python Package Index (PyPI), simply run the following command in your terminal:
+To install Dosview from the [Python Package Index (PyPI)](https://pypi.org/project/dosview/), simply run the following command in your terminal:
 ```
 sudo pip3 install dosview
 ```
