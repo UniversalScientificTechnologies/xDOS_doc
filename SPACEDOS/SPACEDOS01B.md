@@ -54,7 +54,6 @@ All derived quantities depend on integration geometry, calibration, shielding co
 
 ![Physical dimensions](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_PCB01A.png)
 
-
 ## Electrical interface
 
 The connector is a 2.54mm pitch pin header.
@@ -91,6 +90,9 @@ SPACEDOS sends `$DPSD`, `$HKSD`, and `$BESD` messages each cca 15 seconds.
 The `$ADSD` message is sent once per day.
 
 Communication speed is 2400 baud.
+
+{: .note }
+All hexadecimal fields below are printed **without leading-zero padding**: the number of hex digits varies with the value (from 1 digit up to the maximum implied by the field's byte width, e.g. up to 4 hex digits for a 2 B / `uint16_t` field, up to 8 hex digits for a 4 B / `uint32_t` field). Parse fields by splitting on `,`, not by a fixed character count.
 
 ### Power On
 _It transmits just after the power is on._
@@ -171,10 +173,10 @@ Value | Length | Type |Note
 --- | --- | --- | ---
 $BESD | 5 B | [Char](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Char) | Header
 counter | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of the beacon message
-0.1 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.1 MeV
-0.14 MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of particles with absorbed energy above 0.14 MeV
+0.1 MeV | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Cumulative number of particles with absorbed energy above 0.1 MeV since the last `$ADSD`
+0.14 MeV | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Cumulative number of particles with absorbed energy above 0.14 MeV since the last `$ADSD`
 ... | ... | ... |
-'>=9' MeV | 2 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Overrange particles
+'>=9' MeV | 4 B | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Overrange particles, cumulative since the last `$ADSD`
 
 ### ADSD - SpaceDos Almanac Data message
 _Transmitted after 5760 beacon messages. (approximately once a day)_
