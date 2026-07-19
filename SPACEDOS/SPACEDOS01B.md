@@ -15,17 +15,17 @@ permalink: /spacedos/SPACEDOS01B
 ## Applications
 - Space Dosimetry and spectrometry for unmanned missions
    - TLR9 space dosimetry instrument - flight heritage: Sokrat-R (NORAD ID 44404) satellite
-   - Real-time determination of the absorbed dose in silicon and dose equivalent
+   - Real-time determination of the absorbed dose in silicon and the dose equivalent
    - To study the material shielding
 - Space Radiation Research
    - Determine the LET energy spectrum of the cosmic particles
    - Measure the time evolution of the radiation flux
-   - Operated on board of CubeSat
+   - Operated on board a CubeSat
 
 
 ## Main technical parameters
 
-  * Deposited Energy range: from 100 keV to 9 MeV, optionally extended to range from 200 keV to 12 MeV (divided into eight logarithmic channels)
+  * Deposited Energy range: from 100 keV to 9 MeV
   * Measurement environment: vacuum < 3.2×10^-2 Pa
   * Energy Resolution: < 50 keV/channel
   * Particle types: electrons, protons, heavy ions
@@ -41,12 +41,12 @@ permalink: /spacedos/SPACEDOS01B
 
 ### Meaning of Measured Data
 
-SPACEDOS01 measures ionizing radiation using silicon semiconductor sensor and provides energy-resolved spectral data of deposited energy. These spectral measurements form the primary measurement output of the instrument.
+SPACEDOS01 measures ionizing radiation using a silicon semiconductor sensor and provides energy-resolved spectral data of deposited energy. These spectral measurements form the primary measurement output of the instrument.
 
 From the spectral data, derived quantities such as dose rate and total dose are calculated by integrating the deposited energy over the detector mass and over time.
 The dose rate represents the instantaneous radiation intensity derived from the measured energy spectrum, while the Total Ionizing Dose (TID) corresponds to the time-integrated dose accumulated during operation.
 
-Spectral information enables separation of radiation components by deposited energy and supports analysis of temporal and spatial variations of the radiation environment.
+Spectral information enables the separation of radiation components by deposited energy and supports the analysis of temporal and spatial variations of the radiation environment.
 
 All derived quantities depend on integration geometry, calibration, shielding conditions, and mission-specific configuration.
 
@@ -86,7 +86,7 @@ $BESD,4,e7,2,1,0,0,0,0,0
 $ADSD,d3,3,0,0,0,0
 ```
 
-SPACEDOS sends `$DPSD`, `$HKSD`, and `$BESD` messages each cca 15 seconds.
+SPACEDOS sends `$DPSD`, `$HKSD`, and `$BESD` messages each approximately 15 seconds.
 The `$ADSD` message is sent once per day.
 
 Communication speed is 2400 baud.
@@ -139,7 +139,7 @@ These messages should be stored for a long time and transmitted to the ground as
 
 Minimal data payload (without time mark) is 18 B per 15 s => 103680 B per day
 
-### HKSD - SpaceDos HouseKeeping message
+### HKSD - SpaceDos Housekeeping message
 _Transmitted every 15 seconds._
 
 ```
@@ -154,13 +154,13 @@ $HKSD | fix | [Char](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Char) | He
 measurement No. | 0..65535 | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) |
 uptime | 0..4294967295 | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) |
 filter suppressions | 0..65535 | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of usage of digital filter for double peak suppression
-position of the 1-st channel | 0..511 | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) |
+position of the 1st channel | 0..511 | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) |
 1-st ch. | 0..65535 | [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) | Number of events in 1-st ch.
 2-nd ch. | 0..65535 |  [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) |Number of events in 2-nd ch.
 ... | ... |
 50-th ch. | 0..65535 |  [Hex](https://github.com/ODZ-UJF-AV-CR/SPACEDOS01/wiki/Hex) |Number of events in 50-th ch.
 
-### BESD - SpaceDos BEacon message
+### BESD - SpaceDos Beacon message
 _Transmitted every 15 seconds. Values are zeroed after sending an ADSD message._
 
 ```
