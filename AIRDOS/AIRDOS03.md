@@ -67,7 +67,7 @@ The TF-G2 autogyro is launched directly from the roof platform of a [storm measu
   * Temperature -40 to 125 °C (accuracy 0.5 °C)
 * Mass and size:
   * 71 × 51 × 25 mm
-  * 40 grams
+  * 42 grams
 * Environmental operational conditions
   * Device protection: IP20 rating
   * Operational temperature range: -40°C to 50°C
