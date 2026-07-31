@@ -18,7 +18,7 @@ The overview of SPACEDOS variants:
   * [SPACEDOS01](./SPACEDOS01.md) - Unmanned missions onboard small satellites (CubeSats)
   * [SPACEDOS02](./SPACEDOS02.md) - Manned missions, LEO/MEO orbits
   * [SPACEDOS03](./SPACEDOS03.md) - Manned missions, radiation shielding material testing
-  * SPACEDOS04 - "Deep space" Manned missions Personal Active Dosimeter with DDU.
+  * [SPACEDOS04](./SPACEDOS04.md) - "Deep space" Manned missions Personal Active Dosimeter with DDU.
 
 ## DEMODOS analogous mission training model
 
