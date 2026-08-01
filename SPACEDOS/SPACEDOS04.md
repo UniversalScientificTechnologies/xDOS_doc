@@ -21,7 +21,7 @@ The device is being developed as part of the [CZPAD experiment](https://ceskaces
 
 A significant, but usually poorly quantified, part of an astronaut's radiation exposure onboard the ISS or during deep space missions comes from neutrons - both from albedo neutrons produced when cosmic rays and trapped protons interact with the spacecraft structure, and from other neutron sources encountered during the mission. Conventional dosimetry cannot separate this out: passive dosimeters (TLD, track detectors) only report the total accumulated dose after the mission is over, and standard active silicon dosimeters cannot distinguish neutrons from the much stronger background of directly ionizing charged particles.
 
-SPACEDOS04's key advantage over previous SPACEDOS generations is that it can tell neutrons apart from other radiation **in real time, during the measurement itself** - not just as a total dose after the fact. This is achieved by adding a thin neutron-conversion layer (Li-6 in the form of LiF or Li2CO3) on top of its silicon PIN diode. A thermal neutron captured in Li-6 produces a triton and an alpha particle with a well-defined, fixed energy (Li-6 + n &rarr; H-3 + He-4), which shows up in the diode's energy spectrum at a characteristic position distinguishable from the continuous charged-particle background - the "SPACEDOS method" for neutron flux estimation. Combined with the co-located passive detectors, this gives customers a significantly better estimate of the actual personal dose equivalent (Hp), broken down by radiation type, instead of a single delayed total-dose figure.
+SPACEDOS04's key advantage over previous SPACEDOS generations is that it can tell neutrons apart from other radiation in real time, during the measurement itself - not just as a total dose after the fact. This is achieved by adding a thin neutron-conversion layer (Li-6 in the form of LiF or Li2CO3) on top of its silicon PIN diode. A thermal neutron captured in Li-6 produces a triton and an alpha particle with a well-defined, fixed energy (Li-6 + n &rarr; H-3 + He-4), which shows up in the diode's energy spectrum at a characteristic position distinguishable from the continuous charged-particle background - the "SPACEDOS method" for neutron flux estimation. Combined with the co-located passive detectors, this gives customers a significantly better estimate of the actual personal dose equivalent (Hp), broken down by radiation type, instead of a single delayed total-dose figure.
 
 Two detector concepts are being evaluated to make this discrimination robust against the intense charged-particle background: a single diode with a full-area conversion layer compared against a bare reference diode, and a coincidence arrangement with two silicon sensors sandwiching the conversion layer, where a simultaneous signal in both sensors is a much stronger indicator of a neutron event. The DDU is intended to show separate real-time counts for neutrons and for other particles, so the wearer sees the breakdown directly on the wrist.
 
@@ -33,11 +33,7 @@ Each SDU consists of a SPACEDOS04 electronic dosimeter, a set of passive detecto
 
 ## Hardware
 
-The SPACEDOS04 electronics consists of three PCBs:
-
-* **Baseboard** - MCU, Battery Management System (BMS), and a Bluetooth Low Energy RF interface to the DDU wristwatch display
-* **Sensor board** - silicon PIN diode detector and the analogue signal processing chain
-* **Flex PCB** - mechanical and electrical interconnect between the baseboard, sensor board, and the Li-ion battery cell
+The SPACEDOS04 consists at the least one Space Dosimeter Unit (SDU), Dosimeter Display Unit (DDU) and optionally Passive dosimeter unit. 
 
 ## Parameters (design targets)
 
@@ -47,6 +43,6 @@ The SPACEDOS04 electronics consists of three PCBs:
 * Charging: USB-C
 * Battery endurance: at least 5 days
 * Dimensions (without pouch): approx. 80 x 70 x 20 mm (± 5 x 3 x 2 mm)
-* Mass: estimated 148 - 184 g (SDU including battery cell and shielding, excluding pouch)
+* Mass: estimated 148 - 184 g (SDU including battery cell)
 * Vibration resistance per Crew Dragon / ISS JSC-20793 requirements
 
