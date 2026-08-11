@@ -173,3 +173,50 @@ Selected time segments of the data can be analyzed further.
 **Blue**: spectrum of full measurement window (default view).
 
 **Yellow**: When a time window is selected, its spectrum is drawn in the accent colour and the full-measurement spectrum is hidden.
+
+### Accumulated Dose
+
+The dose obtained over the selected time window is the mean dose rate of the window multiplied by the length of the window.
+
+The computation reports the following values for the selected window:
+
+- $\overline{DS}$ — mean dose rate $[\mathrm{\mu Gy/h}]$
+- $\sigma$ — standard deviation of the dose rate $[\mathrm{\mu Gy/h}]$
+- $D$ — dose obtained over the window $[\mathrm{\mu Gy}]$
+- $\sigma_D$ — uncertainty of the dose $[\mathrm{\mu Gy}]$
+- $T$ — length of the window $[\mathrm{h}]$
+- $N$ — number of exposures in the window
+
+$$D = \overline{DS} \cdot T \quad [\mathrm{\mu Gy}]$$
+
+Three step process described below:
+
+**1. Mean dose rate.** The dose rates of all exposures that fall into the window are averaged:
+
+$$\overline{DS} = \frac{1}{N} \sum_{i \in W} DS_i \quad [\mathrm{\mu Gy/h}]$$
+
+**2. Spread of the dose rate.** The sample standard deviation over the same exposures:
+
+$$\sigma = \sqrt{\frac{1}{N-1} \sum_{i \in W} \left(DS_i - \overline{DS}\right)^2} \quad [\mathrm{\mu Gy/h}]$$
+
+For a window that contains a single exposure ($N = 1$) the standard deviation is reported as $0$.
+
+**3. Window length and dose.** The window boundaries are given in milliseconds and converted to hours, the mean dose rate is then integrated over that duration:
+
+$$T = \frac{t_{\mathrm{to}} - t_{\mathrm{from}}}{3.6 \times 10^{6}} \quad [\mathrm{h}]$$
+
+$$D = \overline{DS} \cdot T \quad [\mathrm{\mu Gy}], \qquad \sigma_D = \sigma \cdot T \quad [\mathrm{\mu Gy}]$$
+
+$DS_i$: dose rate in silicon of exposure $i$, computed as described in [Dosage in Silicon](#dosage-in-silicon).
+
+$W$: the set of exposures that fall into the selected time window. The window is taken as given — the selection decides which exposures belong to it.
+
+$N$: number of exposures in the window.
+
+$t_{\mathrm{from}}$, $t_{\mathrm{to}}$: boundaries of the selected window in milliseconds.
+
+$3.6 \times 10^{6}$: milliseconds to hours (constant value in equation).
+
+$\sigma_D$: uncertainty of the dose, the standard deviation of the dose rate scaled by the same duration.
+
+**Note**: $T$ is the length of the window, not the sum of the exposure blocks $\Delta t$ inside it.
