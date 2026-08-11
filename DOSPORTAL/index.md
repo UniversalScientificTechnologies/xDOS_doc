@@ -5,6 +5,7 @@ permalink: /dosportal/
 parent: Tools and resources
 has_children: true
 nav_order: 7
+# has_toc: false
 ---
 
 
@@ -35,4 +36,10 @@ Brief overview of the  main elements of DOSPORTAL
   - **Start Time**: If time is tracked, the beginning time of the log is required.
   - **Detector**: Identified automatically for logs supporting detector identification. Assumes the detector is already registered in the system.
   - **Calibration**: Automatically applies the latest available calibration from the associated detector.
+
+## Measurement campaigns
+
+Measurement campaigns allow organizations to share data with each other. A campaign brings the shared data together in one place, so that several organizations can work with the same measurements instead of exchanging files.
+
+Access to a campaign is governed by permissions. Depending on what is granted, participants can either only view the shared data, or actively contribute to it.
 
