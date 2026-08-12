@@ -1,0 +1,38 @@
+{%- if page.math -%}
+{%- comment -%}
+  Opt-in math typesetting. Add `math: true` to a page's front matter to load KaTeX
+  on that page only.
+{%- endcomment -%}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") {
+      return;
+    }
+
+    /* Older kramdown releases emit math/tex script elements instead of \( \) delimiters. */
+    var legacy = document.querySelectorAll('script[type^="math/tex"]');
+    Array.prototype.forEach.call(legacy, function (el) {
+      var display = el.type.indexOf("mode=display") > -1;
+      var node = document.createElement(display ? "div" : "span");
+      node.textContent = display ? "\\[" + el.textContent + "\\]"
+                                 : "\\(" + el.textContent + "\\)";
+      el.parentNode.replaceChild(node, el);
+    });
+
+    /* Longer delimiters must be listed before shorter ones. */
+    renderMathInElement(document.querySelector(".main-content") || document.body, {
+      delimiters: [
+        { left: "\\[", right: "\\]", display: true },
+        { left: "$$", right: "$$", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$", right: "$", display: false }
+      ],
+      ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+      throwOnError: false
+    });
+  });
+</script>
+{%- endif -%}
