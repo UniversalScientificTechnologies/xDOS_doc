@@ -1,13 +1,13 @@
 ---
 layout: page
-title: "DOSPORTAL: Platform features"
+title: "Platform features"
 parent: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/features
 nav_order: 1
 sitemap: false
 ---
 
-# DOSPORTAL platform features
+# Platform features
 
 {: .warning }
 > DOSPORTAL is currently in a development phase and is not yet publicly available. The features described in this section are being actively developed and their exact behaviour may still change.

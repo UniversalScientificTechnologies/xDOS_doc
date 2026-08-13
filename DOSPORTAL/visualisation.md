@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "DOSPORTAL: Visualization methodology"
+title: "Visualization methodology"
 parent: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/visualisation
 nav_order: 2

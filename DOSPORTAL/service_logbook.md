@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "DOSPORTAL: Service log"
+title: "Service logbook"
 parent: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/service_log
 nav_order: 5

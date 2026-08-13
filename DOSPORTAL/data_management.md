@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "DOSPORTAL: Data management"
+title: "Data management"
 parent: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/data_management
 nav_order: 3
