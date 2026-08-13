@@ -3,8 +3,7 @@ layout: page
 title: "DOSPORTAL: Visualization methodology"
 parent: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/visualisation
-nav_exclude: true
-search_exclude: true
+nav_order: 2
 sitemap: false
 math: true
 ---

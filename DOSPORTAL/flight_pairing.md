@@ -3,8 +3,7 @@ layout: page
 title: "DOSPORTAL: Pairing records with flights"
 parent: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/flight_pairing
-nav_exclude: true
-search_exclude: true
+nav_order: 4
 sitemap: false
 ---
 

@@ -3,8 +3,7 @@ layout: page
 title: "DOSPORTAL: Data management"
 parent: "DOSPORTAL - Cloud-based Dosimetry Data Platform"
 permalink: /dosportal/data_management
-nav_exclude: true
-search_exclude: true
+nav_order: 3
 sitemap: false
 ---
 
