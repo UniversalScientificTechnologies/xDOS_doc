@@ -19,104 +19,108 @@ Vizualize dosimetric data in time.
 
 ![Dosage in silicon evolution chart in DOSPORTAL](/DOSPORTAL/img/DSi_evolution.png)
 
-*Dose rate in silicon over the course of a measurement.*
+*Absorbed dose rate in silicon over the course of a measurement.*
 
-### Dosage in Silicon
+### Absorbed dose rate in silicon
 
-Radiation dosage in silicon measures the energy absorbed from ionizing or particle radiation per unit mass.
+Absorbed dose in silicon $D_{\mathrm{Si}}$ quantifies the energy absorbed by ionizing radiation per unit mass of silicon. The absorbed dose rate in silicon $\dot{D}_{\mathrm{Si}}$ expresses this quantity per unit time.
 
-$$DS_i = \frac{E_i \, q}{m} \cdot \frac{10^{6} \cdot 3600}{\Delta t} \quad [\mathrm{\mu Gy/h}]$$
+$$\dot{D}_{Si} =  \frac{E_j \, q}{m} \cdot \frac{10^{6} \cdot 3600}{\Delta t} \quad [\mathrm{\mu Gy/h}]$$
 
-Three step process described below:
+The absorbed dose rate in silicon is calculated in three steps for each measurement:
 
-**1. Energy per channel.**
+**1. Channel-energy calibration**
 
-$$E_j = \mathrm{coef_0} + (j - j_{\min})\,\mathrm{coef_1} \quad [\mathrm{MeV}]$$
+$$E_j = \mathrm{coef_0} + \mathrm{coef_1} \cdot j  \quad [\mathrm{MeV}],$$
 
-**2. Energy deposited per exposure.**
+where $j$ is the channel number  and $\mathrm{coef_0}$ and $\mathrm{coef_1}$ are detector-specific energy calibration coeficients. 
 
-$$E_i = \sum_j C_{i,j}\,E_j \quad [\mathrm{MeV}]$$
+**2. Deposited energy**
 
-**3. Dose rate in silicon.** The energy is converted to joules, divided by the mass of the silicon chip and expressed per hour:
+$$E = \sum_{j=j_0} C_{j}(t)\,E_j \quad [\mathrm{MeV}],$$
+where $C_{j}$ is the number of counts in channel $i$ during the measurement. $j_0$ is the first channel included in the calculation. E.g. for some AIRDOS detectors, the first four channels are excluded as they are dominated by the noise signal.
 
-$$DS_i = \frac{E_i \, q}{m} \cdot \frac{10^{6} \cdot 3600}{\Delta t} \quad [\mathrm{\mu Gy/h}]$$
+**3. Absorbed dose rate in silicon.** The energy is converted to joules, divided by the detector-specific mass  $m$ of the sensitive silicon volume and expressed per hour:
 
-$$q = 1.602176634 \times 10^{-13}$$: MeV to Joules constant.
+$$\dot{D}_{Si} = \frac{E \cdot q}{m} \cdot \frac{10^{6} \cdot 3600}{\Delta t} \quad [\mathrm{\mu Gy/h}],$$
 
-$m$: the silicon mass (obtained from the detector type).
+where 
 
-$C_{i,j}$: Raw files are processed into a table format that has cells: $C_{i,j}$. Meaning $C_{i,j}$ events registered in channel $j$ during exposure $i$.
+- $\Delta t$ is the integration time of the measurement. For AIRDOS detectors, the $\Delta t$ is typically 10.4&nbsp;s,
 
-$n_i$: Table also contain particle counter $n_i$ (the `events_count` column): $$n_i = \sum_{j_{\min}} C_{i,j}$$
+- $q = 1.602176634 \times 10^{-13}$ is a constant converting MeV to J, 
 
-$j_{\min}=4$: The first four noise channels. Not included in $n_i$.
+- $10^6$ is constant converting the unit Gy to µGy, and
 
-$\Delta t$: One exposure block $\Delta t$ is about 10 s.
+- $3600$ is constant converting seconds to hours.
 
-$S$: the sensitive area of the silicon chip is read from the detector type.
+<!-- Please make sure the mass is in kg. -->
 
-$10^6$: Gy to µGy (constant value in equation).
+<!-- $n_i$: Table also contain particle counter $n_i$ (the `events_count` column): $$n_i = \sum_{j_{\min}} C_{i,j}$$ -->
 
-$3600$: seconds to hours (constant value in equation).
 
-coef0, coef1: obtained from selected calibration.
 
 **Red line**
 
-The red line is a centered moving average over 50 exposures.
+The red line is a centered moving average over 50 exposures, for the AIRDOS detectors this corresponds to approximately 520 s 8 minutes and 40 seconds.
 
 ---
 
-### Flux Evolution
+### Fluence rate evolution
 
-The particle counter $n_i$ is divided by the sensitive area of the silicon chip $S$ times the length of the exposure $$\Delta t$$.
+The particle fluence rate for each exposure is calculated from the number of registered events, normalized by the sensitive area of the silicon detector $S$ and the exposure duration $\Delta t$:
+$$
+\dot{\Phi}_i = \frac{n_i}{S \cdot \Delta t}
+\qquad [\mathrm{cm^{-2}\,s^{-1}}],
+$$
 
-$$y_i = \frac{n_i}{S \cdot \Delta t} \quad [\mathrm{cm^{-2}\,s^{-1}}]$$
+where $n_i$ is the total number of events registered during exposure $i$:
 
-$C_{i,j}$: Raw files are processed into a table format that has cells: $C_{i,j}$. Meaning $C_{i,j}$ events registered in channel $j$ during exposure $i$.
+$$
+n_i = \sum_{j=j_{\min}} C_{i,j},
+$$
 
-$n_i$: Table also contain particle counter $n_i$ (the `events_count` column): $$n_i = \sum_{j_{\min}} C_{i,j}$$
+$C_{i,j}$ is the number of events registered in energy channel $j$ during exposure $i$, $j_{\min}$ is the first channel included in the calculation.
 
-$j_{\min}=4$: The first four noise channels. Not included in $n_i$.
-
-$\Delta t$: One exposure block $\Delta t$ is about 10 s.
-
-$S$: the sensitive area of the silicon chip is read from the detector type.
+For some AIRDOS detectors, the first four channels are excluded because they are dominated by noise, corresponding to $j_{\min}=4$. The exposure duration $\Delta t$ is detector-specific; for AIRDOS detectors it is typically 10.4&nbsp;s.
 
 **Red line**
 
-The red line is a centered moving average over 50 exposures.
+The red line represents a centered moving average over 50 exposures. For an exposure duration of 10.4&nbsp;s, this corresponds to approximately 520 s, or 8 min 40 s.
 
 ---
 
 ### Count Evolution
 
-Particle count per exposure.
+Registered event count per exposure.
 
-$$y_i = n_i$$
+For each exposure $i$, the displayed value is
 
-$C_{i,j}$: Raw files are processed into a table format that has cells: $C_{i,j}$. Meaning $C_{i,j}$ events registered in channel $j$ during exposure $i$.
+$$
+y_i = {n_i},
+$$
 
-$n_i$: Table also contain particle counter $n_i$ (the `events_count` column): $$n_i = \sum_{j_{\min}} C_{i,j}$$
+where the total number of registered events $n_i$ is calculated as
 
-$j_{\min}=4$: The first four noise channels. Not included in $n_i$.
+$$
+n_i = \sum_{j=j_{\min}} C_{i,j},
+$$
 
-$\Delta t$: One exposure block $\Delta t$ is about 10 s.
+where, and $j_{\min}$ is the first channel included in the calculation. For some AIRDOS detectors, $j_{\min}=4$, meaning that the first four channels are excluded because they are dominated by noise.
+Unlike the particle flux, the event count is not normalized by the detector area or exposure duration.
 
 **Red line**
 
-The red line is a centered moving average over 50 exposures.
-
-
+The red line represents a centered moving average over 50 exposures. For an exposure duration of 10.4&nbsp;s, this corresponds to approximately 520 s, or 8 min 40 s.
 
 ---
 
 
 
-
 ## Spectrum Charts
 
-Spectrum charts organize data by energy levels.
+Spectrum charts show the distribution of registered events across detector channels or corresponding deposited-energy bins.
+
 
 ![Energy spectrum chart in DOSPORTAL](/DOSPORTAL/img/energy_spectrum.png)
 
@@ -124,98 +128,121 @@ Spectrum charts organize data by energy levels.
 
 ### Energy Spectrum
 
-Energy spectrum organize data by energy levels.
+The energy spectrum shows the number of registered events $\sum_i C_{i,j}$ in channel $j$ as a function of deposited energy $E_j$. The sum is performed over all exposures included in the selected time interval. Only channels with $j \geq j_{\min}$ are included in the spectrum.
 
-$$x = E_j \quad [\mathrm{MeV}], \qquad y_j = \sum_i C_{i,j} \quad [\text{counts}]$$ (for channel $$j \geq j_{\min}$$)
+Energy spectrum organize data by energy levels.
 
 Two step process described below:
 
-**1. Sum over exposures.** The counts of each channel are summed over every exposure in the window:
+### 1. Sum over exposures
 
-$$y_j = \sum_i C_{i,j} \quad [\text{counts}]$$ (for channel $$j \geq j_{\min}$$)
+For each channel, the registered events are summed over all selected exposures $i$:
 
-**2. Channel to energy.** The channel number is converted to the energy a single event in that channel deposits:
+$$
+y_j = \sum_i C_{i,j}
+\qquad [\mathrm{counts}].
+$$
 
-$$E_j = \mathrm{coef_0} + (j - j_{\min})\,\mathrm{coef_1} \quad [\mathrm{MeV}]$$ (for channel $$j \geq j_{\min}$$)
+### 2. Channel-energy calibration
 
-The point (x-axis) is then plotted at $E_j$ (energy in MeV).
+The channel number is converted to the corresponding deposited energy using the selected detector calibration:
+
+$$
+E_j = \mathrm{coef}_0 + (j)\,\mathrm{coef}_1
+\qquad [\mathrm{MeV}],
+$$
+
+<!-- Again here, the energy callibration is not shifting the values. -->
+
+where $\mathrm{coef}_0$ and $\mathrm{coef}_1$ are detector-specific calibration coeficients.
 
 
-$C_{i,j}$: Raw files are processed into a table format that has cells: $C_{i,j}$. Meaning $C_{i,j}$ events registered in channel $j$ during exposure $i$.
+## Channel Spectrum
 
-$j_{\min}=4$: The first four noise channels. These channels are excluded from the computation.
-
-**coef0, coef1**: obtained from selected calibration. $\mathrm{coef_0}$ is the energy of the first counted channel and $\mathrm{coef_1}$ the width of one channel.
-
-
-
-### Channel Spectrum
-
-See spectrum accross channels.
-
-$$x = j, \qquad y_j = \sum_i C_{i,j} \quad [\text{counts}]$$ (for channel $$j \geq j_{\min}$$)
-
-$C_{i,j}$: Raw files are processed into a table format that has cells: $C_{i,j}$. Meaning $C_{i,j}$ events registered in channel $j$ during exposure $i$.
-
-$j_{\min}=4$: The first four noise channels. These channels are excluded from the computation.
+The channel spectrum shows the number of registered events $\sum_i C_{i,j}$ as a function of detector channel $j$. The sum is performed over all exposures included in the selected time interval. Only channels with $j \geq j_{\min}$ are included. For some AIRDOS detectors, $j_{\min}=4$ because the first four channels are dominated by noise.
 
 ---
 
 ## Time window
 
-Selected time segments of the data can be analyzed further.
+Selected time intervals can be used for further analysis.
 
 ![Energy spectrum chart in DOSPORTAL](/DOSPORTAL/img/spectrum_time_window.png)
 
 *Time window selected by the user.*
 
-**Blue**: spectrum of full measurement window (default view).
+**Blue**: spectrum accumulated over the full measurement interval (default view).
 
-**Yellow**: When a time window is selected, its spectrum is drawn in the accent colour and the full-measurement spectrum is hidden.
+**Yellow**: spectrum accumulated over the selected time window. When a time window is selected, its spectrum is shown in the accent colour and the full-measurement spectrum is hidden.
 
-### Accumulated Dose
+### Dosimetric quantities
+<!-- In future, some other quantities will be requested such as H*(10) so I prefer more generic title -->
 
-The dose obtained over the selected time window is the mean dose rate of the window multiplied by the length of the window.
+The following quantities are reported for the selected window:
 
-The computation reports the following values for the selected window:
+- $\overline{\dot{D}_{\mathrm{Si}}}$ — mean absorbed dose rate $[\mathrm{\mu Gy/h}]$
+- $\sigma_{\dot{D_{Si}}}$ — sample standard deviation of the absorbed dose rate $[\mathrm{\mu Gy/h}]$
+- $D_{\mathrm{Si}}$ — absorbed dose accumulated over the selected window $[\mathrm{\mu Gy}]$
+- $T$ — duration of the selected window $[\mathrm{h}]$
+- $N$ — number of dose-rate measurements included in the selected time window
 
-- $\overline{DS}$ — mean dose rate $[\mathrm{\mu Gy/h}]$
-- $\sigma$ — standard deviation of the dose rate $[\mathrm{\mu Gy/h}]$
-- $D$ — dose obtained over the window $[\mathrm{\mu Gy}]$
-- $\sigma_D$ — uncertainty of the dose $[\mathrm{\mu Gy}]$
-- $T$ — length of the window $[\mathrm{h}]$
-- $N$ — number of exposures in the window
+### 1. Mean absorbed dose rate
 
-$$D = \overline{DS} \cdot T \quad [\mathrm{\mu Gy}]$$
+The absorbed dose rates of all exposures included in the selected window are averaged:
 
-Three step process described below:
+$$
+\overline{\dot{D}_{\mathrm{Si}}}
+=
+\frac{1}{N}
+\sum_{i \in W}
+\dot{D}_{\mathrm{Si},i}
+\qquad [\mathrm{\mu Gy/h}],
+$$
+where $W$ is the set of exposures included in the selected time window, $N$ is the number of exposures in the selected time window.
 
-**1. Mean dose rate.** The dose rates of all exposures that fall into the window are averaged:
+### 2. Variation of the absorbed dose rate
 
-$$\overline{DS} = \frac{1}{N} \sum_{i \in W} DS_i \quad [\mathrm{\mu Gy/h}]$$
+The sample standard deviation of the absorbed dose rates in silicon $\sigma_{\dot{D_{Si}}}$ within the selected window is calculated as
 
-**2. Spread of the dose rate.** The sample standard deviation over the same exposures:
+$$
+\sigma_{\dot{D_{Si}}}
+=
+\sqrt{
+\frac{1}{N-1}
+\sum_{i \in W}
+\left(
+\dot{D}_{\mathrm{Si},i}
+-
+\overline{\dot{D}_{\mathrm{Si}}}
+\right)^2
+}
+\qquad [\mathrm{\mu Gy/h}],
+$$
+where $\dot{D}_{\mathrm{Si},i}$ is the absorbed dose rate in silicon for exposure $i$, calculated as described in [Absorbed dose rate in silicon](#absorbed-dose-rate-in-silicon).
 
-$$\sigma = \sqrt{\frac{1}{N-1} \sum_{i \in W} \left(DS_i - \overline{DS}\right)^2} \quad [\mathrm{\mu Gy/h}]$$
+For a window containing a single exposure ($N=1$), the standard deviation is reported as $0$.
 
-For a window that contains a single exposure ($N = 1$) the standard deviation is reported as $0$.
+### 3. Window duration and accumulated dose
 
-**3. Window length and dose.** The window boundaries are given in milliseconds and converted to hours, the mean dose rate is then integrated over that duration:
+The selected window boundaries are stored in milliseconds and converted to hours:
 
-$$T = \frac{t_{\mathrm{to}} - t_{\mathrm{from}}}{3.6 \times 10^{6}} \quad [\mathrm{h}]$$
+$$
+T =
+\frac{t_{\mathrm{max}} - t_{\mathrm{min}}}
+{3.6 \times 10^6}
+\qquad [\mathrm{h}],
+$$
+where $t_{\mathrm{min}}$ and $t_{\mathrm{max}}$ are the boundaries of the selected time window in milliseconds and $3.6 \times 10^6$ converts milliseconds to hours.
 
-$$D = \overline{DS} \cdot T \quad [\mathrm{\mu Gy}], \qquad \sigma_D = \sigma \cdot T \quad [\mathrm{\mu Gy}]$$
+If the measurement continuously covers the selected time window, the accumulated absorbed dose is
 
-$DS_i$: dose rate in silicon of exposure $i$, computed as described in [Dosage in Silicon](#dosage-in-silicon).
+$$
+D_{\mathrm{Si}}
+=
+\overline{\dot{D}_{\mathrm{Si}}}\,T
+\qquad [\mathrm{\mu Gy}].
+$$
 
-$W$: the set of exposures that fall into the selected time window. The window is taken as given — the selection decides which exposures belong to it.
 
-$N$: number of exposures in the window.
+**Note:** $T$ represents the duration between the selected time boundaries and not necessarily the sum of the individual exposure durations $\Delta t$.
 
-$t_{\mathrm{from}}$, $t_{\mathrm{to}}$: boundaries of the selected window in milliseconds.
-
-$3.6 \times 10^{6}$: milliseconds to hours (constant value in equation).
-
-$\sigma_D$: uncertainty of the dose, the standard deviation of the dose rate scaled by the same duration.
-
-**Note**: $T$ is the length of the window, not the sum of the exposure blocks $\Delta t$ inside it.

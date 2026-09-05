@@ -24,7 +24,10 @@ There are two ways to make flight trajectories available for pairing.
 
 ### Uploading a trajectory file
 
-Flight trajectory files can be uploaded manually. The importer is designed for several trajectory formats; the format currently supported is the Flightradar CSV format.
+Flight trajectory files can be uploaded manually. The importer is designed for several trajectory formats; the formats that are currently supported are:
+
+- The Flightradar CSV format.
+- The Google Earth KML File (e.g.: used by [FlightAware](https://www.flightaware.com/)).
 
 ### Automatic pairing through an API key
 
