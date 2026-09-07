@@ -281,6 +281,8 @@ $E,488,24
 $STOP,<count>,<tm>.<tm_s100>,<systime>,<events_count>,<histogram_0>,<histogram_1>,...,<histogram_n>
 ```
 
+- **Note**: the number of histogram channels (`<histogram_0>` through `<histogram_n>`) may vary between devices/configurations.
+
 - **Example**:
 
 ```
