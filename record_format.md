@@ -225,7 +225,7 @@ $BATP,1,4150
 ```
 
 #### `$TIME` — time and synchronization info
-- **When**: once at the beginning of the file
+- **When**: potentially multiple times per file; its position within the file is not guaranteed to be at the beginning.
 - **Meaning**: provides RTC seconds, last synchronization time stored in EEPROM, computed current Unix time, sync age, and human-readable UTC timestamp.
 - **Format**:
 
@@ -278,7 +278,7 @@ $E,488,24
 - **Format**:
 
 ```
-$STOP,<count>,<tm>.<tm_s100>,<systime>,<events_count>,<histogram_0>,<histogram_1>,<histogram_2>,<histogram_3>
+$STOP,<count>,<tm>.<tm_s100>,<systime>,<events_count>,<histogram_0>,<histogram_1>,...,<histogram_n>
 ```
 
 - **Example**:
