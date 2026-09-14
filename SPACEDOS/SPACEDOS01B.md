@@ -8,6 +8,8 @@ permalink: /spacedos/SPACEDOS01B
 
 # SPACEDOS01B - Flight Model
 
+[Download Datasheet (PDF)]({{site.baseurl}}/assets/SPACEDOS01B_datasheet.pdf){: .btn .btn-blue }
+
 ![Bottom view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_bottom.jpg)
 
 ![Top view on SPACEDOS01B](https://raw.githubusercontent.com/UniversalScientificTechnologies/SPACEDOS01/SPACEDOS01B/doc/src/img/SPACEDOS01B_top.jpg)
