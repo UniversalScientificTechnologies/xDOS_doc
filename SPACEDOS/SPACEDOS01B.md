@@ -33,8 +33,8 @@ permalink: /spacedos/SPACEDOS01B
   * Power supply: 3.3 V / 3 mA (Typical consumption: 2.6 mA @ 3.3 V)
   * Interface: UART (RS232) TTL
   * Temperature Stability: from -50 ℃ to +50 ℃ within error of +50 keV
-  * Used Sensor: HAMAMATSU S11773-02 (PIN diode 5 x 5 x 0.5 mm)
-  * The default configuration has a detection volume of 12.5 mm³
+  * Used Sensor: HAMAMATSU PIN diode 10 x 20 x 0.5 mm
+  * The default configuration has a detection volume of 44 mm³
   * H x W x L: 15mm x 41mm x 94 mm
   * Weight: 33 g
 
