@@ -157,7 +157,7 @@ Each record is one text line. Data lines start with `$` and use comma-separated 
 
 The v2 stream can be viewed as three groups:
 
-- **Header messages**: emitted once at the beginning of the file. They describe *what device produced the data*.
+- **Header messages**: emitted once at the beginning of the file. They describe *what device produced the data* and the parameters needed to interpret it.
 - **Particle messages**: the actual radiation/event payload, emitted repeatedly in fixed integration blocks (uasually 10 s). A block starts with `$START`, may contain many `$E` lines, and ends with `$STOP`.
 - **Status messages**: emitted on a lower frequenty (or on specific service events). They carry environmental readings, battery health, and RTC/service state.
 
@@ -177,6 +177,21 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_analog_16B_hex>
 
 ```
 $DOS,AIRDOS04C,2.0.0-0-User,0,a3e23b543a4de5dc3d057462bb6109bf3db0b44b,User,0910410874100851c40ba080a08000b3
+```
+
+#### `$DATAFORMAT` — data format name
+- **When**: once at the beginning of the file
+- **Meaning**: names the data format of the file explicitly, so a reader can select the matching parser without inferring it from the other header lines.
+- **Format**:
+
+```
+$DATAFORMAT,<format_name>
+```
+
+- **Example** (illustrative format name):
+
+```
+$DATAFORMAT,VERSION_2.0
 ```
 
 #### `$DIG` — digital module identification
@@ -222,6 +237,81 @@ $BATP,<present>,<battery_mV>
 
 ```
 $BATP,1,4150
+```
+
+#### `$CHAN` — spectrum channel configuration
+- **When**: once at the beginning of the file
+- **Meaning**: reports the number of spectrum channels and the default number of leading channels that contain noise and are excluded from the evaluation.
+- **Format**:
+
+```
+$CHAN,<num_channels>,<num_noise_channels_default>
+```
+
+- **Example**:
+
+```
+$CHAN,65536,4
+```
+
+#### `$DIODE` — silicon chip geometry
+- **When**: once at the beginning of the file
+- **Meaning**: reports the sensitive area of the silicon chip (cm²) and the depletion layer thickness (cm).
+- **Format**:
+
+```
+$DIODE,<si_chip_area_cm2>,<si_chip_thickness_cm>
+```
+
+- **Example**:
+
+```
+$DIODE,0.25,0.03
+```
+
+#### `$ERNG` — energy range
+- **When**: once at the beginning of the file
+- **Meaning**: reports the lower and upper bound of the energy range the detector measures (MeV).
+- **Format**:
+
+```
+$ERNG,<energy_range_min_mev>,<energy_range_max_mev>
+```
+
+- **Example**:
+
+```
+$ERNG,0.05,20
+```
+
+#### `$ITIME` — integration period
+- **When**: once at the beginning of the file
+- **Meaning**: reports the length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks.
+- **Format**:
+
+```
+$ITIME,<integration_period_s>
+```
+
+- **Example**:
+
+```
+$ITIME,10
+```
+
+#### `$CALIB` — energy calibration
+- **When**: once at the beginning of the file
+- **Meaning**: reports the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`.
+- **Format**:
+
+```
+$CALIB,<coef0>,<coef1>[,<coef2>]
+```
+
+- **Example**:
+
+```
+$CALIB,0.01,0.002,0.0
 ```
 
 #### `$TIME` — time and synchronization info
