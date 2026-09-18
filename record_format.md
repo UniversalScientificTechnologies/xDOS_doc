@@ -354,7 +354,7 @@ A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers 
 - `$DOS`: the 4th field is reserved.
 - `$DIG` and `$ADC` are optional; the configuration field has a fixed width.
 - New header message `$TICK` giving the length of the device timer tick.
-- `$TIME`: meaning of the fields clarified for devices with a calendar RTC and for an invalid device time.
+- `$TIME`: meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
 - `$RTCCHK`: emitted in every file; `INIT` marks an invalid (relative only) device time.
 - `$START`, `$E`, `$STOP`: timer values defined; `<long_event_time>` counts from the start of the block.
 - `$E`: optional second channel value.
@@ -536,21 +536,31 @@ $CALIB,0.01,0.002,0.0,1789689600
 $TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-DD HH:MM:SS>
 ```
 
-- **Devices with a calendar RTC** (the RTC holds the absolute time): `<rtc_seconds>` equals `<current_unix_time>`. Consequently the time stamps `<tm>` in `$STOP`, `$ENV`, `$BATT` and `$RTCCHK` are Unix time directly.
-- **`<eeprom_sync_time>`** is the Unix time of the last setting/synchronization of the device clock. `0` means it is not known; `<sync_age>` then carries no information and is `0` as well.
-- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. A reader may re-anchor such a file to an externally known start time.
+- **Fields** (the meaning Version 2 devices already use, stated precisely):
+  - `<rtc_seconds>` — the RTC counter in seconds.
+  - `<eeprom_sync_time>` — the reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the RTC counter was `0`. It is **not** the moment of the last synchronization.
+  - `<current_unix_time>` = `<eeprom_sync_time>` + `<rtc_seconds>`.
+  - `<sync_age>` — seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record (none stored, or the RTC lost its time since).
+- **Devices with a calendar RTC** (the RTC holds the absolute time): the counter is the Unix time itself, so `<rtc_seconds>` equals `<current_unix_time>` and `<eeprom_sync_time>` is `0`. Consequently the time stamps `<tm>` in `$STOP`, `$ENV`, `$BATT` and `$RTCCHK` are Unix time directly.
+- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time.
 - All times are UTC.
 
 - **Example** (calendar RTC, last set 2026-09-18 10:00:00):
 
 ```
-$TIME,1789729200,1789725600,1789729200,3600,2026-09-18 11:00:00
+$TIME,1789729200,0,1789729200,3600,2026-09-18 11:00:00
+```
+
+- **Example** (stopwatch RTC, counter zero at 2024-02-25 12:00:00, last synchronized 10 minutes ago):
+
+```
+$TIME,1234567,1708862400,1710096967,600,2024-03-10 18:56:07
 ```
 
 - **Example** (invalid time, RTC counting from its default of 2000-01-01, 5 minutes after power-up):
 
 ```
-$TIME,946685100,0,946685100,0,2000-01-01 00:05:00
+$TIME,946685100,0,946685100,,2000-01-01 00:05:00
 ```
 
 ## Particle messages (integration block)
