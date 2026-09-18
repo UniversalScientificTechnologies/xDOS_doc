@@ -157,7 +157,7 @@ Each record is one text line. Data lines start with `$` and use comma-separated 
 
 The v2 stream can be viewed as three groups:
 
-- **Header messages**: emitted once at the beginning of the file. They describe *what device produced the data* and the parameters needed to interpret it.
+- **Header messages**: emitted once at the beginning of the file. They describe *what device produced the data*.
 - **Particle messages**: the actual radiation/event payload, emitted repeatedly in fixed integration blocks (uasually 10 s). A block starts with `$START`, may contain many `$E` lines, and ends with `$STOP`.
 - **Status messages**: emitted on a lower frequenty (or on specific service events). They carry environmental readings, battery health, and RTC/service state.
 
@@ -177,21 +177,6 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_analog_16B_hex>
 
 ```
 $DOS,AIRDOS04C,2.0.0-0-User,0,a3e23b543a4de5dc3d057462bb6109bf3db0b44b,User,0910410874100851c40ba080a08000b3
-```
-
-#### `$DATAFORMAT` — data format name
-- **When**: once at the beginning of the file
-- **Meaning**: names the data format of the file explicitly, so a reader can select the matching parser without inferring it from the other header lines.
-- **Format**:
-
-```
-$DATAFORMAT,<format_name>
-```
-
-- **Example** (illustrative format name):
-
-```
-$DATAFORMAT,VERSION_2.0
 ```
 
 #### `$DIG` — digital module identification
@@ -237,81 +222,6 @@ $BATP,<present>,<battery_mV>
 
 ```
 $BATP,1,4150
-```
-
-#### `$CHAN` — spectrum channel configuration
-- **When**: once at the beginning of the file
-- **Meaning**: reports the number of spectrum channels and the default number of leading channels that contain noise and are excluded from the evaluation.
-- **Format**:
-
-```
-$CHAN,<num_channels>,<num_noise_channels_default>
-```
-
-- **Example**:
-
-```
-$CHAN,65536,4
-```
-
-#### `$DIODE` — silicon chip geometry
-- **When**: once at the beginning of the file
-- **Meaning**: reports the sensitive area of the silicon chip (cm²) and the depletion layer thickness (cm).
-- **Format**:
-
-```
-$DIODE,<si_chip_area_cm2>,<si_chip_thickness_cm>
-```
-
-- **Example**:
-
-```
-$DIODE,0.25,0.03
-```
-
-#### `$ERNG` — energy range
-- **When**: once at the beginning of the file
-- **Meaning**: reports the lower and upper bound of the energy range the detector measures (MeV).
-- **Format**:
-
-```
-$ERNG,<energy_range_min_mev>,<energy_range_max_mev>
-```
-
-- **Example**:
-
-```
-$ERNG,0.05,20
-```
-
-#### `$ITIME` — integration period
-- **When**: once at the beginning of the file
-- **Meaning**: reports the length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks.
-- **Format**:
-
-```
-$ITIME,<integration_period_s>
-```
-
-- **Example**:
-
-```
-$ITIME,10
-```
-
-#### `$CALIB` — energy calibration
-- **When**: once at the beginning of the file
-- **Meaning**: reports the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`.
-- **Format**:
-
-```
-$CALIB,<coef0>,<coef1>[,<coef2>]
-```
-
-- **Example**:
-
-```
-$CALIB,0.01,0.002,0.0
 ```
 
 #### `$TIME` — time and synchronization info
@@ -429,3 +339,282 @@ $BATT,720,12345.50,4150,-120,1800,2000,25.3
 ## Notes
 - Lines starting with `#` are debug/service messages (typically on the debug serial port) and are not part of the data stream.
 
+
+# Version 2.1
+
+Version 2.1 extends [Version 2](#version-2). Every message defined in Version 2 keeps its syntax and meaning unless this section states otherwise; only new and changed messages are described here.
+
+A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers select the parser by `$DATAFORMAT`; the device type in `$DOS` is only a fallback heuristic for files without it.
+
+## Changes against Version 2
+
+- New header message `$DATAFORMAT` naming the data format.
+- New header messages `$CHAN`, `$DIODE`, `$ERNG`, `$ITIME`, `$CALIB` carrying the parameters needed to interpret the data.
+- New header messages `$DIG_NAME` and `$ADC_NAME` carrying the human-readable names stored in the board EEPROMs.
+- `$DOS`: the 4th field is reserved.
+- `$DIG` and `$ADC` are optional; the configuration field has a fixed width.
+- New header message `$TICK` giving the length of the device timer tick.
+- `$TIME`: meaning of the fields clarified for devices with a calendar RTC and for an invalid device time.
+- `$RTCCHK`: emitted in every file; `INIT` marks an invalid (relative only) device time.
+- `$START`, `$E`, `$STOP`: timer values defined; `<long_event_time>` counts from the start of the block.
+- `$E`: optional second channel value.
+- `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified.
+- `$ENV`: the line always carries all fields, missing values are `NaN`.
+
+## General rules
+
+- Line syntax is the same as in Version 2. Lines are terminated by `\n` or `\r\n`.
+- Lines starting with `#` are debug/service messages and are not part of the data stream.
+- Lines starting with `!` are reserved for commands sent **to** the device and never appear in the data stream.
+- Readers must ignore `$` messages they do not know. This allows new messages to be added without a new format version.
+- A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the whole message is omitted.
+- Header messages are emitted once at the beginning of every file. `$DATAFORMAT` and `$DOS` are mandatory, all other header messages are optional.
+
+## Header messages
+
+#### `$DATAFORMAT` — data format name
+- **When**: once, as the first line of the file
+- **Meaning**: names the data format of the file explicitly, so a reader can select the matching parser without inferring it from the other header lines.
+- **Format**:
+
+```
+$DATAFORMAT,<format_name>
+```
+
+- **Example**:
+
+```
+$DATAFORMAT,VERSION_2.1
+```
+
+#### `$DOS` — device identification (changed)
+- **Format**: unchanged against Version 2.
+
+```
+$DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
+```
+
+- **Change**: the 4th field is reserved. Devices write `0`, readers ignore its value.
+- **Note**: the device is identified by its analog (detector) board: `<TYPE>` and `<serial_16B_hex>` both come from the analog board if the device has one (as the serial does in Version 2), otherwise from its only board. Replacing other boards (e.g. the digital board of AIRDOS04) does not change the device identity.
+
+#### `$DIG` — digital module identification (changed)
+- **Format**: unchanged against Version 2.
+- **Change**: optional. Present only if the device has a separate digital board with its own identification.
+- **Change**: `<DIG_EEPROM>` is always 4 hex digits — the first two bytes of the configuration record stored in the board EEPROM, in stored order. `ffff` means that no record is stored.
+
+#### `$DIG_NAME` — digital module name
+- **When**: once at the beginning of the file, right after `$DIG`; only if `$DIG` is present
+- **Meaning**: the human-readable identifier stored in the configuration record of the digital board EEPROM (`device_identifier`, typically the name printed on the device enclosure). Up to 24 printable ASCII characters, no comma. Empty if no record is stored.
+- **Format**:
+
+```
+$DIG_NAME,<device_identifier>
+```
+
+- **Example**:
+
+```
+$DIG_NAME,OTTER
+```
+
+#### `$ADC` — analog module identification (changed)
+- **Format**: unchanged against Version 2.
+- **Change**: optional. Present only if the device has a separate analog board with its own identification.
+- **Change**: `<ADC_EEPROM>` follows the same rule as `<DIG_EEPROM>`.
+
+#### `$ADC_NAME` — analog module name
+- **When**: once at the beginning of the file, right after `$ADC`; only if `$ADC` is present
+- **Meaning**: the same as `$DIG_NAME`, taken from the analog board EEPROM.
+- **Format**:
+
+```
+$ADC_NAME,<device_identifier>
+```
+
+- **Example**:
+
+```
+$ADC_NAME,OTTER
+```
+
+#### `$CHAN` — spectrum channel configuration
+- **When**: once at the beginning of the file
+- **Meaning**: the total number of ADC channels (the channel range of both the `$STOP` histogram and the `$E` events — **not** the length of the `$STOP` histogram) and the default number of leading channels that contain noise and are excluded from the evaluation.
+- **Format**:
+
+```
+$CHAN,<num_channels>,<num_noise_channels_default>
+```
+
+- **Example**:
+
+```
+$CHAN,65536,4
+```
+
+#### `$DIODE` — silicon chip geometry
+- **When**: once at the beginning of the file
+- **Meaning**: the sensitive area of the silicon chip (cm²) and the depletion layer thickness (cm).
+- **Format**:
+
+```
+$DIODE,<si_chip_area_cm2>,<si_chip_thickness_cm>
+```
+
+- **Example**:
+
+```
+$DIODE,0.25,0.03
+```
+
+#### `$ERNG` — energy range
+- **When**: once at the beginning of the file
+- **Meaning**: the lower and upper bound of the deposited energy range the detector measures (MeV). Either bound may be left empty if it is not known.
+- **Format**:
+
+```
+$ERNG,<energy_range_min_mev>,<energy_range_max_mev>
+```
+
+- **Example**:
+
+```
+$ERNG,0.05,20
+$ERNG,0.05,
+```
+
+#### `$ITIME` — integration period
+- **When**: once at the beginning of the file
+- **Meaning**: the nominal length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks.
+- **Format**:
+
+```
+$ITIME,<integration_period_s>
+```
+
+- **Example**:
+
+```
+$ITIME,10
+```
+
+#### `$TICK` — timer tick length
+- **When**: once at the beginning of the file; optional
+- **Meaning**: the length of one tick of the device timer (seconds). Applies to `<event_time_0>` in `$START`, `<long_event_time>` in `$E` and `<systime>` in `$STOP`. If the message is absent, the tick is 128 µs (8 MHz / 1024).
+- **Format**:
+
+```
+$TICK,<tick_length_s>
+```
+
+- **Example**:
+
+```
+$TICK,0.000128
+```
+
+#### `$CALIB` — energy calibration
+- **When**: once at the beginning of the file
+- **Meaning**: the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`. `calibration_version` is an optional identifier of the calibration (a version number or the Unix time of the calibration); it may only be present together with `coef2`.
+- **Format**:
+
+```
+$CALIB,<coef0>,<coef1>[,<coef2>[,<calibration_version>]]
+```
+
+- **Example**:
+
+```
+$CALIB,0.01,0.002,0.0
+$CALIB,0.01,0.002,0.0,1789689600
+```
+
+#### `$TIME` — time and synchronization info (clarified)
+- **Format**: unchanged against Version 2.
+
+```
+$TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-DD HH:MM:SS>
+```
+
+- **Devices with a calendar RTC** (the RTC holds the absolute time): `<rtc_seconds>` equals `<current_unix_time>`. Consequently the time stamps `<tm>` in `$STOP`, `$ENV`, `$BATT` and `$RTCCHK` are Unix time directly.
+- **`<eeprom_sync_time>`** is the Unix time of the last setting/synchronization of the device clock. `0` means it is not known; `<sync_age>` then carries no information and is `0` as well.
+- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. A reader may re-anchor such a file to an externally known start time.
+- All times are UTC.
+
+- **Example** (calendar RTC, last set 2026-09-18 10:00:00):
+
+```
+$TIME,1789729200,1789725600,1789729200,3600,2026-09-18 11:00:00
+```
+
+- **Example** (invalid time, RTC counting from its default of 2000-01-01, 5 minutes after power-up):
+
+```
+$TIME,946685100,0,946685100,0,2000-01-01 00:05:00
+```
+
+## Particle messages (integration block)
+
+#### `$START` — start of integration block (clarified)
+- **Format**: unchanged against Version 2.
+- **Note**: `<event_time_0>` is the raw value of the device timer at the start of the block, in ticks (see `$TICK`).
+
+#### `$E` — single above-threshold event (changed)
+- **Format**:
+
+```
+$E,<long_event_time>,<event_channel>[,<event_channel_2>]
+```
+
+- **Change**: optional `<event_channel_2>` — a second ADC value of the same event; its meaning is device specific. Readers that do not use it evaluate `<event_channel>` only.
+- **Change**: `<long_event_time>` is the time of the event in ticks (see `$TICK`) counted from the start of the block.
+- **Note**: `<event_channel>` is never lower than the number of histogram channels in `$STOP` — events go either to the histogram or to `$E` lines, never to both.
+
+- **Example**:
+
+```
+$E,2514,170,108
+```
+
+#### `$STOP` — end of integration block (clarified)
+- **Format**: unchanged against Version 2.
+- **Note**: `<events_count>` is the number of above-threshold events in the block. It may be higher than the number of `$E` lines of the block if the device's event buffer overflowed.
+- **Note**: `<systime>` is the raw value of the device timer at the end of the block, in ticks (see `$TICK`). `<event_time_0>` and `<systime>` are informative only; the timer may overflow within a block, so their difference does not reliably give the block duration.
+
+## Status messages
+
+`$BATT` is unchanged.
+
+#### `$RTCCHK` — RTC check / initialization status (clarified)
+- **Format**: unchanged against Version 2.
+
+```
+$RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
+```
+
+- **Change**: emitted at the beginning of every file, so each file states whether its time is valid.
+- **Note**: the meaning of the state is generalized to both RTC modes:
+  - `INIT` — the RTC does not continue from a known time reference: it was reset by the firmware (stopwatch-mode devices) or it lost power and counts from its default value (calendar-mode devices). All time stamps in the file are relative only (see `$TIME`).
+  - `OK` — the RTC continues from a known reference: for calendar-mode devices the RTC itself holds the absolute time; for stopwatch-mode devices the reference is the synchronization record reported in `$TIME`.
+- **Note**: the register values are informative and device specific.
+
+- **Example** (invalid time):
+
+```
+$RTCCHK,946684802.0,INIT,reg07=0x00,reg28=0x00
+```
+
+#### `$ENV` — environmental sensors (changed)
+- **Format**: unchanged against Version 2.
+
+```
+$ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
+```
+
+- **Change**: the line always carries all eight fields. Values of sensors the device does not have are `NaN`; the line is never shortened.
+
+- **Example** (device with a single temperature/humidity sensor):
+
+```
+$ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
+```
