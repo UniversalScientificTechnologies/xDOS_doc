@@ -352,7 +352,7 @@ A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers 
 - New header messages `$CHAN`, `$DIODE`, `$ERNG`, `$ITIME`, `$CALIB` carrying the parameters needed to interpret the data.
 - New header messages `$DIG_NAME` and `$ADC_NAME` carrying the human-readable names stored in the board EEPROMs.
 - `$DOS`: the 4th field is reserved.
-- `$DIG` and `$ADC` are optional; the configuration field has a fixed width.
+- `$DIG` is optional; the configuration field has a fixed width.
 - New header message `$TICK` giving the length of the device timer tick.
 - `$TIME`: meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
 - `$RTCCHK`: emitted in every file; `INIT` marks an invalid (relative only) device time.
@@ -360,6 +360,7 @@ A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers 
 - `$E`: optional second channel value.
 - `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified.
 - `$ENV`: the line always carries all fields, missing values are `NaN`.
+- New message `$ERROR` with a free-text description of an error detected by the device.
 
 ## General rules
 
@@ -395,7 +396,7 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
 ```
 
 - **Change**: the 4th field is reserved. Devices write `0`, readers ignore its value.
-- **Note**: the device is identified by its analog (detector) board: `<TYPE>` and `<serial_16B_hex>` both come from the analog board if the device has one (as the serial does in Version 2), otherwise from its only board. Replacing other boards (e.g. the digital board of AIRDOS04) does not change the device identity.
+- **Note**: the device is identified by its analog (detector) board: `<TYPE>` and `<serial_16B_hex>` both come from the analog board if the device has one, otherwise from its only board. Replacing other boards (e.g. the digital board of AIRDOS04) does not change the device identity.
 
 #### `$DIG` — digital module identification (changed)
 - **Format**: unchanged against Version 2.
@@ -419,7 +420,6 @@ $DIG_NAME,OTTER
 
 #### `$ADC` — analog module identification (changed)
 - **Format**: unchanged against Version 2.
-- **Change**: optional. Present only if the device has a separate analog board with its own identification.
 - **Change**: `<ADC_EEPROM>` follows the same rule as `<DIG_EEPROM>`.
 
 #### `$ADC_NAME` — analog module name
@@ -485,7 +485,7 @@ $ERNG,0.05,
 
 #### `$ITIME` — integration period
 - **When**: once at the beginning of the file
-- **Meaning**: the nominal length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks.
+- **Meaning**: the nominal length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks. NaN when integration block has variable length
 - **Format**:
 
 ```
@@ -500,7 +500,7 @@ $ITIME,10
 
 #### `$TICK` — timer tick length
 - **When**: once at the beginning of the file; optional
-- **Meaning**: the length of one tick of the device timer (seconds). Applies to `<event_time_0>` in `$START`, `<long_event_time>` in `$E` and `<systime>` in `$STOP`. If the message is absent, the tick is 128 µs (8 MHz / 1024).
+- **Meaning**: the length of one tick of the device timer (seconds). Applies to `<event_time_0>` in `$START`, `<long_event_time>` in `$E` and `<systime>` in `$STOP`.
 - **Format**:
 
 ```
@@ -515,7 +515,7 @@ $TICK,0.000128
 
 #### `$CALIB` — energy calibration
 - **When**: once at the beginning of the file
-- **Meaning**: the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`. `calibration_version` is an optional identifier of the calibration (a version number or the Unix time of the calibration); it may only be present together with `coef2`.
+- **Meaning**: the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`. `calibration_version` is an optional identifier of the calibration (a version number, calibration type or the Unix time of the calibration); it may only be present together with `coef2`.
 - **Format**:
 
 ```
@@ -537,12 +537,12 @@ $TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-D
 ```
 
 - **Fields** (the meaning Version 2 devices already use, stated precisely):
-  - `<rtc_seconds>` — the RTC counter in seconds.
-  - `<eeprom_sync_time>` — the reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the RTC counter was `0`. It is **not** the moment of the last synchronization.
-  - `<current_unix_time>` = `<eeprom_sync_time>` + `<rtc_seconds>`.
+  - `<rtc_seconds>` — the device RTC counter in seconds.
+  - `<eeprom_sync_time>` — the reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the device RTC counter was `0`. It is **not** the moment of the last synchronization.
+  - `<current_unix_time>` = `<eeprom_sync_time>` + `<rtc_seconds>`
   - `<sync_age>` — seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record (none stored, or the RTC lost its time since).
 - **Devices with a calendar RTC** (the RTC holds the absolute time): the counter is the Unix time itself, so `<rtc_seconds>` equals `<current_unix_time>` and `<eeprom_sync_time>` is `0`. Consequently the time stamps `<tm>` in `$STOP`, `$ENV`, `$BATT` and `$RTCCHK` are Unix time directly.
-- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time.
+- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time. `<sync_age>` should be Empty. 
 - All times are UTC.
 
 - **Example** (calendar RTC, last set 2026-09-18 10:00:00):
@@ -627,4 +627,20 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 
 ```
 $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
+```
+
+#### `$ERROR` — error detected by the device
+- **When**: whenever the device detects an error that matters for the data; anywhere in the file, any number of times
+- **Meaning**: a human-readable description of the error, e.g. an unexpected version of the EEPROM configuration record. Readers show it to the user and do not interpret it. The text reaches to the end of the line and may contain commas.
+- **Note**: debug and service output stays on `#` lines; `$ERROR` is for errors the user of the data should see.
+- **Format**:
+
+```
+$ERROR,<text>
+```
+
+- **Example**:
+
+```
+$ERROR,EEPROM record version 1, firmware expects 2 - measurement metadata not available
 ```
