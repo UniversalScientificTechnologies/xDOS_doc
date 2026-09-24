@@ -84,6 +84,15 @@ Message formats throughout this document are given as a literal `$MESSAGE_NAME` 
 - Text without `<>`, `[]` or `()` is literal and appears in the record unchanged (e.g. the `reg07=` prefix in `$RTCCHK`).
 - A field left empty between two commas (e.g. `,,`) is present but its value is not known; this is distinct from a field omitted per `[...]`. Which fields may be empty, and how else "not available" is represented (`NaN` for floating-point fields, or omitting the whole message — see [General rules](#general-rules)), is stated for each field individually.
 
+## Data types
+
+Field types used in the message catalog. Ranges are defined with reserve for future devices; a device may use only part of a range.
+
+| Type | Range | Written as |
+|---|---|---|
+| U16 | 0–65 535 | decimal digits, no sign, no leading zeros |
+| U32 | 0–4 294 967 295 | decimal digits, no sign, no leading zeros |
+
 
 # Version 1
 
@@ -576,7 +585,26 @@ $CALIB,0.01,0.002,0.0,1789689600
 
 #### `$START` — start of integration block (clarified)
 - **Format**: unchanged against Version 2.
-- **Note**: `<event_time_0>` is the raw value of the device timer at the start of the block, in ticks (see `$TICK`).
+
+```
+$START,<count>,<event_time_0>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Block index (see [Block continuity](#block-continuity)). |
+| `<event_time_0>` | U32 | tick | Raw value of the device timer at the start of the block (see `$TICK`). Informative only. |
+
+</details>
+
+- **Example**:
+
+```
+$START,179,31012
+```
 
 #### `$E` — single above-threshold event (changed)
 - **Format**:
@@ -585,9 +613,19 @@ $CALIB,0.01,0.002,0.0,1789689600
 $E,<long_event_time>,<event_channel>[,<event_channel_2>]
 ```
 
-- **Change**: optional `<event_channel_2>` — a second ADC value of the same event; its meaning is device specific. Readers that do not use it evaluate `<event_channel>` only.
-- **Change**: `<long_event_time>` is the time of the event in ticks (see `$TICK`) counted from the start of the block.
-- **Note**: `<event_channel>` is never lower than the number of histogram channels in `$STOP` — events go either to the histogram or to `$E` lines, never to both.
+- **Change**: optional `<event_channel_2>`.
+- **Change**: `<long_event_time>` is counted from the start of the block.
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<long_event_time>` | U32 | tick | Time of the event, counted from the start of the block (see `$TICK`). |
+| `<event_channel>` | U16 | ADC channel | ADC value of the event. Never lower than the number of histogram fields in `$STOP` — an event goes either to the histogram or to an `$E` line, never to both. |
+| `<event_channel_2>` | U16 | — | Optional. A second ADC value of the same event. |
+
+</details>
 
 - **Example**:
 
@@ -597,8 +635,30 @@ $E,2514,170,108
 
 #### `$STOP` — end of integration block (clarified)
 - **Format**: unchanged against Version 2.
-- **Note**: `<events_count>` is the number of above-threshold events in the block. It may be higher than the number of `$E` lines of the block if the device's event buffer overflowed.
-- **Note**: `<systime>` is the raw value of the device timer at the end of the block, in ticks (see `$TICK`). `<event_time_0>` and `<systime>` are informative only; the timer may overflow within a block, so their difference does not reliably give the block duration.
+
+```
+$STOP,<count>,<tm>.<tm_s100>,<systime>,<events_count>,<histogram_0>,<histogram_1>,...,<histogram_n>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Block index; equal to `<count>` of the block's `$START`. |
+| `<tm>` | U32 | s | Device RTC time at the end of the block (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`. Written as an integer. |
+| `<systime>` | U32 | tick | Raw value of the device timer at the end of the block (see `$TICK`). Informative only. |
+| `<events_count>` | U16 | events | Number of above-threshold events in the block. May be higher than the number of `$E` lines of the block if the device's event buffer overflowed. |
+| `<histogram_0>` … `<histogram_n>` | U16 | events | Number of events in ADC channel. |
+
+</details>
+
+- **Example**:
+
+```
+$STOP,179,1789729204.0,31359,427,19373,11,24,7
+```
 
 ## Status messages
 
