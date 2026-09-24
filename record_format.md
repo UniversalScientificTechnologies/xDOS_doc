@@ -23,7 +23,7 @@ Starting with Version 2, each format revision is backward compatible with the pr
 - A revision may introduce new message types (new `$` headers), but never changes the format or meaning of an existing one.
 - Readers must ignore any message type they do not recognize, and must ignore any fields beyond those they know how to parse in a message they do recognize.
 
-This guarantee holds within the Version 2.x series (Version 2, Version 2.1, and later revisions). Version 1 predates this policy.
+Format versions are numbered `MAJOR.MINOR`. The guarantee holds within one major version, i.e. within the Version 2.x series (Version 2, Version 2.1, and later revisions). A new major version (e.g. 3.0) may introduce incompatible changes. Version 1 predates this policy.
 
 # Normative references
 
