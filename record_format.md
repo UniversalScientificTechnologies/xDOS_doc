@@ -92,6 +92,10 @@ Field types used in the message catalog. Ranges are defined with reserve for fut
 |---|---|---|
 | U16 | 0–65 535 | decimal digits, no sign, no leading zeros |
 | U32 | 0–4 294 967 295 | decimal digits, no sign, no leading zeros |
+| I32 | −2 147 483 648 – 2 147 483 647 | optional `-`, then decimal digits, no leading zeros |
+| DEC | at most 300 characters | optional `-`, decimal digits, optionally `.` followed by decimal digits; no exponent, no `+`. A value the device cannot provide is written as `NaN`. |
+| HEX | per field | lowercase hexadecimal digits `0`–`9`, `a`–`f` |
+| TEXT | per field | characters permitted by [File Structure](#file-structure) |
 
 
 # Version 1
@@ -662,9 +666,7 @@ $STOP,179,1789729204.0,31359,427,19373,11,24,7
 
 ## Status messages
 
-`$BATT` is unchanged.
-
-#### `$TIME` — time and synchronization info (changed)
+### `$TIME` — time and synchronization info (changed)
 - **When**: at any position in the file, any number of times (e.g. after the clock is (re)synchronized).
 - **Change**: classified as a status message; in Version 2 it was listed among the header messages.
 - **Format**: unchanged against Version 2.
@@ -673,11 +675,19 @@ $STOP,179,1789729204.0,31359,427,19373,11,24,7
 $TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-DD HH:MM:SS>
 ```
 
-- **Fields** (the meaning Version 2 devices already use, stated precisely):
-  - `<rtc_seconds>` — the device RTC counter in seconds.
-  - `<eeprom_sync_time>` — the reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the device RTC counter was `0`. It is **not** the moment of the last synchronization.
-  - `<current_unix_time>` = `<eeprom_sync_time>` + `<rtc_seconds>`
-  - `<sync_age>` — seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record (none stored, or the RTC lost its time since).
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<rtc_seconds>` | U32 | s | The device RTC counter. |
+| `<eeprom_sync_time>` | U32 | s (Unix time) | The reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the device RTC counter was `0`. It is **not** the moment of the last synchronization. |
+| `<current_unix_time>` | U32 | s (Unix time) | `<eeprom_sync_time>` + `<rtc_seconds>`. |
+| `<sync_age>` | U32 | s | Seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record (none stored, or the RTC lost its time since). |
+| `<YYYY-MM-DD HH:MM:SS>` | TEXT | — | `<current_unix_time>` as a UTC date and time; exactly 19 characters, fields zero-padded (see ISO 8601 in [Normative references](#normative-references)). |
+
+</details>
+
 - **Devices with a calendar RTC** (the RTC holds the absolute time): the counter is the Unix time itself, so `<rtc_seconds>` equals `<current_unix_time>` and `<eeprom_sync_time>` is `0`. Consequently the time stamps `<tm>` in `$STOP`, `$ENV`, `$BATT` and `$RTCCHK` are Unix time directly.
 - **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time.
 - All times are UTC.
@@ -711,7 +721,17 @@ $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 - **Note**: the meaning of the state is generalized to both RTC modes:
   - `INIT` — the RTC does not continue from a known time reference: it was reset by the firmware (stopwatch-mode devices) or it lost power and counts from its default value (calendar-mode devices). All time stamps in the file are relative only (see `$TIME`).
   - `OK` — the RTC continues from a known reference: for calendar-mode devices the RTC itself holds the absolute time; for stopwatch-mode devices the reference is the synchronization record reported in `$TIME`.
-- **Note**: the register values are informative and device specific.
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<tm>` | U32 | s | Device RTC time (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`; written as an integer (see `$STOP`). |
+| `OK` or `INIT` | literal | — | RTC state, see above. |
+| `reg07=0x<hex>`, `reg28=0x<hex>` | HEX | — | RTC register values, two digits each. Informative and device specific. |
+
+</details>
 
 - **Example** (invalid time):
 
@@ -728,10 +748,56 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 
 - **Change**: the line always carries all eight fields. Values of sensors the device does not have are `NaN`; the line is never shortened.
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Index of the block this message follows (see [Block continuity](#block-continuity)). |
+| `<tm>` | U32 | s | Device RTC time (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`; written as an integer (see `$STOP`). |
+| `<T1>` | DEC | °C | Temperature, first temperature/humidity sensor. |
+| `<H1>` | DEC | % RH | Relative humidity, first temperature/humidity sensor. |
+| `<T2>` | DEC | °C | Temperature, second temperature/humidity sensor. |
+| `<H2>` | DEC | % RH | Relative humidity, second temperature/humidity sensor. |
+| `<T_MS5611>` | DEC | °C | Temperature, pressure sensor. |
+| `<P_MS5611>` | DEC | hPa | Atmospheric pressure, pressure sensor. |
+
+</details>
+
 - **Example** (device with a single temperature/humidity sensor):
 
 ```
 $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
+```
+
+#### `$BATT` — battery status (clarified)
+- **Format**: unchanged against Version 2.
+
+```
+$BATT,<count>,<tm>.<tm_s100>,<voltage_mV>,<current_mA>,<remaining_mAh>,<full_charge_mAh>,<temperature_C>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Index of the block this message follows (see [Block continuity](#block-continuity)). |
+| `<tm>` | U32 | s | Device RTC time (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`; written as an integer (see `$STOP`). |
+| `<voltage_mV>` | U32 | mV | Battery voltage. |
+| `<current_mA>` | I32 | mA | Battery current; positive when charging, negative when discharging. |
+| `<remaining_mAh>` | U32 | mAh | Remaining battery capacity. |
+| `<full_charge_mAh>` | U32 | mAh | Battery capacity when fully charged. |
+| `<temperature_C>` | DEC | °C | Battery temperature. |
+
+</details>
+
+- **Example**:
+
+```
+$BATT,180,1789729214.0,4150,-120,1800,2000,25.3
 ```
 
 #### `$ERROR` — error detected by the device
@@ -743,6 +809,15 @@ $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
 ```
 $ERROR,<text>
 ```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<text>` | TEXT | — | Error description, up to 512 characters. Runs to the end of the line and may contain commas. |
+
+</details>
 
 - **Example**:
 
