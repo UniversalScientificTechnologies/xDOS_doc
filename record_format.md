@@ -7,7 +7,9 @@ permalink: /xdos_format
 
 # UST Detectors Output Format
 
-This document describes the output file format for the AIRDOS and LABDOS series of particle detectors. The file is formatted in plain text, which not only facilitates easy readability by humans but also allows for quick and efficient machine parsing. This format is particularly designed to accommodate multiple logs (detector cycles) within a single file, enabling these logs to be segmented into individual logs for detailed analysis. The current version of this file format is actively in use.
+# Purpose
+
+This document specifies the format of the data files written by UST dosimeters (AIRDOS, LABDOS and SPACEDOS series). It is the reference both for the firmware that writes the files and for the software that reads or validates them: a file conforming to this specification can be interpreted unambiguously without further knowledge of the device. The format is plain text, readable by humans and simple to parse by machines.
 
 {: .highlight }
 The data format version is versioned independently of the detector firmware version. A firmware update does not necessarily change the output format, and a new format version may be introduced without a firmware version bump. This applies to all UST detectors.
@@ -30,6 +32,7 @@ The following documents are referenced by this specification; where no edition i
 - **NMEA 0183**, *Standard for Interfacing Marine Electronic Devices* — origin of the `$`-prefixed, comma-separated line syntax used since [Version 1](#version-1).
 - **ISO 8601**, *Date and time — Representations for information interchange* — basis for the date/time notation used in the `$TIME` field. Deviations are noted in the field description: a space instead of `T` separates date and time, and no time-zone designator is written because all timestamps are UTC.
 - **POSIX.1 (IEEE Std 1003.1)** — definition of Unix time, used for `<current_unix_time>` and related fields in `$TIME`.
+- **ISO/IEC 14977**, *Information technology — Syntactic metalanguage — Extended BNF* — basis for the notation of message formats; the symbols used and their meaning are defined in [Notation](#notation).
 
 # Applicable documents
 
@@ -38,13 +41,46 @@ This specification is maintained in accordance with the software documentation a
 - ECSS-E-ST-40C, *Space engineering — Software*
 - ECSS-Q-ST-80C, *Space product assurance — Software product assurance*
 
-# Notation
+# Terms, definitions and notation
 
-Message formats throughout this document are given as a literal `$MESSAGE_NAME` followed by comma-separated fields, using the following conventions:
+## Terms
+
+- **Message** — one line of the file starting with `$`.
+- **Message identifier** — the first field of a message, e.g. `$STOP`; determines the message type.
+- **Field** — one comma-separated value of a message.
+- **Header block** — the header messages at the beginning of a file, describing the device and its configuration.
+- **Block** (integration block) — the data of one integration period: a `$START` line, zero or more `$E` lines and a `$STOP` line.
+- **Session** (measurement session) — all data recorded from device start-up to power-off; written to one or more files.
+- **Reader** — software that interprets or validates a file.
+- **Tick** — the unit of the device timer; its length is given by `$TICK`.
+- **Calendar RTC** — an RTC that holds the absolute time as Unix time.
+- **Stopwatch RTC** — an RTC that counts seconds from a reference stored in the EEPROM (see `$TIME`).
+
+## Abbreviations
+
+| Abbreviation | Meaning |
+|---|---|
+| ADC | Analog-to-digital converter |
+| EEPROM | Electrically erasable programmable read-only memory |
+| FW | Firmware |
+| NaN | Not a Number |
+| RTC | Real-time clock |
+| SD | Secure Digital (memory card) |
+| UTC | Coordinated Universal Time |
+
+## Requirement wording
+
+- **must** — mandatory.
+- **may** — permitted, not mandatory.
+
+## Notation
+
+Message formats throughout this document are given as a literal `$MESSAGE_NAME` followed by comma-separated fields. The notation loosely follows EBNF (ISO/IEC 14977):
 
 - `<field_name>` — a placeholder for a value; replaced by the actual field content in the record.
 - `[...]` — the enclosed field, together with its leading comma, is optional and may be omitted from the end of the line. Nesting, e.g. `[,<b>[,<c>]]`, means `<c>` may only be present if `<b>` is.
 - `(A|B)` — the field takes exactly one of the literal values listed, separated by `|`.
+- `...` — the preceding field is repeated; the number of repetitions is given in the message description (e.g. `<histogram_0>,<histogram_1>,...,<histogram_n>` in `$STOP`).
 - Text without `<>`, `[]` or `()` is literal and appears in the record unchanged (e.g. the `reg07=` prefix in `$RTCCHK`).
 - A field left empty between two commas (e.g. `,,`) is present but its value is not known; this is distinct from a field omitted per `[...]`. Which fields may be empty, and how else "not available" is represented (`NaN` for floating-point fields, or omitting the whole message — see [General rules](#general-rules)), is stated for each field individually.
 
@@ -330,6 +366,12 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - **Header and measurement block order**: the file begins with a single, uninterrupted block of header messages, then continues with an uninterrupted stream of particle and status messages for the remainder of the file. `$DIG_NAME`/`$ADC_NAME`, where present, immediately follow `$DIG`/`$ADC`. The relative order of the other header messages is otherwise not defined.
 - **Sessions**: a measurement session (device start-up to power-off) is written to one or more files. Each file belongs to exactly one session and starts with its own complete header block; header messages are not repeated within a file. A device restart always begins a new file. Whether and when a running session continues in a new file depends on the device firmware.
 
+## Maximum message length
+
+- A line, including its line terminator, is at most 524 288 bytes (512 KiB) long. Readers must accept lines up to this length.
+- `$STOP` carries at most 65 536 histogram fields; each histogram value is in the range 0–65 535.
+- `<text>` in `$ERROR` is at most 512 characters long.
+
 ## Changes against Version 2
 
 - New header message `$DATAFORMAT` naming the data format.
@@ -346,6 +388,7 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - `$ENV`: the line always carries all fields, missing values are `NaN`.
 - New message `$ERROR` with a free-text description of an error detected by the device.
 - Handling of incomplete and invalid data defined.
+- Maximum line length, histogram size and `$ERROR` text length defined.
 
 ## General rules
 
@@ -576,7 +619,7 @@ $TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-D
   - `<current_unix_time>` = `<eeprom_sync_time>` + `<rtc_seconds>`
   - `<sync_age>` — seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record (none stored, or the RTC lost its time since).
 - **Devices with a calendar RTC** (the RTC holds the absolute time): the counter is the Unix time itself, so `<rtc_seconds>` equals `<current_unix_time>` and `<eeprom_sync_time>` is `0`. Consequently the time stamps `<tm>` in `$STOP`, `$ENV`, `$BATT` and `$RTCCHK` are Unix time directly.
-- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time. `<sync_age>` should be Empty. 
+- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time.
 - All times are UTC.
 
 - **Example** (calendar RTC, last set 2026-09-18 10:00:00):
