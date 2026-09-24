@@ -12,6 +12,42 @@ This document describes the output file format for the AIRDOS and LABDOS series 
 {: .highlight }
 The data format version is versioned independently of the detector firmware version. A firmware update does not necessarily change the output format, and a new format version may be introduced without a firmware version bump. This applies to all UST detectors.
 
+# Versioning and compatibility
+
+Starting with Version 2, each format revision is backward compatible with the previous one: a reader built for an earlier Version 2.x revision can still parse a file produced by a later one. This is achieved by construction:
+
+- A revision may append fields to the end of an existing message, but never removes, reorders, or redefines a field already defined by an earlier revision.
+- The only exception to the previous rule is a message whose format includes an explicit switch — a dedicated field that signals a changed interpretation of the fields following it. Readers must read the switch before parsing the rest of the message.
+- A revision may introduce new message types (new `$` headers), but never changes the format or meaning of an existing one.
+- Readers must ignore any message type they do not recognize, and must ignore any fields beyond those they know how to parse in a message they do recognize.
+
+This guarantee holds within the Version 2.x series (Version 2, Version 2.1, and later revisions). Version 1 predates this policy.
+
+# Normative references
+
+The following documents are referenced by this specification; where no edition is stated, the latest edition applies.
+
+- **NMEA 0183**, *Standard for Interfacing Marine Electronic Devices* — origin of the `$`-prefixed, comma-separated line syntax used since [Version 1](#version-1).
+- **ISO 8601**, *Date and time — Representations for information interchange* — basis for the date/time notation used in the `$TIME` field. Deviations are noted in the field description: a space instead of `T` separates date and time, and no time-zone designator is written because all timestamps are UTC.
+- **POSIX.1 (IEEE Std 1003.1)** — definition of Unix time, used for `<current_unix_time>` and related fields in `$TIME`.
+
+# Applicable documents
+
+This specification is maintained in accordance with the software documentation and assurance framework of:
+
+- ECSS-E-ST-40C, *Space engineering — Software*
+- ECSS-Q-ST-80C, *Space product assurance — Software product assurance*
+
+# Notation
+
+Message formats throughout this document are given as a literal `$MESSAGE_NAME` followed by comma-separated fields, using the following conventions:
+
+- `<field_name>` — a placeholder for a value; replaced by the actual field content in the record.
+- `[...]` — the enclosed field, together with its leading comma, is optional and may be omitted from the end of the line. Nesting, e.g. `[,<b>[,<c>]]`, means `<c>` may only be present if `<b>` is.
+- `(A|B)` — the field takes exactly one of the literal values listed, separated by `|`.
+- Text without `<>`, `[]` or `()` is literal and appears in the record unchanged (e.g. the `reg07=` prefix in `$RTCCHK`).
+- A field left empty between two commas (e.g. `,,`) is present but its value is not known; this is distinct from a field omitted per `[...]`. Which fields may be empty, and how else "not available" is represented (`NaN` for floating-point fields, or omitting the whole message — see [General rules](#general-rules)), is stated for each field individually.
+
 
 # Version 1
 
@@ -281,6 +317,19 @@ Version 2.1 extends [Version 2](#version-2). Every message defined in Version 2 
 
 A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers select the parser by `$DATAFORMAT`; the device type in `$DOS` is only a fallback heuristic for files without it.
 
+## Scope
+
+This version of the format specifies the data written by SPACEDOS04 (firmware version 2.1 and later) to its SD card log file. SD card storage is the main data output of SPACEDOS04.
+
+## File Structure
+
+- **Encoding**: US-ASCII. A line consists only of printable characters `0x20`–`0x7E`; `\r` (`0x0D`) and `\n` (`0x0A`) occur only as the line terminator. Control characters, `0x7F` and bytes `0x80`–`0xFF` (including any UTF-8 sequence) do not occur.
+- **Line endings**: `\n` or `\r\n` (see [General rules](#general-rules)).
+- **Reserved characters**: `$`, `#` and `!` occur only as the first character of a line, where they identify the line type (see [General rules](#general-rules)). They do not occur anywhere else in the line.
+- **Field separator**: `,` separates fields; a field value does not contain a comma, unless the field is explicitly documented to run to the end of the line (only `<text>` in `$ERROR` does).
+- **Header and measurement block order**: the file begins with a single, uninterrupted block of header messages, then continues with an uninterrupted stream of particle and status messages for the remainder of the file. `$DIG_NAME`/`$ADC_NAME`, where present, immediately follow `$DIG`/`$ADC`. The relative order of the other header messages is otherwise not defined.
+- **Sessions**: a measurement session (device start-up to power-off) is written to one or more files. Each file belongs to exactly one session and starts with its own complete header block; header messages are not repeated within a file. A device restart always begins a new file. Whether and when a running session continues in a new file depends on the device firmware.
+
 ## Changes against Version 2
 
 - New header message `$DATAFORMAT` naming the data format.
@@ -289,7 +338,7 @@ A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers 
 - `$DOS`: the 4th field is reserved.
 - `$DIG` is optional; the configuration field has a fixed width.
 - New header message `$TICK` giving the length of the device timer tick.
-- `$TIME`: meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
+- `$TIME`: classified as a status message; meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
 - `$RTCCHK`: emitted in every file; `INIT` marks an invalid (relative only) device time.
 - `$START`, `$E`, `$STOP`: timer values defined; `<long_event_time>` counts from the start of the block.
 - `$E`: optional second channel value.
@@ -303,13 +352,20 @@ A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers 
 - Lines starting with `#` are debug/service messages and are not part of the data stream.
 - Lines starting with `!` are reserved for commands sent **to** the device and never appear in the data stream.
 - Readers must ignore `$` messages they do not know. This allows new messages to be added without a new format version.
+- A known message may carry more fields than documented here if a later revision appended new ones; readers must ignore trailing fields they do not recognize (see [Versioning and compatibility](#versioning-and-compatibility)).
 - A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the whole message is omitted.
 - Header messages are emitted once at the beginning of every file. `$DATAFORMAT` and `$DOS` are mandatory, all other header messages are optional.
+
+## Block continuity
+
+The `<count>` field present in `$START`, `$STOP`, `$ENV` and `$BATT` is a single block index shared by all of them. It increases by exactly 1 per integration block; `$START` and `$STOP` of one block carry the same `<count>`. `$ENV` and `$BATT` follow the `$STOP` of a block and carry that block's `<count>`.
+
+`<count>` is not persistent: it restarts at power-up and may restart during a session. When and to which value it restarts depends on the device firmware. Apart from such a restart, consecutive blocks differ by exactly 1; any other step means that one or more blocks, and any status messages tied to them, were not recorded. `<count>` is the reliable way to confirm that no block was skipped (the actual spacing between blocks is only nominally `$ITIME`).
 
 ## Header messages
 
 #### `$DATAFORMAT` — data format name
-- **When**: once, as the first line of the file
+- **When**: once at the beginning of the file
 - **Meaning**: names the data format of the file explicitly, so a reader can select the matching parser without inferring it from the other header lines.
 - **Format**:
 
@@ -340,7 +396,7 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
 
 #### `$DIG_NAME` — digital module name
 - **When**: once at the beginning of the file, right after `$DIG`; only if `$DIG` is present
-- **Meaning**: the human-readable identifier stored in the configuration record of the digital board EEPROM (`device_identifier`, typically the name printed on the device enclosure). Up to 24 printable ASCII characters, no comma. Empty if no record is stored.
+- **Meaning**: the human-readable identifier stored in the configuration record of the digital board EEPROM (`device_identifier`, typically the name printed on the device enclosure). Up to 24 printable ASCII characters, none of `,` `$` `#` `!`. Empty if no record is stored.
 - **Format**:
 
 ```
@@ -464,7 +520,41 @@ $CALIB,0.01,0.002,0.0
 $CALIB,0.01,0.002,0.0,1789689600
 ```
 
-#### `$TIME` — time and synchronization info (clarified)
+## Particle messages (integration block)
+
+#### `$START` — start of integration block (clarified)
+- **Format**: unchanged against Version 2.
+- **Note**: `<event_time_0>` is the raw value of the device timer at the start of the block, in ticks (see `$TICK`).
+
+#### `$E` — single above-threshold event (changed)
+- **Format**:
+
+```
+$E,<long_event_time>,<event_channel>[,<event_channel_2>]
+```
+
+- **Change**: optional `<event_channel_2>` — a second ADC value of the same event; its meaning is device specific. Readers that do not use it evaluate `<event_channel>` only.
+- **Change**: `<long_event_time>` is the time of the event in ticks (see `$TICK`) counted from the start of the block.
+- **Note**: `<event_channel>` is never lower than the number of histogram channels in `$STOP` — events go either to the histogram or to `$E` lines, never to both.
+
+- **Example**:
+
+```
+$E,2514,170,108
+```
+
+#### `$STOP` — end of integration block (clarified)
+- **Format**: unchanged against Version 2.
+- **Note**: `<events_count>` is the number of above-threshold events in the block. It may be higher than the number of `$E` lines of the block if the device's event buffer overflowed.
+- **Note**: `<systime>` is the raw value of the device timer at the end of the block, in ticks (see `$TICK`). `<event_time_0>` and `<systime>` are informative only; the timer may overflow within a block, so their difference does not reliably give the block duration.
+
+## Status messages
+
+`$BATT` is unchanged.
+
+#### `$TIME` — time and synchronization info (changed)
+- **When**: at any position in the file, any number of times (e.g. after the clock is (re)synchronized).
+- **Change**: classified as a status message; in Version 2 it was listed among the header messages.
 - **Format**: unchanged against Version 2.
 
 ```
@@ -497,38 +587,6 @@ $TIME,1234567,1708862400,1710096967,600,2024-03-10 18:56:07
 ```
 $TIME,946685100,0,946685100,,2000-01-01 00:05:00
 ```
-
-## Particle messages (integration block)
-
-#### `$START` — start of integration block (clarified)
-- **Format**: unchanged against Version 2.
-- **Note**: `<event_time_0>` is the raw value of the device timer at the start of the block, in ticks (see `$TICK`).
-
-#### `$E` — single above-threshold event (changed)
-- **Format**:
-
-```
-$E,<long_event_time>,<event_channel>[,<event_channel_2>]
-```
-
-- **Change**: optional `<event_channel_2>` — a second ADC value of the same event; its meaning is device specific. Readers that do not use it evaluate `<event_channel>` only.
-- **Change**: `<long_event_time>` is the time of the event in ticks (see `$TICK`) counted from the start of the block.
-- **Note**: `<event_channel>` is never lower than the number of histogram channels in `$STOP` — events go either to the histogram or to `$E` lines, never to both.
-
-- **Example**:
-
-```
-$E,2514,170,108
-```
-
-#### `$STOP` — end of integration block (clarified)
-- **Format**: unchanged against Version 2.
-- **Note**: `<events_count>` is the number of above-threshold events in the block. It may be higher than the number of `$E` lines of the block if the device's event buffer overflowed.
-- **Note**: `<systime>` is the raw value of the device timer at the end of the block, in ticks (see `$TICK`). `<event_time_0>` and `<systime>` are informative only; the timer may overflow within a block, so their difference does not reliably give the block duration.
-
-## Status messages
-
-`$BATT` is unchanged.
 
 #### `$RTCCHK` — RTC check / initialization status (clarified)
 - **Format**: unchanged against Version 2.
