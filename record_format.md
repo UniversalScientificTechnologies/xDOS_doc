@@ -402,6 +402,7 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - New message `$ERROR` with a free-text description of an error detected by the device.
 - Handling of incomplete and invalid data defined.
 - Maximum line length, histogram size and `$ERROR` text length defined.
+- Data types defined; every message lists its fields with type, unit and range.
 
 ## General rules
 
@@ -438,6 +439,15 @@ A file may end at any point, e.g. on power loss or a storage failure. Everything
 $DATAFORMAT,<format_name>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<format_name>` | TEXT, up to 64 characters | — | Name of the data format; `VERSION_2.1` for this version. |
+
+</details>
+
 - **Example**:
 
 ```
@@ -452,12 +462,43 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
 ```
 
 - **Change**: the 4th field is reserved. Devices write `0`, readers ignore its value.
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<TYPE>` | TEXT, up to 64 characters | — | Device type, e.g. `AIRDOS04C`. |
+| `<FWversion>` | TEXT, up to 64 characters | — | Firmware version. |
+| `0` | literal | — | Reserved. |
+| `<git_hash>` | TEXT, up to 64 characters | — | Git commit of the firmware build. |
+| `<build_type>` | TEXT, up to 64 characters | — | Build type, e.g. `Release`, `User`. |
+| `<serial_16B_hex>` | HEX, exactly 32 digits | — | Device serial number (16 bytes), see the note below. |
+
+</details>
+
 - **Note**: the device is identified by its analog (detector) board: `<TYPE>` and `<serial_16B_hex>` both come from the analog board if the device has one, otherwise from its only board. Replacing other boards (e.g. the digital board of AIRDOS04) does not change the device identity.
 
 ### `$DIG` — digital module identification (changed)
 - **Format**: unchanged against Version 2.
+
+```
+$DIG,<DIGTYPE>,<serial_digital_16B_hex>,<DIG_EEPROM>
+```
+
 - **Change**: optional. Present only if the device has a separate digital board with its own identification.
 - **Change**: `<DIG_EEPROM>` is always 4 hex digits — the first two bytes of the configuration record stored in the board EEPROM, in stored order. `ffff` means that no record is stored.
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<DIGTYPE>` | TEXT, up to 64 characters | — | Digital board type, e.g. `BATDATUNIT01B`. |
+| `<serial_digital_16B_hex>` | HEX, exactly 32 digits | — | Digital board serial number (16 bytes). |
+| `<DIG_EEPROM>` | HEX, exactly 4 digits | — | First two bytes of the EEPROM configuration record, see above. |
+
+</details>
 
 ### `$DIG_NAME` — digital module name
 - **When**: once at the beginning of the file, right after `$DIG`; only if `$DIG` is present
@@ -468,6 +509,15 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
 $DIG_NAME,<device_identifier>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<device_identifier>` | TEXT, up to 24 characters | — | Name stored in the digital board EEPROM, see above. May be empty. |
+
+</details>
+
 - **Example**:
 
 ```
@@ -476,7 +526,23 @@ $DIG_NAME,OTTER
 
 ### `$ADC` — analog module identification (changed)
 - **Format**: unchanged against Version 2.
+
+```
+$ADC,<ADC_NAME>,<serial_analog_16B_hex>,<ADC_EEPROM>
+```
+
 - **Change**: `<ADC_EEPROM>` follows the same rule as `<DIG_EEPROM>`.
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<ADC_NAME>` | TEXT, up to 64 characters | — | Analog board type, e.g. `USTSIPIN03A`. |
+| `<serial_analog_16B_hex>` | HEX, exactly 32 digits | — | Analog board serial number (16 bytes). |
+| `<ADC_EEPROM>` | HEX, exactly 4 digits | — | First two bytes of the EEPROM configuration record, see `$DIG`. |
+
+</details>
 
 ### `$ADC_NAME` — analog module name
 - **When**: once at the beginning of the file, right after `$ADC`; only if `$ADC` is present
@@ -487,10 +553,42 @@ $DIG_NAME,OTTER
 $ADC_NAME,<device_identifier>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<device_identifier>` | TEXT, up to 24 characters | — | Name stored in the analog board EEPROM. May be empty. |
+
+</details>
+
 - **Example**:
 
 ```
 $ADC_NAME,OTTER
+```
+
+### `$BATP` — battery presence (clarified)
+- **Format**: unchanged against Version 2.
+
+```
+$BATP,<present>,<battery_mV>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<present>` | `0` or `1` | — | `1` if a battery was detected at start-up, `0` otherwise. |
+| `<battery_mV>` | U32 | mV | Battery voltage measured at start-up; `0` if `<present>` is `0`. |
+
+</details>
+
+- **Example**:
+
+```
+$BATP,1,4150
 ```
 
 ### `$CHAN` — spectrum channel configuration
@@ -501,6 +599,16 @@ $ADC_NAME,OTTER
 ```
 $CHAN,<num_channels>,<num_noise_channels_default>
 ```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<num_channels>` | U32, 1–65 536 | ADC channels | Total number of ADC channels. |
+| `<num_noise_channels_default>` | U32 | ADC channels | Number of leading noise channels; lower than `<num_channels>`. |
+
+</details>
 
 - **Example**:
 
@@ -517,6 +625,16 @@ $CHAN,65536,4
 $DIODE,<si_chip_area_cm2>,<si_chip_thickness_cm>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<si_chip_area_cm2>` | DEC, > 0 | cm² | Sensitive area of the silicon chip. |
+| `<si_chip_thickness_cm>` | DEC, > 0 | cm | Depletion layer thickness. |
+
+</details>
+
 - **Example**:
 
 ```
@@ -531,6 +649,16 @@ $DIODE,0.25,0.03
 ```
 $ERNG,<energy_range_min_mev>,<energy_range_max_mev>
 ```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<energy_range_min_mev>` | DEC, > 0 | MeV | Lower bound of the energy range. May be empty. |
+| `<energy_range_max_mev>` | DEC, > 0 | MeV | Upper bound of the energy range; greater than the lower bound. May be empty. |
+
+</details>
 
 - **Example**:
 
@@ -548,6 +676,15 @@ $ERNG,0.05,
 $ITIME,<integration_period_s>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<integration_period_s>` | DEC, > 0 | s | Nominal length of one integration block; `NaN` if the block length is variable. |
+
+</details>
+
 - **Example**:
 
 ```
@@ -563,6 +700,15 @@ $ITIME,10
 $TICK,<tick_length_s>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<tick_length_s>` | DEC, > 0 | s | Length of one tick of the device timer. |
+
+</details>
+
 - **Example**:
 
 ```
@@ -577,6 +723,20 @@ $TICK,0.000128
 ```
 $CALIB,<coef0>,<coef1>[,<coef2>[,<calibration_version>]]
 ```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<coef0>` | DEC | — | Calibration coefficient 0. |
+| `<coef1>` | DEC | — | Calibration coefficient 1. |
+| `<coef2>` | DEC | — | Optional calibration coefficient 2; `0` if absent. |
+| `<calibration_version>` | TEXT, up to 64 characters | — | Optional identifier of the calibration. Present only together with `<coef2>`. |
+
+</details>
+
+How the coefficients are applied depends on the calibration methodology of the evaluating software. For an example interpretation see the DOSPORTAL [Visualization methodology](/dosportal/visualisation).
 
 - **Example**:
 
