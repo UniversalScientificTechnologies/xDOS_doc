@@ -345,6 +345,7 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified.
 - `$ENV`: the line always carries all fields, missing values are `NaN`.
 - New message `$ERROR` with a free-text description of an error detected by the device.
+- Handling of incomplete and invalid data defined.
 
 ## General rules
 
@@ -361,6 +362,14 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 The `<count>` field present in `$START`, `$STOP`, `$ENV` and `$BATT` is a single block index shared by all of them. It increases by exactly 1 per integration block; `$START` and `$STOP` of one block carry the same `<count>`. `$ENV` and `$BATT` follow the `$STOP` of a block and carry that block's `<count>`.
 
 `<count>` is not persistent: it restarts at power-up and may restart during a session. When and to which value it restarts depends on the device firmware. Apart from such a restart, consecutive blocks differ by exactly 1; any other step means that one or more blocks, and any status messages tied to them, were not recorded. `<count>` is the reliable way to confirm that no block was skipped (the actual spacing between blocks is only nominally `$ITIME`).
+
+## Incomplete and invalid data
+
+A file may end at any point, e.g. on power loss or a storage failure. Everything written up to that point is valid; readers apply the following rules and process the rest of the file normally:
+
+- A line without a line terminator is discarded.
+- A line whose fields do not match the definition of its message is discarded.
+- A block is complete only if it has both a valid `$START` and a valid `$STOP`. An incomplete block is discarded together with its `$E` lines.
 
 ## Header messages
 
@@ -624,7 +633,7 @@ $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
 
 #### `$ERROR` — error detected by the device
 - **When**: whenever the device detects an error that matters for the data; anywhere in the file, any number of times
-- **Meaning**: a human-readable description of the error, e.g. an unexpected version of the EEPROM configuration record. Readers show it to the user and do not interpret it. The text reaches to the end of the line and may contain commas.
+- **Meaning**: a human-readable description of the error. Readers show it to the user and do not interpret it; it has no effect on how the other messages of the file are interpreted. The text reaches to the end of the line and may contain commas.
 - **Note**: debug and service output stays on `#` lines; `$ERROR` is for errors the user of the data should see.
 - **Format**:
 
