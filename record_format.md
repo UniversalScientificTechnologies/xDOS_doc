@@ -18,12 +18,12 @@ The data format version is versioned independently of the detector firmware vers
 
 Starting with Version 2, each format revision is backward compatible with the previous one: a reader built for an earlier Version 2.x revision can still parse a file produced by a later one. This is achieved by construction:
 
-- A revision may append fields to the end of an existing message, but never removes, reorders, or redefines a field already defined by an earlier revision.
-- The only exception to the previous rule is a message whose format includes an explicit switch — a dedicated field that signals a changed interpretation of the fields following it. Readers must read the switch before parsing the rest of the message.
-- A revision may introduce new message types (new `$` headers), but never changes the format or meaning of an existing one.
-- Readers must ignore any message type they do not recognize, and must ignore any fields beyond those they know how to parse in a message they do recognize.
+- **[VER-01]**{: #ver-01} A revision may append fields to the end of an existing message, but never removes, reorders, or redefines a field already defined by an earlier revision.
+- **[VER-02]**{: #ver-02} The only exception to the previous rule is a message whose format includes an explicit switch — a dedicated field that signals a changed interpretation of the fields following it. Readers are expected to read the switch before parsing the rest of the message.
+- **[VER-03]**{: #ver-03} A revision may introduce new message types (new `$` headers), but never changes the format or meaning of an existing one.
+- **[VER-04]**{: #ver-04} Format versions are numbered `MAJOR.MINOR`. The guarantee holds within one major version, i.e. within the Version 2.x series (Version 2, Version 2.1, and later revisions). A new major version (e.g. 3.0) may introduce incompatible changes. Version 1 predates this policy.
 
-Format versions are numbered `MAJOR.MINOR`. The guarantee holds within one major version, i.e. within the Version 2.x series (Version 2, Version 2.1, and later revisions). A new major version (e.g. 3.0) may introduce incompatible changes. Version 1 predates this policy.
+Readers are expected to ignore any message type they do not recognize, and any fields beyond those they know how to parse in a message they do recognize.
 
 # Normative references
 
@@ -72,6 +72,11 @@ This specification is maintained in accordance with the software documentation a
 
 - **must** — mandatory.
 - **may** — permitted, not mandatory.
+- **are expected to** — intended behaviour of readers; informative, not a requirement.
+
+## Requirement identification
+
+Each requirement of the current format version carries an ID in square brackets: `[AREA-NN]` for general rules (e.g. `[FS-03]`), `[MSG-<NAME>]` for the definition of a message including its field table (e.g. `[MSG-STOP]`). The verification of each ID — method, check and expected result — is given in the [Verification matrix](#verification-matrix).
 
 ## Notation
 
@@ -86,7 +91,7 @@ Message formats throughout this document are given as a literal `$MESSAGE_NAME` 
 
 ## Data types
 
-Field types used in the message catalog. Ranges are defined with reserve for future devices; a device may use only part of a range.
+**[TYP-01]**{: #typ-01} Field types used in the message catalog. Ranges are defined with reserve for future devices; a device may use only part of a range.
 
 | Type | Range | Written as |
 |---|---|---|
@@ -372,18 +377,18 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 
 ## File Structure
 
-- **Encoding**: US-ASCII. A line consists only of printable characters `0x20`–`0x7E`; `\r` (`0x0D`) and `\n` (`0x0A`) occur only as the line terminator. Control characters, `0x7F` and bytes `0x80`–`0xFF` (including any UTF-8 sequence) do not occur.
-- **Line endings**: `\n` or `\r\n` (see [General rules](#general-rules)).
-- **Reserved characters**: `$`, `#` and `!` occur only as the first character of a line, where they identify the line type (see [General rules](#general-rules)). They do not occur anywhere else in the line.
-- **Field separator**: `,` separates fields; a field value does not contain a comma, unless the field is explicitly documented to run to the end of the line (only `<text>` in `$ERROR` does).
-- **Header and measurement block order**: the file begins with a single, uninterrupted block of header messages, then continues with an uninterrupted stream of particle and status messages for the remainder of the file. `$DIG_NAME`/`$ADC_NAME`, where present, immediately follow `$DIG`/`$ADC`. The relative order of the other header messages is otherwise not defined.
-- **Sessions**: a measurement session (device start-up to power-off) is written to one or more files. Each file belongs to exactly one session and starts with its own complete header block; header messages are not repeated within a file. A device restart always begins a new file. Whether and when a running session continues in a new file depends on the device firmware.
+- **[FS-01]**{: #fs-01} **Encoding**: US-ASCII. A line consists only of printable characters `0x20`–`0x7E`; `\r` (`0x0D`) and `\n` (`0x0A`) occur only as the line terminator. Control characters, `0x7F` and bytes `0x80`–`0xFF` (including any UTF-8 sequence) do not occur.
+- **[FS-02]**{: #fs-02} **Line endings**: `\n` or `\r\n` (see [General rules](#general-rules)).
+- **[FS-03]**{: #fs-03} **Reserved characters**: `$`, `#` and `!` occur only as the first character of a line, where they identify the line type (see [General rules](#general-rules)). They do not occur anywhere else in the line.
+- **[FS-04]**{: #fs-04} **Field separator**: `,` separates fields; a field value does not contain a comma, unless the field is explicitly documented to run to the end of the line (only `<text>` in `$ERROR` does).
+- **[FS-05]**{: #fs-05} **Header and measurement block order**: the file begins with a single, uninterrupted block of header messages, then continues with an uninterrupted stream of particle and status messages for the remainder of the file. `$DIG_NAME`/`$ADC_NAME`, where present, immediately follow `$DIG`/`$ADC`. The relative order of the other header messages is otherwise not defined.
+- **[FS-06]**{: #fs-06} **Sessions**: a measurement session (device start-up to power-off) is written to one or more files. Each file belongs to exactly one session and starts with its own complete header block; header messages are not repeated within a file. A device restart always begins a new file. Whether and when a running session continues in a new file depends on the device firmware.
 
 ## Maximum message length
 
-- A line, including its line terminator, is at most 524 288 bytes (512 KiB) long. Readers must accept lines up to this length.
-- `$STOP` carries at most 65 536 histogram fields; each histogram value is in the range 0–65 535.
-- `<text>` in `$ERROR` is at most 512 characters long.
+- **[LEN-01]**{: #len-01} A line, including its line terminator, is at most 524 288 bytes (512 KiB) long. Readers are expected to accept lines up to this length.
+- **[LEN-02]**{: #len-02} `$STOP` carries at most 65 536 histogram fields; each histogram value is in the range 0–65 535.
+- **[LEN-03]**{: #len-03} `<text>` in `$ERROR` is at most 512 characters long.
 
 ## Changes against Version 2
 
@@ -394,7 +399,7 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - `$DIG` is optional; the configuration field has a fixed width.
 - New header message `$TICK` giving the length of the device timer tick.
 - `$TIME`: classified as a status message; meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
-- `$RTCCHK`: emitted in every file; `INIT` marks an invalid (relative only) device time.
+- `$RTCCHK`: emitted in every file of a device with an RTC; `INIT` marks an invalid (relative only) device time.
 - `$START`, `$E`, `$STOP`: timer values defined; `<long_event_time>` counts from the start of the block.
 - `$E`: optional second channel value.
 - `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified.
@@ -406,23 +411,23 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 
 ## General rules
 
-- Line syntax is the same as in Version 2. Lines are terminated by `\n` or `\r\n`.
-- Lines starting with `#` are debug/service messages and are not part of the data stream.
-- Lines starting with `!` are reserved for commands sent **to** the device and never appear in the data stream.
-- Readers must ignore `$` messages they do not know. This allows new messages to be added without a new format version.
-- A known message may carry more fields than documented here if a later revision appended new ones; readers must ignore trailing fields they do not recognize (see [Versioning and compatibility](#versioning-and-compatibility)).
-- A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the whole message is omitted.
-- Header messages are emitted once at the beginning of every file. `$DATAFORMAT` and `$DOS` are mandatory, all other header messages are optional.
+- **[GEN-01]**{: #gen-01} Line syntax is the same as in Version 2. Lines are terminated by `\n` or `\r\n`.
+- **[GEN-02]**{: #gen-02} Lines starting with `#` are debug/service messages and are not part of the data stream.
+- **[GEN-03]**{: #gen-03} Lines starting with `!` are reserved for commands sent **to** the device and never appear in the data stream.
+- Readers are expected to ignore `$` messages they do not know. This allows new messages to be added without a new format version.
+- A known message may carry more fields than documented here if a later revision appended new ones; readers are expected to ignore trailing fields they do not recognize (see [Versioning and compatibility](#versioning-and-compatibility)).
+- **[GEN-04]**{: #gen-04} A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the whole message is omitted.
+- **[GEN-05]**{: #gen-05} Header messages are emitted once at the beginning of every file. `$DATAFORMAT` and `$DOS` are mandatory, all other header messages are optional.
 
 ## Block continuity
 
-The `<count>` field present in `$START`, `$STOP`, `$ENV` and `$BATT` is a single block index shared by all of them. It increases by exactly 1 per integration block; `$START` and `$STOP` of one block carry the same `<count>`. `$ENV` and `$BATT` follow the `$STOP` of a block and carry that block's `<count>`.
+**[BLK-01]**{: #blk-01} The `<count>` field present in `$START`, `$STOP`, `$ENV` and `$BATT` is a single block index shared by all of them. It increases by exactly 1 per integration block; `$START` and `$STOP` of one block carry the same `<count>`. `$ENV` and `$BATT` follow the `$STOP` of a block and carry that block's `<count>`.
 
-`<count>` is not persistent: it restarts at power-up and may restart during a session. When and to which value it restarts depends on the device firmware. Apart from such a restart, consecutive blocks differ by exactly 1; any other step means that one or more blocks, and any status messages tied to them, were not recorded. `<count>` is the reliable way to confirm that no block was skipped (the actual spacing between blocks is only nominally `$ITIME`).
+**[BLK-02]**{: #blk-02} `<count>` is not persistent: it restarts at power-up and may restart during a session. When and to which value it restarts depends on the device firmware. Apart from such a restart, consecutive blocks differ by exactly 1; any other step means that one or more blocks, and any status messages tied to them, were not recorded. `<count>` is the reliable way to confirm that no block was skipped (the actual spacing between blocks is only nominally `$ITIME`).
 
 ## Incomplete and invalid data
 
-A file may end at any point, e.g. on power loss or a storage failure. Everything written up to that point is valid; readers apply the following rules and process the rest of the file normally:
+A file may end at any point, e.g. on power loss or a storage failure. Everything written up to that point is valid; readers are expected to apply the following rules and process the rest of the file normally:
 
 - A line without a line terminator is discarded.
 - A line whose fields do not match the definition of its message is discarded.
@@ -430,7 +435,7 @@ A file may end at any point, e.g. on power loss or a storage failure. Everything
 
 ## Header messages
 
-### `$DATAFORMAT` — data format name
+### `$DATAFORMAT` — data format name [MSG-DATAFORMAT] {#msg-dataformat}
 - **When**: once at the beginning of the file
 - **Meaning**: names the data format of the file explicitly, so a reader can select the matching parser without inferring it from the other header lines.
 - **Format**:
@@ -454,7 +459,7 @@ $DATAFORMAT,<format_name>
 $DATAFORMAT,VERSION_2.1
 ```
 
-### `$DOS` — device identification (changed)
+### `$DOS` — device identification (changed) [MSG-DOS] {#msg-dos}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -479,7 +484,7 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
 
 - **Note**: the device is identified by its analog (detector) board: `<TYPE>` and `<serial_16B_hex>` both come from the analog board if the device has one, otherwise from its only board. Replacing other boards (e.g. the digital board of AIRDOS04) does not change the device identity.
 
-### `$DIG` — digital module identification (changed)
+### `$DIG` — digital module identification (changed) [MSG-DIG] {#msg-dig}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -500,7 +505,7 @@ $DIG,<DIGTYPE>,<serial_digital_16B_hex>,<DIG_EEPROM>
 
 </details>
 
-### `$DIG_NAME` — digital module name
+### `$DIG_NAME` — digital module name [MSG-DIG_NAME] {#msg-dig-name}
 - **When**: once at the beginning of the file, right after `$DIG`; only if `$DIG` is present
 - **Meaning**: the human-readable identifier stored in the configuration record of the digital board EEPROM (`device_identifier`, typically the name printed on the device enclosure). Up to 24 printable ASCII characters, none of `,` `$` `#` `!`. Empty if no record is stored.
 - **Format**:
@@ -524,7 +529,7 @@ $DIG_NAME,<device_identifier>
 $DIG_NAME,OTTER
 ```
 
-### `$ADC` — analog module identification (changed)
+### `$ADC` — analog module identification (changed) [MSG-ADC] {#msg-adc}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -544,7 +549,7 @@ $ADC,<ADC_NAME>,<serial_analog_16B_hex>,<ADC_EEPROM>
 
 </details>
 
-### `$ADC_NAME` — analog module name
+### `$ADC_NAME` — analog module name [MSG-ADC_NAME] {#msg-adc-name}
 - **When**: once at the beginning of the file, right after `$ADC`; only if `$ADC` is present
 - **Meaning**: the same as `$DIG_NAME`, taken from the analog board EEPROM.
 - **Format**:
@@ -568,7 +573,7 @@ $ADC_NAME,<device_identifier>
 $ADC_NAME,OTTER
 ```
 
-### `$BATP` — battery presence (clarified)
+### `$BATP` — battery presence (clarified) [MSG-BATP] {#msg-batp}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -591,7 +596,7 @@ $BATP,<present>,<battery_mV>
 $BATP,1,4150
 ```
 
-### `$CHAN` — spectrum channel configuration
+### `$CHAN` — spectrum channel configuration [MSG-CHAN] {#msg-chan}
 - **When**: once at the beginning of the file
 - **Meaning**: the total number of ADC channels (the channel range of both the `$STOP` histogram and the `$E` events — **not** the length of the `$STOP` histogram) and the default number of leading channels that contain noise and are excluded from the evaluation.
 - **Format**:
@@ -616,7 +621,7 @@ $CHAN,<num_channels>,<num_noise_channels_default>
 $CHAN,65536,4
 ```
 
-### `$DIODE` — silicon chip geometry
+### `$DIODE` — silicon chip geometry [MSG-DIODE] {#msg-diode}
 - **When**: once at the beginning of the file
 - **Meaning**: the sensitive area of the silicon chip (cm²) and the depletion layer thickness (cm).
 - **Format**:
@@ -641,7 +646,7 @@ $DIODE,<si_chip_area_cm2>,<si_chip_thickness_cm>
 $DIODE,0.25,0.03
 ```
 
-### `$ERNG` — energy range
+### `$ERNG` — energy range [MSG-ERNG] {#msg-erng}
 - **When**: once at the beginning of the file
 - **Meaning**: the lower and upper bound of the deposited energy range the detector measures (MeV). Either bound may be left empty if it is not known.
 - **Format**:
@@ -667,7 +672,7 @@ $ERNG,0.05,20
 $ERNG,0.05,
 ```
 
-### `$ITIME` — integration period
+### `$ITIME` — integration period [MSG-ITIME] {#msg-itime}
 - **When**: once at the beginning of the file
 - **Meaning**: the nominal length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks. NaN when integration block has variable length
 - **Format**:
@@ -691,7 +696,7 @@ $ITIME,<integration_period_s>
 $ITIME,10
 ```
 
-### `$TICK` — timer tick length
+### `$TICK` — timer tick length [MSG-TICK] {#msg-tick}
 - **When**: once at the beginning of the file; optional
 - **Meaning**: the length of one tick of the device timer (seconds). Applies to `<event_time_0>` in `$START`, `<long_event_time>` in `$E` and `<systime>` in `$STOP`.
 - **Format**:
@@ -715,7 +720,7 @@ $TICK,<tick_length_s>
 $TICK,0.000128
 ```
 
-### `$CALIB` — energy calibration
+### `$CALIB` — energy calibration [MSG-CALIB] {#msg-calib}
 - **When**: once at the beginning of the file
 - **Meaning**: the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`. `calibration_version` is an optional identifier of the calibration (a version number, calibration type or the Unix time of the calibration); it may only be present together with `coef2`.
 - **Format**:
@@ -747,7 +752,7 @@ $CALIB,0.01,0.002,0.0,1789689600
 
 ## Particle messages (integration block)
 
-### `$START` — start of integration block (clarified)
+### `$START` — start of integration block (clarified) [MSG-START] {#msg-start}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -770,7 +775,7 @@ $START,<count>,<event_time_0>
 $START,179,31012
 ```
 
-### `$E` — single above-threshold event (changed)
+### `$E` — single above-threshold event (changed) [MSG-E] {#msg-e}
 - **Format**:
 
 ```
@@ -797,7 +802,7 @@ $E,<long_event_time>,<event_channel>[,<event_channel_2>]
 $E,2514,170,108
 ```
 
-### `$STOP` — end of integration block (clarified)
+### `$STOP` — end of integration block (clarified) [MSG-STOP] {#msg-stop}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -826,7 +831,7 @@ $STOP,179,1789729204.0,31359,427,19373,11,24,7
 
 ## Status messages
 
-### `$TIME` — time and synchronization info (changed)
+### `$TIME` — time and synchronization info (changed) [MSG-TIME] {#msg-time}
 - **When**: at any position in the file, any number of times (e.g. after the clock is (re)synchronized).
 - **Change**: classified as a status message; in Version 2 it was listed among the header messages.
 - **Format**: unchanged against Version 2.
@@ -870,14 +875,14 @@ $TIME,1234567,1708862400,1710096967,600,2024-03-10 18:56:07
 $TIME,946685100,0,946685100,,2000-01-01 00:05:00
 ```
 
-### `$RTCCHK` — RTC check / initialization status (clarified)
+### `$RTCCHK` — RTC check / initialization status (clarified) [MSG-RTCCHK] {#msg-rtcchk}
 - **Format**: unchanged against Version 2.
 
 ```
 $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 ```
 
-- **Change**: emitted at the beginning of every file, so each file states whether its time is valid.
+- **Change**: emitted at the beginning of every file if the device has an RTC, so each file states whether its time is valid.
 - **Note**: the meaning of the state is generalized to both RTC modes:
   - `INIT` — the RTC does not continue from a known time reference: it was reset by the firmware (stopwatch-mode devices) or it lost power and counts from its default value (calendar-mode devices). All time stamps in the file are relative only (see `$TIME`).
   - `OK` — the RTC continues from a known reference: for calendar-mode devices the RTC itself holds the absolute time; for stopwatch-mode devices the reference is the synchronization record reported in `$TIME`.
@@ -899,7 +904,7 @@ $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 $RTCCHK,946684802.0,INIT,reg07=0x00,reg28=0x00
 ```
 
-### `$ENV` — environmental sensors (changed)
+### `$ENV` — environmental sensors (changed) [MSG-ENV] {#msg-env}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -931,7 +936,7 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
 ```
 
-### `$BATT` — battery status (clarified)
+### `$BATT` — battery status (clarified) [MSG-BATT] {#msg-batt}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -960,7 +965,7 @@ $BATT,<count>,<tm>.<tm_s100>,<voltage_mV>,<current_mA>,<remaining_mAh>,<full_cha
 $BATT,180,1789729214.0,4150,-120,1800,2000,25.3
 ```
 
-### `$ERROR` — error detected by the device
+### `$ERROR` — error detected by the device [MSG-ERROR] {#msg-error}
 - **When**: whenever the device detects an error that matters for the data; anywhere in the file, any number of times
 - **Meaning**: a human-readable description of the error. Readers show it to the user and do not interpret it; it has no effect on how the other messages of the file are interpreted. The text reaches to the end of the line and may contain commas.
 - **Note**: debug and service output stays on `#` lines; `$ERROR` is for errors the user of the data should see.
@@ -984,3 +989,63 @@ $ERROR,<text>
 ```
 $ERROR,EEPROM record version 1, firmware expects 2 - measurement metadata not available
 ```
+
+## Verification matrix
+
+Verification of each requirement of this version. Methods: **T** — test of the firmware output by [ust-format-checker](https://pypi.org/project/ust-format-checker/) (the check or finding code is given; expected result: no finding of level error), **R** — review. The checker report attached to each firmware release records the result.
+
+
+### General rules 
+
+| ID | Method | Verification | Status |
+|---|---|---|---|
+| [VER-01](#ver-01) | T | `MISSING_FIELDS`, `FIELD_TYPE` (removed or reordered field); `EXTRA_FIELDS` (field appended) | yes |
+| [VER-02](#ver-02) | R | Review of the format change: the switch precedes the fields whose interpretation it changes | yes |
+| [VER-03](#ver-03) | T | `UNKNOWN_PREFIX` (new message); `MSG-*` checks (existing messages unchanged) | yes |
+| [VER-04](#ver-04) | R | Review of `$DATAFORMAT` value and specification version | yes |
+| [TYP-01](#typ-01) | T | `FIELD_TYPE`, `FIELD_MIN`, `FIELD_MAX` | partial — U16/U32 bounds, lowercase HEX and DEC length not checked |
+| [FS-01](#fs-01) | T | Characters outside `0x20`–`0x7E` | missing |
+| [FS-02](#fs-02) | T | Line terminator `\n` / `\r\n` | missing |
+| [FS-03](#fs-03) | T | `COMMAND_IN_DATA` (`!` at line start) | partial — `$`, `#`, `!` inside a line not checked |
+| [FS-04](#fs-04) | T | `MISSING_FIELDS`, `EXTRA_FIELDS`; `$ERROR` split only up to its last field | yes |
+| [FS-05](#fs-05) | T | `HEADER_AFTER_DATA`, `NAME_WITHOUT_BOARD` | partial — reported as warning; position of `$DIG_NAME`/`$ADC_NAME` right after `$DIG`/`$ADC` not checked |
+| [FS-06](#fs-06) | R | Review of file rotation in the firmware | missing |
+| [LEN-01](#len-01) | T | Line length ≤ 524 288 bytes | missing |
+| [LEN-02](#len-02) | T | `HISTOGRAM_OVER_CHANNELS`, `FIELD_TYPE` on histogram values | partial — 65 536 fields and values ≤ 65 535 not checked |
+| [LEN-03](#len-03) | T | `<text>` in `$ERROR` ≤ 512 characters | missing |
+| [GEN-01](#gen-01) | T | See FS-02 | missing |
+| [GEN-02](#gen-02) | T | `#` lines are not evaluated | yes |
+| [GEN-03](#gen-03) | T | `COMMAND_IN_DATA` | yes |
+| [GEN-04](#gen-04) | T | `FIELD_TYPE` (`NaN` in an integer field) | partial — `nan`/`inf` instead of `NaN` not checked |
+| [GEN-05](#gen-05) | T | `REQUIRED_MESSAGE_MISSING`, `HEADER_AFTER_DATA` | partial — repeated header not checked |
+| [BLK-01](#blk-01) | T | `STOP_COUNT_JUMP` | partial — equal `<count>` in `$START`/`$STOP` and in `$ENV`/`$BATT` not checked |
+| [BLK-02](#blk-02) | T | `STOP_COUNT_JUMP` | yes |
+
+
+### Messages
+
+All messages are verified by method T with the checks of the message schema (field count, types, ranges and message-specific rules).
+
+| ID | Status |
+|---|---|
+| [MSG-DATAFORMAT](#msg-dataformat) | partial — value `VERSION_2.1` and length ≤ 64 not checked |
+| [MSG-DOS](#msg-dos) | partial — serial number reported only as info; TEXT length ≤ 64 not checked |
+| [MSG-DIG](#msg-dig) | partial — TEXT length ≤ 64 not checked |
+| [MSG-DIG_NAME](#msg-dig-name) | yes |
+| [MSG-ADC](#msg-adc) | partial — TEXT length ≤ 64 not checked |
+| [MSG-ADC_NAME](#msg-adc-name) | yes |
+| [MSG-BATP](#msg-batp) | partial — checker limits `<battery_mV>` to 65 535 instead of U32 |
+| [MSG-CHAN](#msg-chan) | partial — upper bound 65 536 not checked |
+| [MSG-DIODE](#msg-diode) | yes |
+| [MSG-ERNG](#msg-erng) | yes |
+| [MSG-ITIME](#msg-itime) | yes |
+| [MSG-TICK](#msg-tick) | yes |
+| [MSG-CALIB](#msg-calib) | partial — `<calibration_version>` length ≤ 64 not checked |
+| [MSG-START](#msg-start) | yes |
+| [MSG-E](#msg-e) | yes |
+| [MSG-STOP](#msg-stop) | yes |
+| [MSG-TIME](#msg-time) | yes |
+| [MSG-RTCCHK](#msg-rtcchk) | partial — presence at the beginning of the file not checked |
+| [MSG-ENV](#msg-env) | yes |
+| [MSG-BATT](#msg-batt) | yes |
+| [MSG-ERROR](#msg-error) | partial — length ≤ 512 characters not checked |
