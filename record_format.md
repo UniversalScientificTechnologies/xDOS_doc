@@ -995,7 +995,7 @@ $ERROR,EEPROM record version 1, firmware expects 2 - measurement metadata not av
 Verification of each requirement of this version. Methods: **T** — test of the firmware output by [ust-format-checker](https://pypi.org/project/ust-format-checker/) (the check or finding code is given; expected result: no finding of level error), **R** — review. The checker report attached to each firmware release records the result.
 
 
-### General rules 
+### General rules
 
 | ID | Method | Verification | Status |
 |---|---|---|---|
@@ -1003,24 +1003,23 @@ Verification of each requirement of this version. Methods: **T** — test of the
 | [VER-02](#ver-02) | R | Review of the format change: the switch precedes the fields whose interpretation it changes | yes |
 | [VER-03](#ver-03) | T | `UNKNOWN_PREFIX` (new message); `MSG-*` checks (existing messages unchanged) | yes |
 | [VER-04](#ver-04) | R | Review of `$DATAFORMAT` value and specification version | yes |
-| [TYP-01](#typ-01) | T | `FIELD_TYPE`, `FIELD_MIN`, `FIELD_MAX` | partial — U16/U32 bounds, lowercase HEX and DEC length not checked |
-| [FS-01](#fs-01) | T | Characters outside `0x20`–`0x7E` | missing |
-| [FS-02](#fs-02) | T | Line terminator `\n` / `\r\n` | missing |
-| [FS-03](#fs-03) | T | `COMMAND_IN_DATA` (`!` at line start) | partial — `$`, `#`, `!` inside a line not checked |
+| [TYP-01](#typ-01) | T | `FIELD_TYPE` (U16/U32/I32 bounds, no sign or leading zeros, DEC syntax and length, lowercase HEX, TEXT length), `FIELD_MIN`, `FIELD_MAX` | yes |
+| [FS-01](#fs-01) | T | `FORBIDDEN_BYTE` (characters outside `0x20`–`0x7E`) | yes |
+| [FS-02](#fs-02) | T | `LINE_TERMINATOR` (`\r` outside `\r\n`); `UNTERMINATED_LINE` (info, last line without terminator) | yes |
+| [FS-03](#fs-03) | T | `COMMAND_IN_DATA` (`!` at line start), `RESERVED_CHARACTER` (`$`, `#`, `!` inside a line) | yes |
 | [FS-04](#fs-04) | T | `MISSING_FIELDS`, `EXTRA_FIELDS`; `$ERROR` split only up to its last field | yes |
-| [FS-05](#fs-05) | T | `HEADER_AFTER_DATA`, `NAME_WITHOUT_BOARD` | partial — reported as warning; position of `$DIG_NAME`/`$ADC_NAME` right after `$DIG`/`$ADC` not checked |
+| [FS-05](#fs-05) | T | `HEADER_AFTER_DATA`, `NAME_WITHOUT_BOARD`, `NAME_NOT_AFTER_BOARD` | yes |
 | [FS-06](#fs-06) | R | Review of file rotation in the firmware | missing |
-| [LEN-01](#len-01) | T | Line length ≤ 524 288 bytes | missing |
-| [LEN-02](#len-02) | T | `HISTOGRAM_OVER_CHANNELS`, `FIELD_TYPE` on histogram values | partial — 65 536 fields and values ≤ 65 535 not checked |
-| [LEN-03](#len-03) | T | `<text>` in `$ERROR` ≤ 512 characters | missing |
-| [GEN-01](#gen-01) | T | See FS-02 | missing |
-| [GEN-02](#gen-02) | T | `#` lines are not evaluated | yes |
+| [LEN-01](#len-01) | T | `LINE_TOO_LONG` (line with terminator ≤ 524 288 bytes) | yes |
+| [LEN-02](#len-02) | T | `HISTOGRAM_TOO_LONG`, `HISTOGRAM_OVER_CHANNELS`, `FIELD_TYPE` on histogram values | yes |
+| [LEN-03](#len-03) | T | `FIELD_TYPE` (`<text>` in `$ERROR` ≤ 512 characters) | yes |
+| [GEN-01](#gen-01) | T | See FS-02 | yes |
+| [GEN-02](#gen-02) | T | `#` lines are not evaluated; `DEBUG_LINES` (info) notes them | yes |
 | [GEN-03](#gen-03) | T | `COMMAND_IN_DATA` | yes |
-| [GEN-04](#gen-04) | T | `FIELD_TYPE` (`NaN` in an integer field) | partial — `nan`/`inf` instead of `NaN` not checked |
-| [GEN-05](#gen-05) | T | `REQUIRED_MESSAGE_MISSING`, `HEADER_AFTER_DATA` | partial — repeated header not checked |
-| [BLK-01](#blk-01) | T | `STOP_COUNT_JUMP` | partial — equal `<count>` in `$START`/`$STOP` and in `$ENV`/`$BATT` not checked |
+| [GEN-04](#gen-04) | T | `FIELD_TYPE` (`NaN` in an integer field; `nan`, `inf` instead of `NaN`) | yes |
+| [GEN-05](#gen-05) | T | `REQUIRED_MESSAGE_MISSING`, `HEADER_AFTER_DATA`, `HEADER_REPEATED` | yes |
+| [BLK-01](#blk-01) | T | `STOP_COUNT_JUMP`, `BLOCK_COUNT_MISMATCH`, `STATUS_COUNT_MISMATCH` | yes |
 | [BLK-02](#blk-02) | T | `STOP_COUNT_JUMP` | yes |
-
 
 ### Messages
 
@@ -1028,24 +1027,24 @@ All messages are verified by method T with the checks of the message schema (fie
 
 | ID | Status |
 |---|---|
-| [MSG-DATAFORMAT](#msg-dataformat) | partial — value `VERSION_2.1` and length ≤ 64 not checked |
-| [MSG-DOS](#msg-dos) | partial — serial number reported only as info; TEXT length ≤ 64 not checked |
-| [MSG-DIG](#msg-dig) | partial — TEXT length ≤ 64 not checked |
+| [MSG-DATAFORMAT](#msg-dataformat) | yes |
+| [MSG-DOS](#msg-dos) | yes |
+| [MSG-DIG](#msg-dig) | yes |
 | [MSG-DIG_NAME](#msg-dig-name) | yes |
-| [MSG-ADC](#msg-adc) | partial — TEXT length ≤ 64 not checked |
+| [MSG-ADC](#msg-adc) | yes |
 | [MSG-ADC_NAME](#msg-adc-name) | yes |
-| [MSG-BATP](#msg-batp) | partial — checker limits `<battery_mV>` to 65 535 instead of U32 |
-| [MSG-CHAN](#msg-chan) | partial — upper bound 65 536 not checked |
+| [MSG-BATP](#msg-batp) | yes |
+| [MSG-CHAN](#msg-chan) | yes |
 | [MSG-DIODE](#msg-diode) | yes |
 | [MSG-ERNG](#msg-erng) | yes |
 | [MSG-ITIME](#msg-itime) | yes |
 | [MSG-TICK](#msg-tick) | yes |
-| [MSG-CALIB](#msg-calib) | partial — `<calibration_version>` length ≤ 64 not checked |
+| [MSG-CALIB](#msg-calib) | yes |
 | [MSG-START](#msg-start) | yes |
 | [MSG-E](#msg-e) | yes |
 | [MSG-STOP](#msg-stop) | yes |
 | [MSG-TIME](#msg-time) | yes |
-| [MSG-RTCCHK](#msg-rtcchk) | partial — presence at the beginning of the file not checked |
+| [MSG-RTCCHK](#msg-rtcchk) | yes |
 | [MSG-ENV](#msg-env) | yes |
 | [MSG-BATT](#msg-batt) | yes |
-| [MSG-ERROR](#msg-error) | partial — length ≤ 512 characters not checked |
+| [MSG-ERROR](#msg-error) | yes |
