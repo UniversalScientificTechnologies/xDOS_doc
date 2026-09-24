@@ -184,7 +184,7 @@ The v2 stream can be viewed as three groups:
 
 ## Header messages
 
-#### `$DOS` — device identification
+### `$DOS` — device identification
 - **When**: once at the beginning of the file (startup header)
 - **Meaning**: identifies device type (`AIRDOS04C`), firmware/build info and Git hash, and the analog board serial number.
 - **Format**:
@@ -199,7 +199,7 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_analog_16B_hex>
 $DOS,AIRDOS04C,2.0.0-0-User,0,a3e23b543a4de5dc3d057462bb6109bf3db0b44b,User,0910410874100851c40ba080a08000b3
 ```
 
-#### `$DIG` — digital module identification
+### `$DIG` — digital module identification
 - **When**: once at the beginning of the file
 - **Meaning**: identifies the digital board (`BATDATUNIT01B`), its serial number and configuration bytes.
 - **Format**:
@@ -214,7 +214,7 @@ $DIG,<DIGTYPE>,<serial_digital_16B_hex>,<DIG_EEPROM>
 $DIG,BATDATUNIT01B,09104108741008520c0ca080a080005e,ffff
 ```
 
-#### `$ADC` — analog module identification
+### `$ADC` — analog module identification
 - **When**: once at the beginning of the file
 - **Meaning**: identifies the analog front-end board (`USTSIPIN03A`), its serial number and ADC configuration bytes.
 - **Format**:
@@ -229,7 +229,7 @@ $ADC,<ADC_NAME>,<serial_analog_16B_hex>,<ADC_EEPROM>
 $ADC,USTSIPIN03A,0910410874100851c40ba080a08000b3,ffff
 ```
 
-#### `$BATP` — battery presence
+### `$BATP` — battery presence
 - **When**: once at the beginning of the file
 - **Meaning**: reports whether a battery was detected at startup and the measured battery voltage (mV).
 - **Format**:
@@ -244,7 +244,7 @@ $BATP,<present>,<battery_mV>
 $BATP,1,4150
 ```
 
-#### `$TIME` — time and synchronization info
+### `$TIME` — time and synchronization info
 - **When**: potentially multiple times per file; its position within the file is not guaranteed to be at the beginning.
 - **Meaning**: provides RTC seconds, last synchronization time stored in EEPROM, computed current Unix time, sync age, and human-readable UTC timestamp.
 - **Format**:
@@ -262,7 +262,7 @@ $TIME,1234567,1708862400,1708863634,0,2025-02-25 14:30:34
 
 ## Particle messages (integration block)
 
-#### `$START` — start of integration block
+### `$START` — start of integration block
 - **When**: every integration period (nominally every 10 s)
 - **Meaning**: marks start of a measurement block (integration window) and provides the reference system timer value.
 - **Format**:
@@ -277,7 +277,7 @@ $START,<count>,<event_time_0>
 $START,0,1
 ```
 
-#### `$E` — single above-threshold event
+### `$E` — single above-threshold event
 - **When**: zero or more times within an integration block
 - **Meaning**: one line per event above threshold, with event time (in ticks) and the raw ADC value (used to classify the event).
 - **Format**:
@@ -292,7 +292,7 @@ $E,<long_event_time>,<event_channel>
 $E,488,24
 ```
 
-#### `$STOP` — end of integration block
+### `$STOP` — end of integration block
 - **When**: every integration period, after the block’s `$E` lines
 - **Meaning**: closes the measurement block and reports end time, total number of above-threshold events, and the histogram counters for energy channels.
 - **Format**:
@@ -311,7 +311,7 @@ $STOP,179,4275399681.0,31359,427,19373,11,24,7
 
 ## Status messages
 
-#### `$RTCCHK` — RTC check / initialization status
+### `$RTCCHK` — RTC check / initialization status
 - **When**: on RTC check / (re)initialization (typically at startup or when needed)
 - **Meaning**: records whether RTC settings were OK or had to be initialized, including selected RTC register values.
 - **Format**:
@@ -326,7 +326,7 @@ $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 $RTCCHK,1234567.50,OK,reg07=0x00,reg28=0x97
 ```
 
-#### `$ENV` — environmental sensors
+### `$ENV` — environmental sensors
 - **When**: periodically (every ~5 minutes)
 - **Meaning**: temperatures and humidities from two sensors plus temperature and pressure from a pressure sensor.
 - **Format**:
@@ -341,7 +341,7 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 $ENV,179,4275399683.0,29.1,44.0,27.5,45.5,29.31,989.05
 ```
 
-#### `$BATT` — battery status
+### `$BATT` — battery status
 - **When**: periodically (every ~30 minutes)
 - **Meaning**: battery voltage/current/capacity/temperature values from the fuel gauge.
 - **Format**:
@@ -429,7 +429,7 @@ A file may end at any point, e.g. on power loss or a storage failure. Everything
 
 ## Header messages
 
-#### `$DATAFORMAT` — data format name
+### `$DATAFORMAT` — data format name
 - **When**: once at the beginning of the file
 - **Meaning**: names the data format of the file explicitly, so a reader can select the matching parser without inferring it from the other header lines.
 - **Format**:
@@ -444,7 +444,7 @@ $DATAFORMAT,<format_name>
 $DATAFORMAT,VERSION_2.1
 ```
 
-#### `$DOS` — device identification (changed)
+### `$DOS` — device identification (changed)
 - **Format**: unchanged against Version 2.
 
 ```
@@ -454,12 +454,12 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
 - **Change**: the 4th field is reserved. Devices write `0`, readers ignore its value.
 - **Note**: the device is identified by its analog (detector) board: `<TYPE>` and `<serial_16B_hex>` both come from the analog board if the device has one, otherwise from its only board. Replacing other boards (e.g. the digital board of AIRDOS04) does not change the device identity.
 
-#### `$DIG` — digital module identification (changed)
+### `$DIG` — digital module identification (changed)
 - **Format**: unchanged against Version 2.
 - **Change**: optional. Present only if the device has a separate digital board with its own identification.
 - **Change**: `<DIG_EEPROM>` is always 4 hex digits — the first two bytes of the configuration record stored in the board EEPROM, in stored order. `ffff` means that no record is stored.
 
-#### `$DIG_NAME` — digital module name
+### `$DIG_NAME` — digital module name
 - **When**: once at the beginning of the file, right after `$DIG`; only if `$DIG` is present
 - **Meaning**: the human-readable identifier stored in the configuration record of the digital board EEPROM (`device_identifier`, typically the name printed on the device enclosure). Up to 24 printable ASCII characters, none of `,` `$` `#` `!`. Empty if no record is stored.
 - **Format**:
@@ -474,11 +474,11 @@ $DIG_NAME,<device_identifier>
 $DIG_NAME,OTTER
 ```
 
-#### `$ADC` — analog module identification (changed)
+### `$ADC` — analog module identification (changed)
 - **Format**: unchanged against Version 2.
 - **Change**: `<ADC_EEPROM>` follows the same rule as `<DIG_EEPROM>`.
 
-#### `$ADC_NAME` — analog module name
+### `$ADC_NAME` — analog module name
 - **When**: once at the beginning of the file, right after `$ADC`; only if `$ADC` is present
 - **Meaning**: the same as `$DIG_NAME`, taken from the analog board EEPROM.
 - **Format**:
@@ -493,7 +493,7 @@ $ADC_NAME,<device_identifier>
 $ADC_NAME,OTTER
 ```
 
-#### `$CHAN` — spectrum channel configuration
+### `$CHAN` — spectrum channel configuration
 - **When**: once at the beginning of the file
 - **Meaning**: the total number of ADC channels (the channel range of both the `$STOP` histogram and the `$E` events — **not** the length of the `$STOP` histogram) and the default number of leading channels that contain noise and are excluded from the evaluation.
 - **Format**:
@@ -508,7 +508,7 @@ $CHAN,<num_channels>,<num_noise_channels_default>
 $CHAN,65536,4
 ```
 
-#### `$DIODE` — silicon chip geometry
+### `$DIODE` — silicon chip geometry
 - **When**: once at the beginning of the file
 - **Meaning**: the sensitive area of the silicon chip (cm²) and the depletion layer thickness (cm).
 - **Format**:
@@ -523,7 +523,7 @@ $DIODE,<si_chip_area_cm2>,<si_chip_thickness_cm>
 $DIODE,0.25,0.03
 ```
 
-#### `$ERNG` — energy range
+### `$ERNG` — energy range
 - **When**: once at the beginning of the file
 - **Meaning**: the lower and upper bound of the deposited energy range the detector measures (MeV). Either bound may be left empty if it is not known.
 - **Format**:
@@ -539,7 +539,7 @@ $ERNG,0.05,20
 $ERNG,0.05,
 ```
 
-#### `$ITIME` — integration period
+### `$ITIME` — integration period
 - **When**: once at the beginning of the file
 - **Meaning**: the nominal length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks. NaN when integration block has variable length
 - **Format**:
@@ -554,7 +554,7 @@ $ITIME,<integration_period_s>
 $ITIME,10
 ```
 
-#### `$TICK` — timer tick length
+### `$TICK` — timer tick length
 - **When**: once at the beginning of the file; optional
 - **Meaning**: the length of one tick of the device timer (seconds). Applies to `<event_time_0>` in `$START`, `<long_event_time>` in `$E` and `<systime>` in `$STOP`.
 - **Format**:
@@ -569,7 +569,7 @@ $TICK,<tick_length_s>
 $TICK,0.000128
 ```
 
-#### `$CALIB` — energy calibration
+### `$CALIB` — energy calibration
 - **When**: once at the beginning of the file
 - **Meaning**: the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`. `calibration_version` is an optional identifier of the calibration (a version number, calibration type or the Unix time of the calibration); it may only be present together with `coef2`.
 - **Format**:
@@ -587,7 +587,7 @@ $CALIB,0.01,0.002,0.0,1789689600
 
 ## Particle messages (integration block)
 
-#### `$START` — start of integration block (clarified)
+### `$START` — start of integration block (clarified)
 - **Format**: unchanged against Version 2.
 
 ```
@@ -610,7 +610,7 @@ $START,<count>,<event_time_0>
 $START,179,31012
 ```
 
-#### `$E` — single above-threshold event (changed)
+### `$E` — single above-threshold event (changed)
 - **Format**:
 
 ```
@@ -637,7 +637,7 @@ $E,<long_event_time>,<event_channel>[,<event_channel_2>]
 $E,2514,170,108
 ```
 
-#### `$STOP` — end of integration block (clarified)
+### `$STOP` — end of integration block (clarified)
 - **Format**: unchanged against Version 2.
 
 ```
@@ -681,9 +681,9 @@ $TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-D
 | Field | Type | Unit | Description |
 |---|---|---|---|
 | `<rtc_seconds>` | U32 | s | The device RTC counter. |
-| `<eeprom_sync_time>` | U32 | s (Unix time) | The reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the device RTC counter was `0`. It is **not** the moment of the last synchronization. |
+| `<eeprom_sync_time>` | U32 | s (Unix time) | The reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the device RTC counter was `0`. |
 | `<current_unix_time>` | U32 | s (Unix time) | `<eeprom_sync_time>` + `<rtc_seconds>`. |
-| `<sync_age>` | U32 | s | Seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record (none stored, or the RTC lost its time since). |
+| `<sync_age>` | U32 | s | Seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record. |
 | `<YYYY-MM-DD HH:MM:SS>` | TEXT | — | `<current_unix_time>` as a UTC date and time; exactly 19 characters, fields zero-padded (see ISO 8601 in [Normative references](#normative-references)). |
 
 </details>
@@ -710,7 +710,7 @@ $TIME,1234567,1708862400,1710096967,600,2024-03-10 18:56:07
 $TIME,946685100,0,946685100,,2000-01-01 00:05:00
 ```
 
-#### `$RTCCHK` — RTC check / initialization status (clarified)
+### `$RTCCHK` — RTC check / initialization status (clarified)
 - **Format**: unchanged against Version 2.
 
 ```
@@ -739,7 +739,7 @@ $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 $RTCCHK,946684802.0,INIT,reg07=0x00,reg28=0x00
 ```
 
-#### `$ENV` — environmental sensors (changed)
+### `$ENV` — environmental sensors (changed)
 - **Format**: unchanged against Version 2.
 
 ```
@@ -771,7 +771,7 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
 ```
 
-#### `$BATT` — battery status (clarified)
+### `$BATT` — battery status (clarified)
 - **Format**: unchanged against Version 2.
 
 ```
@@ -800,7 +800,7 @@ $BATT,<count>,<tm>.<tm_s100>,<voltage_mV>,<current_mA>,<remaining_mAh>,<full_cha
 $BATT,180,1789729214.0,4150,-120,1800,2000,25.3
 ```
 
-#### `$ERROR` — error detected by the device
+### `$ERROR` — error detected by the device
 - **When**: whenever the device detects an error that matters for the data; anywhere in the file, any number of times
 - **Meaning**: a human-readable description of the error. Readers show it to the user and do not interpret it; it has no effect on how the other messages of the file are interpreted. The text reaches to the end of the line and may contain commas.
 - **Note**: debug and service output stays on `#` lines; `$ERROR` is for errors the user of the data should see.
