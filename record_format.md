@@ -7,13 +7,118 @@ permalink: /xdos_format
 
 # UST Detectors Output Format
 
-This document describes the output file format for the AIRDOS and LABDOS series of particle detectors. The file is formatted in plain text, which not only facilitates easy readability by humans but also allows for quick and efficient machine parsing. This format is particularly designed to accommodate multiple logs (detector cycles) within a single file, enabling these logs to be segmented into individual logs for detailed analysis. The current version of this file format is actively in use.
+# Purpose
+
+This document specifies the format of the data files written by UST dosimeters (AIRDOS, LABDOS and SPACEDOS series). It is the reference both for the firmware that writes the files and for the software that reads or validates them: a file conforming to this specification can be interpreted unambiguously without further knowledge of the device. The format is plain text, readable by humans and simple to parse by machines.
 
 {: .highlight }
 The data format version is versioned independently of the detector firmware version. A firmware update does not necessarily change the output format, and a new format version may be introduced without a firmware version bump. This applies to all UST detectors.
 
+# Versioning and compatibility
+
+Starting with Version 2, each format revision is backward compatible with the previous one: a reader built for an earlier Version 2.x revision can still parse a file produced by a later one. This is achieved by construction:
+
+- **[VER-01]**{: #ver-01} A revision may append fields to the end of an existing message, but never removes, reorders, or redefines a field already defined by an earlier revision.
+- **[VER-02]**{: #ver-02} The only exception to the previous rule is a message whose format includes an explicit switch — a dedicated field that signals a changed interpretation of the fields following it. Readers are expected to read the switch before parsing the rest of the message.
+- **[VER-03]**{: #ver-03} A revision may introduce new message types (new `$` headers), but never changes the format or meaning of an existing one.
+- **[VER-04]**{: #ver-04} Format versions are numbered `MAJOR.MINOR`. The guarantee holds within one major version, i.e. within the Version 2.x series (Version 2, Version 2.1, and later revisions). A new major version (e.g. 3.0) may introduce incompatible changes. Version 1 predates this policy.
+
+Readers are expected to ignore any message type they do not recognize, and any fields beyond those they know how to parse in a message they do recognize.
+
+# Normative references
+
+The following documents are referenced by this specification; where no edition is stated, the latest edition applies.
+
+- **NMEA 0183**, *Standard for Interfacing Marine Electronic Devices* — origin of the `$`-prefixed, comma-separated line syntax used since [Version 1](#version-1).
+- **ISO 8601**, *Date and time — Representations for information interchange* — basis for the date/time notation used in the `$TIME` field. Deviations are noted in the field description: a space instead of `T` separates date and time, and no time-zone designator is written because all timestamps are UTC.
+- **POSIX.1 (IEEE Std 1003.1)** — definition of Unix time, used for `<current_unix_time>` and related fields in `$TIME`.
+- **ISO/IEC 14977**, *Information technology — Syntactic metalanguage — Extended BNF* — basis for the notation of message formats; the symbols used and their meaning are defined in [Notation](#notation).
+
+# Applicable documents
+
+This specification is maintained in accordance with the software documentation and assurance framework of:
+
+- ECSS-E-ST-40C Rev.1 (30 April 2025), *Space engineering — Software*
+- ECSS-Q-ST-80C Rev.2 (30 April 2025), *Space product assurance — Software product assurance*
+
+# Document status
+
+The document is identified by its issue and date; the issue is raised with every change of a requirement or of the [Verification matrix](#verification-matrix), so a verification result can name the issue it was obtained against. The complete change history is kept in the version control of the [source repository](https://github.com/UniversalScientificTechnologies/xDOS_doc/blob/master/record_format.md).
+
+| Issue | Date | Change |
+|---|---|---|
+| 1 | 2026-09-25 | Version 2.1 with identified requirements and verification matrix. |
+
+# Terms, definitions and notation
+
+## Terms
+
+- **Message** — one line of the file starting with `$`.
+- **Message identifier** — the first field of a message, e.g. `$STOP`; determines the message type.
+- **Field** — one comma-separated value of a message.
+- **Header block** — the header messages at the beginning of a file, describing the device and its configuration.
+- **Block** (integration block) — the data of one integration period: a `$START` line, zero or more `$E` lines and a `$STOP` line.
+- **Session** (measurement session) — all data recorded from device start-up to power-off; written to one or more files.
+- **Reader** — software that interprets or validates a file.
+- **Tick** — the unit of the device timer; its length is given by `$TICK`.
+- **Calendar RTC** — an RTC that holds the absolute time as Unix time.
+- **Stopwatch RTC** — an RTC that counts seconds from a reference stored in the EEPROM (see `$TIME`).
+
+## Abbreviations
+
+| Abbreviation | Meaning |
+|---|---|
+| ADC | Analog-to-digital converter |
+| EEPROM | Electrically erasable programmable read-only memory |
+| FW | Firmware |
+| NaN | Not a Number |
+| RTC | Real-time clock |
+| SD | Secure Digital (memory card) |
+| UTC | Coordinated Universal Time |
+
+## Requirement wording
+
+Requirements are those statements that carry an ID (see [Requirement identification](#requirement-identification)). A statement under an ID is mandatory for the device writing the file. Text without an ID is informative.
+
+- **must** — mandatory.
+- **may** — permitted, not mandatory.
+- **are expected to** — intended behaviour of readers; informative, not a requirement.
+
+## Requirement identification
+
+Each requirement of the current format version carries an ID in square brackets: `[AREA-NN]` for general rules (e.g. `[FS-03]`), `[MSG-<NAME>]` for the definition of a message including its field table (e.g. `[MSG-STOP]`). The verification of each ID — method, check and expected result — is given in the [Verification matrix](#verification-matrix).
+
+The requirements of this specification are top-level requirements on the data output of the devices; they are not derived from a higher-level specification, so no traceability to one is given.
+
+## Notation
+
+Message formats throughout this document are given as a literal `$MESSAGE_NAME` followed by comma-separated fields. The notation loosely follows EBNF (ISO/IEC 14977):
+
+- `<field_name>` — a placeholder for a value; replaced by the actual field content in the record.
+- `[...]` — the enclosed field, together with its leading comma, is optional and may be omitted from the end of the line. Nesting, e.g. `[,<b>[,<c>]]`, means `<c>` may only be present if `<b>` is.
+- `(A|B)` — the field takes exactly one of the literal values listed, separated by `|`.
+- `...` — the preceding field is repeated; the number of repetitions is given in the message description (e.g. `<histogram_0>,<histogram_1>,...,<histogram_n>` in `$STOP`).
+- Text without `<>`, `[]` or `()` is literal and appears in the record unchanged (e.g. the `reg07=` prefix in `$RTCCHK`).
+- A field left empty between two commas (e.g. `,,`) is present but its value is not known; this is distinct from a field omitted per `[...]`. Which fields may be empty, and how else "not available" is represented (`NaN` for floating-point fields, or omitting the whole message — see [General rules](#general-rules)), is stated for each field individually.
+
+## Data types
+
+**[TYP-01]**{: #typ-01} Field types used in the message catalog. Ranges are defined with reserve for future devices; a device may use only part of a range.
+
+| Type | Range | Written as |
+|---|---|---|
+| U16 | 0–65 535 | decimal digits, no sign, no leading zeros |
+| U32 | 0–4 294 967 295 | decimal digits, no sign, no leading zeros |
+| I32 | −2 147 483 648 – 2 147 483 647 | optional `-`, then decimal digits, no leading zeros |
+| DEC | at most 300 characters | optional `-`, decimal digits, optionally `.` followed by decimal digits; no exponent, no `+`. A value the device cannot provide is written as `NaN`. |
+| HEX | per field | lowercase hexadecimal digits `0`–`9`, `a`–`f` |
+| TEXT | per field | characters permitted by [File Structure](#file-structure) |
+
 
 # Version 1
+
+{: .note }
+This version was also referred to as "Version 1.5" in some deployments. The two labels described an identical wire format — there was never a data-level distinction between them — so the documentation has been consolidated here.
 
 ## File Structure
 
@@ -79,74 +184,6 @@ Information about temperature, humidity, and pressure.
 $ENV,30,309.39,23.8,45.0,24.7,44.3,23.72,984.81
 ```
 
-# Version 1.5
-
-## File Structure
-
-The output file is composed of various data messages, each representing different types of data captured by the detector. The structure of these lines is as follows:
-
-## Example:
-```
-$DOS,AIRDOS04X,1.0.0--Release,0,9b5cf9571b15da03150b04ad0d93ecf7ad6cea92,Release,1290c00806a200922449a000a00000c6
-$DIG,BATDATUNIT01B,1290c00806a200925448a000a0000063,ffff
-$ADC,USTSIPIN03A,1290c00806a200922449a000a00000c6,ffff
-$HIST,0,12.3,1,255,255,255,103,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-$HIST,1,22.28,6,255,255,255,106,2,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-$HIST,2,32.54,197,255,255,255,195,53,33,24,14,11,9,4,8,6,4,3,2,3,2,1,1,1,0,1,1,1,1,2,0,1,0,2,1,0,0,0,1,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-$HIST,3,42.79,3,255,255,255,110,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-$HIST,4,53.5,4,255,255,255,102,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-$HIST,5,63.32,3,255,255,255,95,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-$BATT,6,63.58,227,0,0,975,20.25
-$HIST,6,73.63,1,255,255,255,107,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-$HIST,7,83.87,1,255,255,255,136,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-```
-
-### Data format Identifier
-Not implemented yet
-
-### Detector Identifier
-```
-  $DOS,AIRDOS04X,1.0.0--Release,0,9b5cf9571b15da03150b04ad0d93ecf7ad6cea92,Release,1290c00806a200922449a000a00000c6
-```
-- **Format**: `$DOS, [DetectorModel], [FirmwareVersion], [Build number], [SerialNumber], [BuildUniqueId], [Build origin], [SN]`
-- **Description**: Identifies the detector model, firmware version, a unique identifier for the device, user information, and session ID.
-
-### Digital part identifier (applicable for AIRDOS04)
-```
-$DIG,BATDATUNIT01B,1290c00806a200925448a000a0000063,ffff
-```
-- **Format**: `$DIG, [ModuleType], [SerialNumber], [Reserved]`
-- **Description**: 
-
-### Analogue part identifies (applicable for AIRDOS04)
-```
-$ADC,USTSIPIN03A,1290c00806a200922449a000a00000c6,ffff
-```
-- **Format**: `$ADC, [SensorType], [SerialNumber], [Reserved]`
-- **Description**: 
-
-### Histogram Data
-```
-$HIST,4,53.5,4,255,255,255,102,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-```
-- **Format**: `$HIST, [message number], [time], [detected particles], [], [], [], [], [Channel 1], [Channel 2], ...`
-- **Description**: A detailed histogram representing the distribution of detected events or measurements across various categories.
-
-### Battery status
-```
-$BATT,6,63.58,227,0,0,975,20.25
-```
-
-### Environment data
-
-Information about temperature, humidity, and pressure.
-
-```
-$ENV,30,309.39,23.8,45.0,24.7,44.3,23.72,984.81
-```
-
-
-
 # Version 2
 
 Version 2 is used by AIRDOS04C and is specified in detail in [FW repository](https://github.com/UniversalScientificTechnologies/AIRDOS04/blob/AIRDOS04C/fw/AIRDOS04/OUTPUT_FORMAT.md)).
@@ -164,7 +201,7 @@ The v2 stream can be viewed as three groups:
 
 ## Header messages
 
-#### `$DOS` — device identification
+### `$DOS` — device identification
 - **When**: once at the beginning of the file (startup header)
 - **Meaning**: identifies device type (`AIRDOS04C`), firmware/build info and Git hash, and the analog board serial number.
 - **Format**:
@@ -179,7 +216,7 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_analog_16B_hex>
 $DOS,AIRDOS04C,2.0.0-0-User,0,a3e23b543a4de5dc3d057462bb6109bf3db0b44b,User,0910410874100851c40ba080a08000b3
 ```
 
-#### `$DIG` — digital module identification
+### `$DIG` — digital module identification
 - **When**: once at the beginning of the file
 - **Meaning**: identifies the digital board (`BATDATUNIT01B`), its serial number and configuration bytes.
 - **Format**:
@@ -194,7 +231,7 @@ $DIG,<DIGTYPE>,<serial_digital_16B_hex>,<DIG_EEPROM>
 $DIG,BATDATUNIT01B,09104108741008520c0ca080a080005e,ffff
 ```
 
-#### `$ADC` — analog module identification
+### `$ADC` — analog module identification
 - **When**: once at the beginning of the file
 - **Meaning**: identifies the analog front-end board (`USTSIPIN03A`), its serial number and ADC configuration bytes.
 - **Format**:
@@ -209,7 +246,7 @@ $ADC,<ADC_NAME>,<serial_analog_16B_hex>,<ADC_EEPROM>
 $ADC,USTSIPIN03A,0910410874100851c40ba080a08000b3,ffff
 ```
 
-#### `$BATP` — battery presence
+### `$BATP` — battery presence
 - **When**: once at the beginning of the file
 - **Meaning**: reports whether a battery was detected at startup and the measured battery voltage (mV).
 - **Format**:
@@ -224,7 +261,7 @@ $BATP,<present>,<battery_mV>
 $BATP,1,4150
 ```
 
-#### `$TIME` — time and synchronization info
+### `$TIME` — time and synchronization info
 - **When**: potentially multiple times per file; its position within the file is not guaranteed to be at the beginning.
 - **Meaning**: provides RTC seconds, last synchronization time stored in EEPROM, computed current Unix time, sync age, and human-readable UTC timestamp.
 - **Format**:
@@ -242,7 +279,7 @@ $TIME,1234567,1708862400,1708863634,0,2025-02-25 14:30:34
 
 ## Particle messages (integration block)
 
-#### `$START` — start of integration block
+### `$START` — start of integration block
 - **When**: every integration period (nominally every 10 s)
 - **Meaning**: marks start of a measurement block (integration window) and provides the reference system timer value.
 - **Format**:
@@ -257,7 +294,7 @@ $START,<count>,<event_time_0>
 $START,0,1
 ```
 
-#### `$E` — single above-threshold event
+### `$E` — single above-threshold event
 - **When**: zero or more times within an integration block
 - **Meaning**: one line per event above threshold, with event time (in ticks) and the raw ADC value (used to classify the event).
 - **Format**:
@@ -272,7 +309,7 @@ $E,<long_event_time>,<event_channel>
 $E,488,24
 ```
 
-#### `$STOP` — end of integration block
+### `$STOP` — end of integration block
 - **When**: every integration period, after the block’s `$E` lines
 - **Meaning**: closes the measurement block and reports end time, total number of above-threshold events, and the histogram counters for energy channels.
 - **Format**:
@@ -291,7 +328,7 @@ $STOP,179,4275399681.0,31359,427,19373,11,24,7
 
 ## Status messages
 
-#### `$RTCCHK` — RTC check / initialization status
+### `$RTCCHK` — RTC check / initialization status
 - **When**: on RTC check / (re)initialization (typically at startup or when needed)
 - **Meaning**: records whether RTC settings were OK or had to be initialized, including selected RTC register values.
 - **Format**:
@@ -306,7 +343,7 @@ $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 $RTCCHK,1234567.50,OK,reg07=0x00,reg28=0x97
 ```
 
-#### `$ENV` — environmental sensors
+### `$ENV` — environmental sensors
 - **When**: periodically (every ~5 minutes)
 - **Meaning**: temperatures and humidities from two sensors plus temperature and pressure from a pressure sensor.
 - **Format**:
@@ -321,7 +358,7 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 $ENV,179,4275399683.0,29.1,44.0,27.5,45.5,29.31,989.05
 ```
 
-#### `$BATT` — battery status
+### `$BATT` — battery status
 - **When**: periodically (every ~30 minutes)
 - **Meaning**: battery voltage/current/capacity/temperature values from the fuel gauge.
 - **Format**:
@@ -342,9 +379,28 @@ $BATT,720,12345.50,4150,-120,1800,2000,25.3
 
 # Version 2.1
 
-Version 2.1 extends [Version 2](#version-2). Every message defined in Version 2 keeps its syntax and meaning unless this section states otherwise; only new and changed messages are described here.
+Version 2.1 extends [Version 2](#version-2). Every message defined in Version 2 keeps its syntax and meaning unless this section states otherwise. This section is complete on its own: it describes every message of Version 2.1, marking those that are new, changed or clarified against Version 2, so a Version 2.1 file can be interpreted without the Version 2 description.
 
 A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers select the parser by `$DATAFORMAT`; the device type in `$DOS` is only a fallback heuristic for files without it.
+
+## Scope
+
+This version of the format specifies the data written by SPACEDOS04 (firmware version 2.1 and later) to its SD card log file. SD card storage is the main data output of SPACEDOS04.
+
+## File Structure
+
+- **[FS-01]**{: #fs-01} **Encoding**: US-ASCII. A line consists only of printable characters `0x20`–`0x7E`; `\r` (`0x0D`) and `\n` (`0x0A`) occur only as the line terminator. Control characters, `0x7F` and bytes `0x80`–`0xFF` (including any UTF-8 sequence) do not occur.
+- **[FS-02]**{: #fs-02} **Line endings**: `\n` or `\r\n` (see [General rules](#general-rules)).
+- **[FS-03]**{: #fs-03} **Reserved characters**: `$`, `#` and `!` occur only as the first character of a line, where they identify the line type (see [General rules](#general-rules)). They do not occur anywhere else in the line.
+- **[FS-04]**{: #fs-04} **Field separator**: `,` separates fields; a field value does not contain a comma, unless the field is explicitly documented to run to the end of the line (only `<text>` in `$ERROR` does).
+- **[FS-05]**{: #fs-05} **Header and measurement block order**: the file begins with a single, uninterrupted block of header messages, then continues with an uninterrupted stream of particle and status messages for the remainder of the file. `$DIG_NAME`/`$ADC_NAME`, where present, immediately follow `$DIG`/`$ADC`. The relative order of the other header messages is otherwise not defined.
+- **[FS-06]**{: #fs-06} **Sessions**: a measurement session (device start-up to power-off) is written to one or more files. Each file belongs to exactly one session and starts with its own complete header block; header messages are not repeated within a file. A device restart always begins a new file. Whether and when a running session continues in a new file depends on the device firmware.
+
+## Maximum message length
+
+- **[LEN-01]**{: #len-01} A line, including its line terminator, is at most 524 288 bytes (512 KiB) long. Readers are expected to accept lines up to this length.
+- **[LEN-02]**{: #len-02} `$STOP` carries at most 65 536 histogram fields; each histogram value is in the range 0–65 535.
+- **[LEN-03]**{: #len-03} `<text>` in `$ERROR` is at most 512 characters long.
 
 ## Changes against Version 2
 
@@ -354,27 +410,45 @@ A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers 
 - `$DOS`: the 4th field is reserved.
 - `$DIG` is optional; the configuration field has a fixed width.
 - New header message `$TICK` giving the length of the device timer tick.
-- `$TIME`: meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
-- `$RTCCHK`: emitted in every file; `INIT` marks an invalid (relative only) device time.
+- `$TIME`: classified as a status message; meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
+- `$RTCCHK`: emitted in every file of a device with an RTC; `INIT` marks an invalid (relative only) device time.
 - `$START`, `$E`, `$STOP`: timer values defined; `<long_event_time>` counts from the start of the block.
 - `$E`: optional second channel value.
 - `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified.
 - `$ENV`: the line always carries all fields, missing values are `NaN`.
 - New message `$ERROR` with a free-text description of an error detected by the device.
+- Handling of incomplete and invalid data defined.
+- Maximum line length, histogram size and `$ERROR` text length defined.
+- Data types defined; every message lists its fields with type, unit and range.
 
 ## General rules
 
-- Line syntax is the same as in Version 2. Lines are terminated by `\n` or `\r\n`.
-- Lines starting with `#` are debug/service messages and are not part of the data stream.
-- Lines starting with `!` are reserved for commands sent **to** the device and never appear in the data stream.
-- Readers must ignore `$` messages they do not know. This allows new messages to be added without a new format version.
-- A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the whole message is omitted.
-- Header messages are emitted once at the beginning of every file. `$DATAFORMAT` and `$DOS` are mandatory, all other header messages are optional.
+- **[GEN-01]**{: #gen-01} Line syntax is the same as in Version 2. Lines are terminated by `\n` or `\r\n`.
+- **[GEN-02]**{: #gen-02} Lines starting with `#` are debug/service messages and are not part of the data stream.
+- **[GEN-03]**{: #gen-03} Lines starting with `!` are reserved for commands sent **to** the device and never appear in the data stream.
+- Readers are expected to ignore `$` messages they do not know. This allows new messages to be added without a new format version.
+- A known message may carry more fields than documented here if a later revision appended new ones; readers are expected to ignore trailing fields they do not recognize (see [Versioning and compatibility](#versioning-and-compatibility)).
+- **[GEN-04]**{: #gen-04} A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the whole message is omitted.
+- **[GEN-05]**{: #gen-05} Header messages are emitted once at the beginning of every file. `$DATAFORMAT` and `$DOS` are mandatory, all other header messages are optional.
+
+## Block continuity
+
+**[BLK-01]**{: #blk-01} The `<count>` field present in `$START`, `$STOP`, `$ENV` and `$BATT` is a single block index shared by all of them. It increases by exactly 1 per integration block; `$START` and `$STOP` of one block carry the same `<count>`. `$ENV` and `$BATT` follow the `$STOP` of a block and carry that block's `<count>`.
+
+**[BLK-02]**{: #blk-02} `<count>` is not persistent: it restarts at power-up and may restart during a session. When and to which value it restarts depends on the device firmware. Apart from such a restart, consecutive blocks differ by exactly 1; any other step means that one or more blocks, and any status messages tied to them, were not recorded. `<count>` is the reliable way to confirm that no block was skipped (the actual spacing between blocks is only nominally `$ITIME`).
+
+## Incomplete and invalid data
+
+A file may end at any point, e.g. on power loss or a storage failure. Everything written up to that point is valid; readers are expected to apply the following rules and process the rest of the file normally:
+
+- A line without a line terminator is discarded.
+- A line whose fields do not match the definition of its message is discarded.
+- A block is complete only if it has both a valid `$START` and a valid `$STOP`. An incomplete block is discarded together with its `$E` lines.
 
 ## Header messages
 
-#### `$DATAFORMAT` — data format name
-- **When**: once, as the first line of the file
+### `$DATAFORMAT` — data format name [MSG-DATAFORMAT] {#msg-dataformat}
+- **When**: once at the beginning of the file
 - **Meaning**: names the data format of the file explicitly, so a reader can select the matching parser without inferring it from the other header lines.
 - **Format**:
 
@@ -382,13 +456,22 @@ A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers 
 $DATAFORMAT,<format_name>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<format_name>` | TEXT, up to 64 characters | — | Name of the data format; `VERSION_2.1` for this version. |
+
+</details>
+
 - **Example**:
 
 ```
 $DATAFORMAT,VERSION_2.1
 ```
 
-#### `$DOS` — device identification (changed)
+### `$DOS` — device identification (changed) [MSG-DOS] {#msg-dos}
 - **Format**: unchanged against Version 2.
 
 ```
@@ -396,21 +479,61 @@ $DOS,<TYPE>,<FWversion>,0,<git_hash>,<build_type>,<serial_16B_hex>
 ```
 
 - **Change**: the 4th field is reserved. Devices write `0`, readers ignore its value.
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<TYPE>` | TEXT, up to 64 characters | — | Device type, e.g. `AIRDOS04C`. |
+| `<FWversion>` | TEXT, up to 64 characters | — | Firmware version. |
+| `0` | literal | — | Reserved. |
+| `<git_hash>` | TEXT, up to 64 characters | — | Git commit of the firmware build. |
+| `<build_type>` | TEXT, up to 64 characters | — | Build type, e.g. `Release`, `User`. |
+| `<serial_16B_hex>` | HEX, exactly 32 digits | — | Device serial number (16 bytes), see the note below. |
+
+</details>
+
 - **Note**: the device is identified by its analog (detector) board: `<TYPE>` and `<serial_16B_hex>` both come from the analog board if the device has one, otherwise from its only board. Replacing other boards (e.g. the digital board of AIRDOS04) does not change the device identity.
 
-#### `$DIG` — digital module identification (changed)
+### `$DIG` — digital module identification (changed) [MSG-DIG] {#msg-dig}
 - **Format**: unchanged against Version 2.
+
+```
+$DIG,<DIGTYPE>,<serial_digital_16B_hex>,<DIG_EEPROM>
+```
+
 - **Change**: optional. Present only if the device has a separate digital board with its own identification.
 - **Change**: `<DIG_EEPROM>` is always 4 hex digits — the first two bytes of the configuration record stored in the board EEPROM, in stored order. `ffff` means that no record is stored.
 
-#### `$DIG_NAME` — digital module name
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<DIGTYPE>` | TEXT, up to 64 characters | — | Digital board type, e.g. `BATDATUNIT01B`. |
+| `<serial_digital_16B_hex>` | HEX, exactly 32 digits | — | Digital board serial number (16 bytes). |
+| `<DIG_EEPROM>` | HEX, exactly 4 digits | — | First two bytes of the EEPROM configuration record, see above. |
+
+</details>
+
+### `$DIG_NAME` — digital module name [MSG-DIG_NAME] {#msg-dig-name}
 - **When**: once at the beginning of the file, right after `$DIG`; only if `$DIG` is present
-- **Meaning**: the human-readable identifier stored in the configuration record of the digital board EEPROM (`device_identifier`, typically the name printed on the device enclosure). Up to 24 printable ASCII characters, no comma. Empty if no record is stored.
+- **Meaning**: the human-readable identifier stored in the configuration record of the digital board EEPROM (`device_identifier`, typically the name printed on the device enclosure). Up to 24 printable ASCII characters, none of `,` `$` `#` `!`. Empty if no record is stored.
 - **Format**:
 
 ```
 $DIG_NAME,<device_identifier>
 ```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<device_identifier>` | TEXT, up to 24 characters | — | Name stored in the digital board EEPROM, see above. May be empty. |
+
+</details>
 
 - **Example**:
 
@@ -418,11 +541,27 @@ $DIG_NAME,<device_identifier>
 $DIG_NAME,OTTER
 ```
 
-#### `$ADC` — analog module identification (changed)
+### `$ADC` — analog module identification (changed) [MSG-ADC] {#msg-adc}
 - **Format**: unchanged against Version 2.
+
+```
+$ADC,<ADC_NAME>,<serial_analog_16B_hex>,<ADC_EEPROM>
+```
+
 - **Change**: `<ADC_EEPROM>` follows the same rule as `<DIG_EEPROM>`.
 
-#### `$ADC_NAME` — analog module name
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<ADC_NAME>` | TEXT, up to 64 characters | — | Analog board type, e.g. `USTSIPIN03A`. |
+| `<serial_analog_16B_hex>` | HEX, exactly 32 digits | — | Analog board serial number (16 bytes). |
+| `<ADC_EEPROM>` | HEX, exactly 4 digits | — | First two bytes of the EEPROM configuration record, see `$DIG`. |
+
+</details>
+
+### `$ADC_NAME` — analog module name [MSG-ADC_NAME] {#msg-adc-name}
 - **When**: once at the beginning of the file, right after `$ADC`; only if `$ADC` is present
 - **Meaning**: the same as `$DIG_NAME`, taken from the analog board EEPROM.
 - **Format**:
@@ -431,13 +570,45 @@ $DIG_NAME,OTTER
 $ADC_NAME,<device_identifier>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<device_identifier>` | TEXT, up to 24 characters | — | Name stored in the analog board EEPROM. May be empty. |
+
+</details>
+
 - **Example**:
 
 ```
 $ADC_NAME,OTTER
 ```
 
-#### `$CHAN` — spectrum channel configuration
+### `$BATP` — battery presence (clarified) [MSG-BATP] {#msg-batp}
+- **Format**: unchanged against Version 2.
+
+```
+$BATP,<present>,<battery_mV>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<present>` | `0` or `1` | — | `1` if a battery was detected at start-up, `0` otherwise. |
+| `<battery_mV>` | U32 | mV | Battery voltage measured at start-up; `0` if `<present>` is `0`. |
+
+</details>
+
+- **Example**:
+
+```
+$BATP,1,4150
+```
+
+### `$CHAN` — spectrum channel configuration [MSG-CHAN] {#msg-chan}
 - **When**: once at the beginning of the file
 - **Meaning**: the total number of ADC channels (the channel range of both the `$STOP` histogram and the `$E` events — **not** the length of the `$STOP` histogram) and the default number of leading channels that contain noise and are excluded from the evaluation.
 - **Format**:
@@ -446,13 +617,23 @@ $ADC_NAME,OTTER
 $CHAN,<num_channels>,<num_noise_channels_default>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<num_channels>` | U32, 1–65 536 | ADC channels | Total number of ADC channels. |
+| `<num_noise_channels_default>` | U32 | ADC channels | Number of leading noise channels; lower than `<num_channels>`. |
+
+</details>
+
 - **Example**:
 
 ```
 $CHAN,65536,4
 ```
 
-#### `$DIODE` — silicon chip geometry
+### `$DIODE` — silicon chip geometry [MSG-DIODE] {#msg-diode}
 - **When**: once at the beginning of the file
 - **Meaning**: the sensitive area of the silicon chip (cm²) and the depletion layer thickness (cm).
 - **Format**:
@@ -461,13 +642,23 @@ $CHAN,65536,4
 $DIODE,<si_chip_area_cm2>,<si_chip_thickness_cm>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<si_chip_area_cm2>` | DEC, > 0 | cm² | Sensitive area of the silicon chip. |
+| `<si_chip_thickness_cm>` | DEC, > 0 | cm | Depletion layer thickness. |
+
+</details>
+
 - **Example**:
 
 ```
 $DIODE,0.25,0.03
 ```
 
-#### `$ERNG` — energy range
+### `$ERNG` — energy range [MSG-ERNG] {#msg-erng}
 - **When**: once at the beginning of the file
 - **Meaning**: the lower and upper bound of the deposited energy range the detector measures (MeV). Either bound may be left empty if it is not known.
 - **Format**:
@@ -476,6 +667,16 @@ $DIODE,0.25,0.03
 $ERNG,<energy_range_min_mev>,<energy_range_max_mev>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<energy_range_min_mev>` | DEC, > 0 | MeV | Lower bound of the energy range. May be empty. |
+| `<energy_range_max_mev>` | DEC, > 0 | MeV | Upper bound of the energy range; greater than the lower bound. May be empty. |
+
+</details>
+
 - **Example**:
 
 ```
@@ -483,7 +684,7 @@ $ERNG,0.05,20
 $ERNG,0.05,
 ```
 
-#### `$ITIME` — integration period
+### `$ITIME` — integration period [MSG-ITIME] {#msg-itime}
 - **When**: once at the beginning of the file
 - **Meaning**: the nominal length of one integration block (seconds), i.e. the nominal time between consecutive `$START`/`$STOP` blocks. NaN when integration block has variable length
 - **Format**:
@@ -492,13 +693,22 @@ $ERNG,0.05,
 $ITIME,<integration_period_s>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<integration_period_s>` | DEC, > 0 | s | Nominal length of one integration block; `NaN` if the block length is variable. |
+
+</details>
+
 - **Example**:
 
 ```
 $ITIME,10
 ```
 
-#### `$TICK` — timer tick length
+### `$TICK` — timer tick length [MSG-TICK] {#msg-tick}
 - **When**: once at the beginning of the file; optional
 - **Meaning**: the length of one tick of the device timer (seconds). Applies to `<event_time_0>` in `$START`, `<long_event_time>` in `$E` and `<systime>` in `$STOP`.
 - **Format**:
@@ -507,13 +717,22 @@ $ITIME,10
 $TICK,<tick_length_s>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<tick_length_s>` | DEC, > 0 | s | Length of one tick of the device timer. |
+
+</details>
+
 - **Example**:
 
 ```
 $TICK,0.000128
 ```
 
-#### `$CALIB` — energy calibration
+### `$CALIB` — energy calibration [MSG-CALIB] {#msg-calib}
 - **When**: once at the beginning of the file
 - **Meaning**: the default energy calibration coefficients stored in the device EEPROM. `coef2` is optional and defaults to `0`. `calibration_version` is an optional identifier of the calibration (a version number, calibration type or the Unix time of the calibration); it may only be present together with `coef2`.
 - **Format**:
@@ -522,6 +741,20 @@ $TICK,0.000128
 $CALIB,<coef0>,<coef1>[,<coef2>[,<calibration_version>]]
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<coef0>` | DEC | — | Calibration coefficient 0. |
+| `<coef1>` | DEC | — | Calibration coefficient 1. |
+| `<coef2>` | DEC | — | Optional calibration coefficient 2; `0` if absent. |
+| `<calibration_version>` | TEXT, up to 64 characters | — | Optional identifier of the calibration. Present only together with `<coef2>`. |
+
+</details>
+
+How the coefficients are applied depends on the calibration methodology of the evaluating software. For an example interpretation see the DOSPORTAL [Visualization methodology](/dosportal/visualisation).
+
 - **Example**:
 
 ```
@@ -529,20 +762,111 @@ $CALIB,0.01,0.002,0.0
 $CALIB,0.01,0.002,0.0,1789689600
 ```
 
-#### `$TIME` — time and synchronization info (clarified)
+## Particle messages (integration block)
+
+### `$START` — start of integration block (clarified) [MSG-START] {#msg-start}
+- **Format**: unchanged against Version 2.
+
+```
+$START,<count>,<event_time_0>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Block index (see [Block continuity](#block-continuity)). |
+| `<event_time_0>` | U32 | tick | Raw value of the device timer at the start of the block (see `$TICK`). Informative only. |
+
+</details>
+
+- **Example**:
+
+```
+$START,179,31012
+```
+
+### `$E` — single above-threshold event (changed) [MSG-E] {#msg-e}
+- **Format**:
+
+```
+$E,<long_event_time>,<event_channel>[,<event_channel_2>]
+```
+
+- **Change**: optional `<event_channel_2>`.
+- **Change**: `<long_event_time>` is counted from the start of the block.
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<long_event_time>` | U32 | tick | Time of the event, counted from the start of the block (see `$TICK`). |
+| `<event_channel>` | U16 | ADC channel | ADC value of the event. Never lower than the number of histogram fields in `$STOP` — an event goes either to the histogram or to an `$E` line, never to both. |
+| `<event_channel_2>` | U16 | — | Optional. A second ADC value of the same event. |
+
+</details>
+
+- **Example**:
+
+```
+$E,2514,170,108
+```
+
+### `$STOP` — end of integration block (clarified) [MSG-STOP] {#msg-stop}
+- **Format**: unchanged against Version 2.
+
+```
+$STOP,<count>,<tm>.<tm_s100>,<systime>,<events_count>,<histogram_0>,<histogram_1>,...,<histogram_n>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Block index; equal to `<count>` of the block's `$START`. |
+| `<tm>` | U32 | s | Device RTC time at the end of the block (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`. Written as an integer. |
+| `<systime>` | U32 | tick | Raw value of the device timer at the end of the block (see `$TICK`). Informative only. |
+| `<events_count>` | U16 | events | Number of above-threshold events in the block. May be higher than the number of `$E` lines of the block if the device's event buffer overflowed. |
+| `<histogram_0>` … `<histogram_n>` | U16 | events | Number of events in ADC channel. |
+
+</details>
+
+- **Example**:
+
+```
+$STOP,179,1789729204.0,31359,427,19373,11,24,7
+```
+
+## Status messages
+
+### `$TIME` — time and synchronization info (changed) [MSG-TIME] {#msg-time}
+- **When**: at any position in the file, any number of times (e.g. after the clock is (re)synchronized).
+- **Change**: classified as a status message; in Version 2 it was listed among the header messages.
 - **Format**: unchanged against Version 2.
 
 ```
 $TIME,<rtc_seconds>,<eeprom_sync_time>,<current_unix_time>,<sync_age>,<YYYY-MM-DD HH:MM:SS>
 ```
 
-- **Fields** (the meaning Version 2 devices already use, stated precisely):
-  - `<rtc_seconds>` — the device RTC counter in seconds.
-  - `<eeprom_sync_time>` — the reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the device RTC counter was `0`. It is **not** the moment of the last synchronization.
-  - `<current_unix_time>` = `<eeprom_sync_time>` + `<rtc_seconds>`
-  - `<sync_age>` — seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record (none stored, or the RTC lost its time since).
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<rtc_seconds>` | U32 | s | The device RTC counter. |
+| `<eeprom_sync_time>` | U32 | s (Unix time) | The reference from the synchronization record in the EEPROM (`rtc_history[0].reference_timestamp`): the Unix time at which the device RTC counter was `0`. |
+| `<current_unix_time>` | U32 | s (Unix time) | `<eeprom_sync_time>` + `<rtc_seconds>`. |
+| `<sync_age>` | U32 | s | Seconds since the clock was last set or synchronized (`<rtc_seconds>` − `rtc_history[0].rtc_value_at_reference_timestamp`). **Empty** if the device has no valid synchronization record. |
+| `<YYYY-MM-DD HH:MM:SS>` | TEXT | — | `<current_unix_time>` as a UTC date and time; exactly 19 characters, fields zero-padded (see ISO 8601 in [Normative references](#normative-references)). |
+
+</details>
+
 - **Devices with a calendar RTC** (the RTC holds the absolute time): the counter is the Unix time itself, so `<rtc_seconds>` equals `<current_unix_time>` and `<eeprom_sync_time>` is `0`. Consequently the time stamps `<tm>` in `$STOP`, `$ENV`, `$BATT` and `$RTCCHK` are Unix time directly.
-- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time. `<sync_age>` should be Empty. 
+- **Invalid device time** (e.g. the RTC lost power and was not set since): the RTC keeps counting from its reset default — typically `2000-01-01 00:00:00`, not necessarily the Unix epoch. The device reports this running value unchanged, so the time stamps stay monotonic and the relative timing within the file is preserved; only the absolute time is unknown. The invalid state is signalled by `INIT` in `$RTCCHK`. `<sync_age>` is empty. A reader may re-anchor such a file to an externally known start time.
 - All times are UTC.
 
 - **Example** (calendar RTC, last set 2026-09-18 10:00:00):
@@ -563,50 +887,28 @@ $TIME,1234567,1708862400,1710096967,600,2024-03-10 18:56:07
 $TIME,946685100,0,946685100,,2000-01-01 00:05:00
 ```
 
-## Particle messages (integration block)
-
-#### `$START` — start of integration block (clarified)
-- **Format**: unchanged against Version 2.
-- **Note**: `<event_time_0>` is the raw value of the device timer at the start of the block, in ticks (see `$TICK`).
-
-#### `$E` — single above-threshold event (changed)
-- **Format**:
-
-```
-$E,<long_event_time>,<event_channel>[,<event_channel_2>]
-```
-
-- **Change**: optional `<event_channel_2>` — a second ADC value of the same event; its meaning is device specific. Readers that do not use it evaluate `<event_channel>` only.
-- **Change**: `<long_event_time>` is the time of the event in ticks (see `$TICK`) counted from the start of the block.
-- **Note**: `<event_channel>` is never lower than the number of histogram channels in `$STOP` — events go either to the histogram or to `$E` lines, never to both.
-
-- **Example**:
-
-```
-$E,2514,170,108
-```
-
-#### `$STOP` — end of integration block (clarified)
-- **Format**: unchanged against Version 2.
-- **Note**: `<events_count>` is the number of above-threshold events in the block. It may be higher than the number of `$E` lines of the block if the device's event buffer overflowed.
-- **Note**: `<systime>` is the raw value of the device timer at the end of the block, in ticks (see `$TICK`). `<event_time_0>` and `<systime>` are informative only; the timer may overflow within a block, so their difference does not reliably give the block duration.
-
-## Status messages
-
-`$BATT` is unchanged.
-
-#### `$RTCCHK` — RTC check / initialization status (clarified)
+### `$RTCCHK` — RTC check / initialization status (clarified) [MSG-RTCCHK] {#msg-rtcchk}
 - **Format**: unchanged against Version 2.
 
 ```
 $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 ```
 
-- **Change**: emitted at the beginning of every file, so each file states whether its time is valid.
+- **Change**: emitted at the beginning of every file if the device has an RTC, so each file states whether its time is valid.
 - **Note**: the meaning of the state is generalized to both RTC modes:
   - `INIT` — the RTC does not continue from a known time reference: it was reset by the firmware (stopwatch-mode devices) or it lost power and counts from its default value (calendar-mode devices). All time stamps in the file are relative only (see `$TIME`).
   - `OK` — the RTC continues from a known reference: for calendar-mode devices the RTC itself holds the absolute time; for stopwatch-mode devices the reference is the synchronization record reported in `$TIME`.
-- **Note**: the register values are informative and device specific.
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<tm>` | U32 | s | Device RTC time (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`; written as an integer (see `$STOP`). |
+| `OK` or `INIT` | literal | — | RTC state, see above. |
+| `reg07=0x<hex>`, `reg28=0x<hex>` | HEX | — | RTC register values, two digits each. Informative and device specific. |
+
+</details>
 
 - **Example** (invalid time):
 
@@ -614,7 +916,8 @@ $RTCCHK,<tm>.<tm_s100>,(OK|INIT),reg07=0x<hex>,reg28=0x<hex>
 $RTCCHK,946684802.0,INIT,reg07=0x00,reg28=0x00
 ```
 
-#### `$ENV` — environmental sensors (changed)
+### `$ENV` — environmental sensors (changed) [MSG-ENV] {#msg-env}
+- **When**: periodically, after the `$STOP` of a block; the period is device dependent.
 - **Format**: unchanged against Version 2.
 
 ```
@@ -623,15 +926,62 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 
 - **Change**: the line always carries all eight fields. Values of sensors the device does not have are `NaN`; the line is never shortened.
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Index of the block this message follows (see [Block continuity](#block-continuity)). |
+| `<tm>` | U32 | s | Device RTC time (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`; written as an integer (see `$STOP`). |
+| `<T1>` | DEC | °C | Temperature, first temperature/humidity sensor. |
+| `<H1>` | DEC | % RH | Relative humidity, first temperature/humidity sensor. |
+| `<T2>` | DEC | °C | Temperature, second temperature/humidity sensor. |
+| `<H2>` | DEC | % RH | Relative humidity, second temperature/humidity sensor. |
+| `<T_MS5611>` | DEC | °C | Temperature, pressure sensor. |
+| `<P_MS5611>` | DEC | hPa | Atmospheric pressure, pressure sensor. |
+
+</details>
+
 - **Example** (device with a single temperature/humidity sensor):
 
 ```
 $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
 ```
 
-#### `$ERROR` — error detected by the device
+### `$BATT` — battery status (clarified) [MSG-BATT] {#msg-batt}
+- **When**: periodically, after the `$STOP` of a block; the period is device dependent.
+- **Format**: unchanged against Version 2.
+
+```
+$BATT,<count>,<tm>.<tm_s100>,<voltage_mV>,<current_mA>,<remaining_mAh>,<full_charge_mAh>,<temperature_C>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<count>` | U32 | — | Index of the block this message follows (see [Block continuity](#block-continuity)). |
+| `<tm>` | U32 | s | Device RTC time (see `$TIME`). |
+| `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`; written as an integer (see `$STOP`). |
+| `<voltage_mV>` | U32 | mV | Battery voltage. |
+| `<current_mA>` | I32 | mA | Battery current; positive when charging, negative when discharging. |
+| `<remaining_mAh>` | U32 | mAh | Remaining battery capacity. |
+| `<full_charge_mAh>` | U32 | mAh | Battery capacity when fully charged. |
+| `<temperature_C>` | DEC | °C | Battery temperature. |
+
+</details>
+
+- **Example**:
+
+```
+$BATT,180,1789729214.0,4150,-120,1800,2000,25.3
+```
+
+### `$ERROR` — error detected by the device [MSG-ERROR] {#msg-error}
 - **When**: whenever the device detects an error that matters for the data; anywhere in the file, any number of times
-- **Meaning**: a human-readable description of the error, e.g. an unexpected version of the EEPROM configuration record. Readers show it to the user and do not interpret it. The text reaches to the end of the line and may contain commas.
+- **Meaning**: a human-readable description of the error. Readers show it to the user and do not interpret it; it has no effect on how the other messages of the file are interpreted. The text reaches to the end of the line and may contain commas.
 - **Note**: debug and service output stays on `#` lines; `$ERROR` is for errors the user of the data should see.
 - **Format**:
 
@@ -639,8 +989,80 @@ $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
 $ERROR,<text>
 ```
 
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<text>` | TEXT | — | Error description, up to 512 characters. Runs to the end of the line and may contain commas. |
+
+</details>
+
 - **Example**:
 
 ```
 $ERROR,EEPROM record version 1, firmware expects 2 - measurement metadata not available
 ```
+
+## Verification matrix
+
+Verification of each requirement of this version. Methods: **T** — test of the firmware output by [ust-format-checker](https://pypi.org/project/ust-format-checker/) (the check or finding code is given; expected result: no finding of level error), **R** — review. The checker report attached to each firmware release records the result.
+
+The matrix applies to ust-format-checker version 0.2.0 and later.
+
+**Status** — whether the verification given in the row is in place. For method T, whether ust-format-checker checks the requirement: `yes` fully, `partial` with the part not checked yet stated, `missing` not at all.
+
+
+### General rules
+
+| ID | Method | Verification | Status |
+|---|---|---|---|
+| [VER-01](#ver-01) | T | `MISSING_FIELDS`, `FIELD_TYPE` (removed or reordered field); `EXTRA_FIELDS` (field appended) | yes |
+| [VER-02](#ver-02) | R | Review of the format change: the switch precedes the fields whose interpretation it changes | yes |
+| [VER-03](#ver-03) | T | `UNKNOWN_PREFIX` (new message); `MSG-*` checks (existing messages unchanged) | yes |
+| [VER-04](#ver-04) | R | Review of `$DATAFORMAT` value and specification version | yes |
+| [TYP-01](#typ-01) | T | `FIELD_TYPE` (U16/U32/I32 bounds, no sign or leading zeros, DEC syntax and length, lowercase HEX, TEXT length), `FIELD_MIN`, `FIELD_MAX` | yes |
+| [FS-01](#fs-01) | T | `FORBIDDEN_BYTE` (characters outside `0x20`–`0x7E`) | yes |
+| [FS-02](#fs-02) | T | `LINE_TERMINATOR` (`\r` outside `\r\n`); `UNTERMINATED_LINE` (info, last line without terminator) | yes |
+| [FS-03](#fs-03) | T | `COMMAND_IN_DATA` (`!` at line start), `RESERVED_CHARACTER` (`$`, `#`, `!` inside a line) | yes |
+| [FS-04](#fs-04) | T | `MISSING_FIELDS`, `EXTRA_FIELDS`; `$ERROR` split only up to its last field | yes |
+| [FS-05](#fs-05) | T | `HEADER_AFTER_DATA`, `NAME_WITHOUT_BOARD`, `NAME_NOT_AFTER_BOARD` | yes |
+| [FS-06](#fs-06) | R | Review of file rotation in the firmware | missing |
+| [LEN-01](#len-01) | T | `LINE_TOO_LONG` (line with terminator ≤ 524 288 bytes) | yes |
+| [LEN-02](#len-02) | T | `HISTOGRAM_TOO_LONG`, `HISTOGRAM_OVER_CHANNELS`, `FIELD_TYPE` on histogram values | yes |
+| [LEN-03](#len-03) | T | `FIELD_TYPE` (`<text>` in `$ERROR` ≤ 512 characters) | yes |
+| [GEN-01](#gen-01) | T | See FS-02 | yes |
+| [GEN-02](#gen-02) | T | `#` lines are not evaluated; `DEBUG_LINES` (info) notes them | yes |
+| [GEN-03](#gen-03) | T | `COMMAND_IN_DATA` | yes |
+| [GEN-04](#gen-04) | T | `FIELD_TYPE` (`NaN` in an integer field; `nan`, `inf` instead of `NaN`) | yes |
+| [GEN-05](#gen-05) | T | `REQUIRED_MESSAGE_MISSING`, `HEADER_AFTER_DATA`, `HEADER_REPEATED` | yes |
+| [BLK-01](#blk-01) | T | `STOP_COUNT_JUMP`, `BLOCK_COUNT_MISMATCH`, `STATUS_COUNT_MISMATCH` | yes |
+| [BLK-02](#blk-02) | T | `STOP_COUNT_JUMP` | yes |
+
+### Messages
+
+All messages are verified by method T with the checks of the message schema (field count, types, ranges and message-specific rules).
+
+| ID | Status |
+|---|---|
+| [MSG-DATAFORMAT](#msg-dataformat) | yes |
+| [MSG-DOS](#msg-dos) | yes |
+| [MSG-DIG](#msg-dig) | yes |
+| [MSG-DIG_NAME](#msg-dig-name) | yes |
+| [MSG-ADC](#msg-adc) | yes |
+| [MSG-ADC_NAME](#msg-adc-name) | yes |
+| [MSG-BATP](#msg-batp) | yes |
+| [MSG-CHAN](#msg-chan) | yes |
+| [MSG-DIODE](#msg-diode) | yes |
+| [MSG-ERNG](#msg-erng) | yes |
+| [MSG-ITIME](#msg-itime) | yes |
+| [MSG-TICK](#msg-tick) | yes |
+| [MSG-CALIB](#msg-calib) | yes |
+| [MSG-START](#msg-start) | yes |
+| [MSG-E](#msg-e) | yes |
+| [MSG-STOP](#msg-stop) | yes |
+| [MSG-TIME](#msg-time) | yes |
+| [MSG-RTCCHK](#msg-rtcchk) | yes |
+| [MSG-ENV](#msg-env) | yes |
+| [MSG-BATT](#msg-batt) | yes |
+| [MSG-ERROR](#msg-error) | yes |
