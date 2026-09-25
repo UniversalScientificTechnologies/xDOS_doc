@@ -38,8 +38,16 @@ The following documents are referenced by this specification; where no edition i
 
 This specification is maintained in accordance with the software documentation and assurance framework of:
 
-- ECSS-E-ST-40C, *Space engineering — Software*
-- ECSS-Q-ST-80C, *Space product assurance — Software product assurance*
+- ECSS-E-ST-40C Rev.1 (30 April 2025), *Space engineering — Software*
+- ECSS-Q-ST-80C Rev.2 (30 April 2025), *Space product assurance — Software product assurance*
+
+# Document status
+
+The document is identified by its issue and date; the issue is raised with every change of a requirement or of the [Verification matrix](#verification-matrix), so a verification result can name the issue it was obtained against. The complete change history is kept in the version control of the [source repository](https://github.com/UniversalScientificTechnologies/xDOS_doc/blob/master/record_format.md).
+
+| Issue | Date | Change |
+|---|---|---|
+| 1 | 2026-09-25 | Version 2.1 with identified requirements and verification matrix. |
 
 # Terms, definitions and notation
 
@@ -70,6 +78,8 @@ This specification is maintained in accordance with the software documentation a
 
 ## Requirement wording
 
+Requirements are those statements that carry an ID (see [Requirement identification](#requirement-identification)). A statement under an ID is mandatory for the device writing the file. Text without an ID is informative.
+
 - **must** — mandatory.
 - **may** — permitted, not mandatory.
 - **are expected to** — intended behaviour of readers; informative, not a requirement.
@@ -77,6 +87,8 @@ This specification is maintained in accordance with the software documentation a
 ## Requirement identification
 
 Each requirement of the current format version carries an ID in square brackets: `[AREA-NN]` for general rules (e.g. `[FS-03]`), `[MSG-<NAME>]` for the definition of a message including its field table (e.g. `[MSG-STOP]`). The verification of each ID — method, check and expected result — is given in the [Verification matrix](#verification-matrix).
+
+The requirements of this specification are top-level requirements on the data output of the devices; they are not derived from a higher-level specification, so no traceability to one is given.
 
 ## Notation
 
@@ -367,7 +379,7 @@ $BATT,720,12345.50,4150,-120,1800,2000,25.3
 
 # Version 2.1
 
-Version 2.1 extends [Version 2](#version-2). Every message defined in Version 2 keeps its syntax and meaning unless this section states otherwise; only new and changed messages are described here.
+Version 2.1 extends [Version 2](#version-2). Every message defined in Version 2 keeps its syntax and meaning unless this section states otherwise. This section is complete on its own: it describes every message of Version 2.1, marking those that are new, changed or clarified against Version 2, so a Version 2.1 file can be interpreted without the Version 2 description.
 
 A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers select the parser by `$DATAFORMAT`; the device type in `$DOS` is only a fallback heuristic for files without it.
 
@@ -905,6 +917,7 @@ $RTCCHK,946684802.0,INIT,reg07=0x00,reg28=0x00
 ```
 
 ### `$ENV` — environmental sensors (changed) [MSG-ENV] {#msg-env}
+- **When**: periodically, after the `$STOP` of a block; the period is device dependent.
 - **Format**: unchanged against Version 2.
 
 ```
@@ -937,6 +950,7 @@ $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
 ```
 
 ### `$BATT` — battery status (clarified) [MSG-BATT] {#msg-batt}
+- **When**: periodically, after the `$STOP` of a block; the period is device dependent.
 - **Format**: unchanged against Version 2.
 
 ```
@@ -993,6 +1007,10 @@ $ERROR,EEPROM record version 1, firmware expects 2 - measurement metadata not av
 ## Verification matrix
 
 Verification of each requirement of this version. Methods: **T** — test of the firmware output by [ust-format-checker](https://pypi.org/project/ust-format-checker/) (the check or finding code is given; expected result: no finding of level error), **R** — review. The checker report attached to each firmware release records the result.
+
+The matrix applies to ust-format-checker version 0.2.0 and later.
+
+**Status** — whether the verification given in the row is in place. For method T, whether ust-format-checker checks the requirement: `yes` fully, `partial` with the part not checked yet stated, `missing` not at all.
 
 
 ### General rules
