@@ -413,9 +413,9 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - `$TIME`: classified as a status message; meaning of the fields stated precisely, including devices with a calendar RTC and an invalid device time; `<sync_age>` is empty when unknown.
 - `$RTCCHK`: emitted in every file of a device with an RTC; `INIT` marks an invalid (relative only) device time.
 - `$START`, `$E`, `$STOP`: timer values defined; `<long_event_time>` counts from the start of the block.
-- `$E`: optional second channel value.
+- `$E`: optional second channel value; `<long_event_time>` may be empty.
 - `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified.
-- `$ENV`: the line always carries all fields, missing values are `NaN`.
+- `$ENV`: the sensor pairs `<T2>,<H2>` and `<T_MS5611>,<P_MS5611>` are optional; values missing in a written pair are `NaN`.
 - New message `$ERROR` with a free-text description of an error detected by the device.
 - Handling of incomplete and invalid data defined.
 - Maximum line length, histogram size and `$ERROR` text length defined.
@@ -428,7 +428,7 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - **[GEN-03]**{: #gen-03} Lines starting with `!` are reserved for commands sent **to** the device and never appear in the data stream.
 - Readers are expected to ignore `$` messages they do not know. This allows new messages to be added without a new format version.
 - A known message may carry more fields than documented here if a later revision appended new ones; readers are expected to ignore trailing fields they do not recognize (see [Versioning and compatibility](#versioning-and-compatibility)).
-- **[GEN-04]**{: #gen-04} A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the whole message is omitted.
+- **[GEN-04]**{: #gen-04} A floating point value that the device cannot provide is written as `NaN`. Integer fields never carry `NaN`; if an integer value is not available, the field is left empty where its description allows it, otherwise the whole message is omitted.
 - **[GEN-05]**{: #gen-05} Header messages are emitted once at the beginning of every file. `$DATAFORMAT` and `$DOS` are mandatory, all other header messages are optional.
 
 ## Block continuity
@@ -796,13 +796,14 @@ $E,<long_event_time>,<event_channel>[,<event_channel_2>]
 
 - **Change**: optional `<event_channel_2>`.
 - **Change**: `<long_event_time>` is counted from the start of the block.
+- **Change**: `<long_event_time>` may be empty.
 
 <details markdown="1">
 <summary>Fields</summary>
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
-| `<long_event_time>` | U32 | tick | Time of the event, counted from the start of the block (see `$TICK`). |
+| `<long_event_time>` | U32 | tick | Time of the event, counted from the start of the block (see `$TICK`). **Empty** if the device does not record the event time. |
 | `<event_channel>` | U16 | ADC channel | ADC value of the event. Never lower than the number of histogram fields in `$STOP` — an event goes either to the histogram or to an `$E` line, never to both. |
 | `<event_channel_2>` | U16 | — | Optional. A second ADC value of the same event. |
 
@@ -812,6 +813,12 @@ $E,<long_event_time>,<event_channel>[,<event_channel_2>]
 
 ```
 $E,2514,170,108
+```
+
+- **Example** (event time not recorded):
+
+```
+$E,,170,108
 ```
 
 ### `$STOP` — end of integration block (clarified) [MSG-STOP] {#msg-stop}
@@ -918,13 +925,13 @@ $RTCCHK,946684802.0,INIT,reg07=0x00,reg28=0x00
 
 ### `$ENV` — environmental sensors (changed) [MSG-ENV] {#msg-env}
 - **When**: periodically, after the `$STOP` of a block; the period is device dependent.
-- **Format**: unchanged against Version 2.
+- **Format**:
 
 ```
-$ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
+$ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>[,<T2>,<H2>[,<T_MS5611>,<P_MS5611>]]
 ```
 
-- **Change**: the line always carries all eight fields. Values of sensors the device does not have are `NaN`; the line is never shortened.
+- **Change**: the sensor pairs `<T2>,<H2>` and `<T_MS5611>,<P_MS5611>` are optional and may be omitted from the end of the line; a pair is always written or omitted as a whole, and `<T_MS5611>,<P_MS5611>` may only be present together with `<T2>,<H2>`. Values of sensors the device does not have, or cannot read, in a pair that is written are `NaN`.
 
 <details markdown="1">
 <summary>Fields</summary>
@@ -936,17 +943,30 @@ $ENV,<count>,<tm>.<tm_s100>,<T1>,<H1>,<T2>,<H2>,<T_MS5611>,<P_MS5611>
 | `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`; written as an integer (see `$STOP`). |
 | `<T1>` | DEC | °C | Temperature, first temperature/humidity sensor. |
 | `<H1>` | DEC | % RH | Relative humidity, first temperature/humidity sensor. |
-| `<T2>` | DEC | °C | Temperature, second temperature/humidity sensor. |
-| `<H2>` | DEC | % RH | Relative humidity, second temperature/humidity sensor. |
-| `<T_MS5611>` | DEC | °C | Temperature, pressure sensor. |
-| `<P_MS5611>` | DEC | hPa | Atmospheric pressure, pressure sensor. |
+| `<T2>` | DEC | °C | Optional. Temperature, second temperature/humidity sensor. |
+| `<H2>` | DEC | % RH | Optional. Relative humidity, second temperature/humidity sensor. |
+| `<T_MS5611>` | DEC | °C | Optional. Temperature, pressure sensor. Present only together with `<T2>`, `<H2>`. |
+| `<P_MS5611>` | DEC | hPa | Optional. Atmospheric pressure, pressure sensor. Present only together with `<T2>`, `<H2>`. |
 
 </details>
 
 - **Example** (device with a single temperature/humidity sensor):
 
 ```
+$ENV,179,1789729204.0,23.8,45.0
 $ENV,179,1789729204.0,23.8,45.0,NaN,NaN,NaN,NaN
+```
+
+- **Example** (two temperature/humidity sensors, no pressure sensor):
+
+```
+$ENV,179,1789729204.0,23.8,45.0,24.1,44.2
+```
+
+- **Example** (pressure sensor without the second temperature/humidity sensor):
+
+```
+$ENV,179,1789729204.0,23.8,45.0,NaN,NaN,23.72,984.81
 ```
 
 ### `$BATT` — battery status (clarified) [MSG-BATT] {#msg-batt}
