@@ -9,6 +9,8 @@ nav_order: 4
 
 # AIRDOS03 - Lightweight airborne dosimeter and spectrometer
 
+[Download Datasheet (PDF)]({{site.baseurl}}/assets/AIRDOS03_datasheet.pdf){: .btn .btn-blue }
+
 [AIRDOS03](https://docs.thunderfly.cz/avionics/AIRDOS03/), also called “UAVDOS”, is a semiconductor ionizing radiation sensor developed in cooperation with [ThunderFly s.r.o.](https://www.thunderfly.cz/) as a measuring device for the [TF-ATMON](https://docs.thunderfly.cz/instruments/TF-ATMON) measuring toolchain. The detector is designed to be lightweight and capable of connecting to a wide range of unmanned drone flight controllers. 
 Design meets requirements for TF-ATMON’s sensors and therefore can share a power supply, data storage, or telemetry link with common drone avionics. This eliminates excess weight that would otherwise have to be carried by the drone, thereby decreasing the flight range or duration and lowering flight parameters. The particle detector is, at the same time, compatible with the [Pixhawk](https://www.pixhawk.org/) standard for connecting devices to drones.
 
