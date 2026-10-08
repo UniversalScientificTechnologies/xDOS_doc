@@ -379,6 +379,9 @@ $BATT,720,12345.50,4150,-120,1800,2000,25.3
 
 # Version 2.1
 
+{: .warning }
+Version 2.1 is in beta. It is not yet implemented in production systems, and minor changes to the format may occur while it remains in beta.
+
 Version 2.1 extends [Version 2](#version-2). Every message defined in Version 2 keeps its syntax and meaning unless this section states otherwise. This section is complete on its own: it describes every message of Version 2.1, marking those that are new, changed or clarified against Version 2, so a Version 2.1 file can be interpreted without the Version 2 description.
 
 A Version 2.1 file is identified by the `$DATAFORMAT,VERSION_2.1` line. Readers select the parser by `$DATAFORMAT`; the device type in `$DOS` is only a fallback heuristic for files without it.
