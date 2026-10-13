@@ -66,9 +66,9 @@ The red line is a centered moving average over 50 exposures, for the AIRDOS dete
 
 ---
 
-### Fluence rate evolution
+### Flux evolution
 
-The particle fluence rate for each exposure is calculated from the number of registered events, normalized by the sensitive area of the silicon detector $S$ and the exposure duration $\Delta t$:
+The particle flux for each exposure is calculated from the number of registered events, normalized by the sensitive area of the silicon detector $S$ and the exposure duration $\Delta t$:
 $$
 \dot{\Phi}_i = \frac{n_i}{S \cdot \Delta t}
 \qquad [\mathrm{cm^{-2}\,s^{-1}}],
