@@ -94,6 +94,9 @@ AIRDOS03 provides TELEM/UART connectivity. The UART interface is compatible with
 
 The sensor interface is technically based on [ThunderFly's TFUNIPAYLOAD01](https://docs.thunderfly.cz/avionics/TFUNIPAYLOAD01/) PCB, which provides multiple interface options. The main connectors are the following:
 
+{: .note }
+All signal lines on these connectors use 3.3 V logic levels (the +5V pin is power supply only).
+
 ### UART Pinout
 
 | Signal | Pixhawk Color                            | ThunderFly Color                                              |
