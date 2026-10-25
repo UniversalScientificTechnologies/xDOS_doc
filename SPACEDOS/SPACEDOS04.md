@@ -13,7 +13,7 @@ SPACEDOS04 is currently under development. Parameters listed below are design ta
 
 SPACEDOS04 is a wearable radiation dosimeter for manned deep space and ISS missions, measuring ionizing radiation dose received by an astronaut using a silicon PIN diode detector combined with passive detectors (TLD and nuclear track detectors). It forms a Space Dosimeter Unit (SDU) together with a wristwatch-style Display and Data Unit (DDU) that provides real-time dose readout.
 
-![](SPACEDOS04_astronaut.png)
+![](img/SPACEDOS04_astronaut.png)
 
 The device is being developed as part of the [CZPAD experiment](https://ceskacestadovesmiru.cz/czpad/) onboard the International Space Station (ISS), which serves as the qualification path towards a flight-proven, deployable instrument.
 
@@ -43,6 +43,6 @@ The SPACEDOS04 consists at the least one Space Dosimeter Unit (SDU), Dosimeter D
 * Charging: USB-C
 * Battery endurance: at least 5 days
 * Dimensions (without pouch): approx. 80 x 70 x 20 mm (± 5 x 3 x 2 mm)
-* Mass: estimated 148 - 184 g (SDU including battery cell)
+* Mass: estimated 160 g (including pouch)
 * Vibration resistance per Crew Dragon / ISS JSC-20793 requirements
 
