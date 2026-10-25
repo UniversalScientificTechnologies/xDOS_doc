@@ -3,7 +3,7 @@ layout: page
 title: "SPACEDOS04: Personal Active Dosimeter"
 parent: "SPACEDOS - Space radiation detectors"
 permalink: /spacedos/SPACEDOS04
-nav_exclude: true
+nav_order: 4
 ---
 
 # SPACEDOS04 - Personal Active Dosimeter for manned deep space missions
