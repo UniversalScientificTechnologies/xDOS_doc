@@ -23,6 +23,14 @@ The instrument is designed primarily for the dosimetry of cabin crew and commerc
 * Space-weather related radiation studies
 * Reference dosimeter for comparative measurements
 
+# Neutron detection (optional)
+
+AIRDOS05 can be made sensitive to neutrons with an optional accessory. It is a carry case that holds a polyethylene moderator around the detector, together with a thin lithium-6 conversion layer at the sensor.
+
+Neutrons are produced in the aircraft by cosmic radiation. The moderator slows them down, so the conversion layer can register them. This complements the standard charged-particle measurement.
+
+The complete assembly is built into a standard maximum-size cabin case. It can be used as carry-on luggage. The total weight is about 10 kg and the case stays within common cabin dimensions. Airline limits differ, so please check the exact size and weight limits required.
+
 # External Dosimeter Display Unit
 
 [ICAO Annex 6 (Part I)](https://elibrary.icao.int/product/290990) requires that aeroplanes intended to be operated above 15,000 m (49,000 ft) carry equipment that continuously indicates the total cosmic-radiation dose rate being received and the cumulative dose on each flight, with a display readily visible to a flight crew member. For this purpose, AIRDOS05 can be complemented by an external Dosimeter Display Unit (DDU) that presents the current dose-rate and accumulated dose directly to the crew. The DDU can be placed in the cockpit at a suitable location, for example, using a hook-and-loop fastener, as shown in the photograph below.
