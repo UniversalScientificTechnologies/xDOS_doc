@@ -12,10 +12,14 @@ The AIRDOS series detectors by [Universal Scientific Technologies s.r.o (UST)](h
 ![AIRDOS Atmospheric Coverage](img/AIRDOS_application_coverage.png)
 
 
-In civil aviation, measuring cosmic radiation is a main use of AIRDOS04 or AIRDOS05 detectors. Cosmic radiation, more intense at high altitudes, poses a risk to the health of flight crews and passengers. The measurement of radiation dose acquired during flights by aircraft crews is mandated by legislation in some countries. The aircraft AIRDOS detectors from UST are equipped to provide this measurement, ensuring compliance with these regulatory needs. The AIRDOS detectors are threaded as [Portable Electronic Devices(PEDS)](https://www.easa.europa.eu/en/document-library/terms-of-reference-and-rulemaking-group-compositions/tor-rmt0637-rmt0061-25063) from the scope of EASA. 
+In civil aviation, measuring cosmic radiation is a main use of AIRDOS04, AIRDOS05 or AIRDOS06 detectors. Cosmic radiation, more intense at high altitudes, poses a risk to the health of flight crews and passengers. The measurement of radiation dose acquired during flights by aircraft crews is mandated by legislation in some countries. The aircraft AIRDOS detectors from UST are equipped to provide this measurement, ensuring compliance with these regulatory needs. The AIRDOS detectors are threaded as [Portable Electronic Devices(PEDS)](https://www.easa.europa.eu/en/document-library/terms-of-reference-and-rulemaking-group-compositions/tor-rmt0637-rmt0061-25063) from the scope of EASA. 
 
 {: .highlight }
 For those interested in acquiring AIRDOS detectors, you are encouraged to reach out for a detailed offer. Contact UST via email at sale@ust.cz to learn more about these advanced radiation detectors' availability and purchasing options.
+
+## AIRDOS06: Pocket dosimeter for aircrew
+
+A 148 g personal dosimeter and spectrometer for pilots and cabin crew who change aircraft often. Neutron detection is a standard part of the design, and it can be combined with the external display unit (DDU).
 
 ## AIRDOS05: High-altitude jets dosimeter
 
