@@ -402,7 +402,7 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 ## Maximum message length
 
 - **[LEN-01]**{: #len-01} A line, including its line terminator, is at most 524 288 bytes (512 KiB) long. Readers are expected to accept lines up to this length.
-- **[LEN-02]**{: #len-02} `$STOP` carries at most 65 536 histogram fields; each histogram value is in the range 0–65 535.
+- **[LEN-02]**{: #len-02} `$STOP` carries at most 65 536 histogram fields; each histogram value is a U32. The whole line still fits within [LEN-01](#len-01).
 - **[LEN-03]**{: #len-03} `<text>` in `$ERROR` is at most 512 characters long.
 
 ## Changes against Version 2
@@ -417,7 +417,8 @@ This version of the format specifies the data written by SPACEDOS04 (firmware ve
 - `$RTCCHK`: emitted in every file of a device with an RTC; `INIT` marks an invalid (relative only) device time.
 - `$START`, `$E`, `$STOP`: timer values defined; `<long_event_time>` counts from the start of the block.
 - `$E`: optional second channel value; `<long_event_time>` may be empty.
-- `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified.
+- `$STOP`: relation of `<events_count>` to the number of `$E` lines clarified; histogram values are U32.
+- New optional message `$D` reporting dead time within an integration block.
 - `$ENV`: the sensor pairs `<T2>,<H2>` and `<T_MS5611>,<P_MS5611>` are optional; values missing in a written pair are `NaN`.
 - New message `$ERROR` with a free-text description of an error detected by the device.
 - Handling of incomplete and invalid data defined.
@@ -446,7 +447,7 @@ A file may end at any point, e.g. on power loss or a storage failure. Everything
 
 - A line without a line terminator is discarded.
 - A line whose fields do not match the definition of its message is discarded.
-- A block is complete only if it has both a valid `$START` and a valid `$STOP`. An incomplete block is discarded together with its `$E` lines.
+- A block is complete only if it has both a valid `$START` and a valid `$STOP`. An incomplete block is discarded together with its `$E` and `$D` lines.
 
 ## Header messages
 
@@ -824,6 +825,31 @@ $E,2514,170,108
 $E,,170,108
 ```
 
+### `$D` — dead time within integration block [MSG-D] {#msg-d}
+- **When**: zero or more times within an integration block, among its `$E` lines in time order. A device that does not measure dead time within the block does not write it.
+- **Meaning**: an interval within the block during which the device could not register particles (e.g. while it serviced a timer interrupt). The live time of a block is its length minus the sum of `<dead_length>` of its `$D` lines. Dead time between blocks (from `$STOP` to the next `$START`) is not reported by `$D`.
+- **Format**:
+
+```
+$D,<dead_time>,<dead_length>
+```
+
+<details markdown="1">
+<summary>Fields</summary>
+
+| Field | Type | Unit | Description |
+|---|---|---|---|
+| `<dead_time>` | U32 | tick | Start of the dead time, counted from the start of the block like `<long_event_time>` in `$E` (see `$TICK`). |
+| `<dead_length>` | U32 | tick | Length of the dead time (see `$TICK`). |
+
+</details>
+
+- **Example**:
+
+```
+$D,62514,23
+```
+
 ### `$STOP` — end of integration block (clarified) [MSG-STOP] {#msg-stop}
 - **Format**: unchanged against Version 2.
 
@@ -841,7 +867,7 @@ $STOP,<count>,<tm>.<tm_s100>,<systime>,<events_count>,<histogram_0>,<histogram_1
 | `<tm_s100>` | U16, 0–99 | 0.01 s | Hundredths of a second added to `<tm>`. Written as an integer. |
 | `<systime>` | U32 | tick | Raw value of the device timer at the end of the block (see `$TICK`). Informative only. |
 | `<events_count>` | U16 | events | Number of above-threshold events in the block. May be higher than the number of `$E` lines of the block if the device's event buffer overflowed. |
-| `<histogram_0>` … `<histogram_n>` | U16 | events | Number of events in ADC channel. |
+| `<histogram_0>` … `<histogram_n>` | U32 | events | Number of events in ADC channel. |
 
 </details>
 
@@ -1083,6 +1109,7 @@ All messages are verified by method T with the checks of the message schema (fie
 | [MSG-CALIB](#msg-calib) | yes |
 | [MSG-START](#msg-start) | yes |
 | [MSG-E](#msg-e) | yes |
+| [MSG-D](#msg-d) | yes |
 | [MSG-STOP](#msg-stop) | yes |
 | [MSG-TIME](#msg-time) | yes |
 | [MSG-RTCCHK](#msg-rtcchk) | yes |
